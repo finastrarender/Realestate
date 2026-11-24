@@ -50,8 +50,8 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .hero{position:relative;width:calc(100% - 32px);max-width:1440px;min-height:clamp(560px,60vw,740px);margin:14px auto 0;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,light-dark(#f7f9fc,#1f2a36) 0%,light-dark(#e4f0f7,#202b32) 48%,light-dark(#c9dcef,#1f2a36) 100%)}
 .hero-copy{position:relative;z-index:2;padding-top:clamp(52px,7vw,92px);text-align:left}
 .hero-eyebrow{display:inline-flex;align-items:center;min-height:30px;padding:6px 13px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--card) 76%,transparent);font:300 12px/1 var(--hd);letter-spacing:.04em}
-.hero h1{max-width:760px;margin-top:18px}
-.hero p.lead{max-width:650px;margin:16px 0 0;color:var(--mut);font-size:17px}
+.hero h1{max-width:none;margin-top:18px;font-size:clamp(36px,4.6vw,64px);white-space:nowrap}
+.hero p.lead{max-width:none;margin:16px 0 0;color:var(--mut);font-size:17px;white-space:nowrap}
 .heroart{position:absolute;inset:auto 0 0;display:block;width:100%;height:48%;object-fit:cover;object-position:center 60%;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 32%);mask-image:linear-gradient(to bottom,transparent 0,#000 32%)}
 .hero-search{position:absolute;z-index:3;inset:auto 0 28px}
 .ctaimg{width:100%;aspect-ratio:21/8;object-fit:cover;display:block;margin-bottom:40px}
@@ -62,6 +62,7 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .sgrid{display:grid;grid-template-columns:1fr 1.6fr 1fr 1fr auto;gap:8px;padding:6px}
 @media(max-width:1000px){.sbox{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.sgrid .btn{grid-column:1/-1}.hero-search{bottom:20px}}
 @media(max-width:860px){.hero{min-height:700px}.heroart{height:46%}.sgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.hero h1,.hero p.lead{white-space:normal}}
 @media(max-width:560px){.hero{width:calc(100% - 20px);min-height:740px;border-radius:20px}.hero-copy{padding-top:44px}.hero h1{font-size:clamp(36px,10vw,52px)}.hero p.lead{font-size:15px}.heroart{height:48%;object-position:58% center}.hero-search{bottom:14px}.sbox{padding:8px}.tabs{justify-content:space-between}.tabs button{padding:9px 10px}.sgrid{gap:6px}}
 /* forms */
 label.f{display:grid;gap:6px;font:300 14px var(--hd)}
