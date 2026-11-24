@@ -89,10 +89,9 @@ document.addEventListener('click',e=>{const o=e.target.closest('[data-open]');if
 document.addEventListener('change',e=>{const c=e.target.closest('[data-cmp]');if(c){const r=c.dataset.cmp;if(c.checked){if(S.cmp.size>=4){c.checked=false;toast('Compare up to 4 properties');return}S.cmp.add(r)}else S.cmp.delete(r);chrome()}});
 
 /* ---------- header ---------- */
-function chrome(){$('#cty').value=S.cty;const fn=S.favs.size,nn=S.notes.filter(n=>!n.read).length;$('#favn').hidden=!fn;$('#favn').textContent=fn;$('#notn').hidden=!nn;$('#notn').textContent=nn;
+function chrome(){const fn=S.favs.size,nn=S.notes.filter(n=>!n.read).length;$('#favn').hidden=!fn;$('#favn').textContent=fn;$('#notn').hidden=!nn;$('#notn').textContent=nn;
  const a=$('#authbtn');if(S.user){a.textContent=S.user.name.split(' ')[0];a.href='#profile'}else{a.textContent='Sign in / Register';a.href='#account'}
  $('#cmpbar').classList.toggle('on',S.cmp.size>0);$('#cmpn').textContent=`${S.cmp.size} selected to compare`}
-$('#cty').addEventListener('change',e=>{S.cty=e.target.value;save();S.page=1;route()});
 $('#burger').addEventListener('click',()=>{const o=$('#links').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
 
 /* ---------- home ---------- */
