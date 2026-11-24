@@ -136,7 +136,7 @@ textarea{min-height:110px;resize:vertical}
 .specs{display:flex;flex-wrap:wrap;gap:6px 0;padding-top:12px;font-size:14px;color:var(--mut)}
 .specs span{padding:0 14px;border-left:1px solid var(--line);white-space:nowrap}.specs span:first-child{padding-left:0;border-left:0}
 .cmp{display:flex;gap:8px;align-items:center;font-size:13px;margin-top:12px;color:var(--mut);cursor:pointer}.cmp input{width:16px;height:16px;min-height:0;accent-color:var(--red)}
-#featured.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+#featured.cards{grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .home-card{overflow:hidden;padding:12px;border:1px solid var(--line);border-radius:28px;background:var(--card);box-shadow:0 18px 42px rgba(22,20,21,.1)}
 .home-card .img{aspect-ratio:1.55;border-radius:20px}
 .home-card .img::after{position:absolute;z-index:1;inset:38% 0 0;background:linear-gradient(180deg,transparent 0%,var(--card) 100%);content:"";pointer-events:none}
@@ -162,6 +162,7 @@ textarea{min-height:110px;resize:vertical}
 .home-card-save svg{width:17px;height:17px}
 .home-card-save.on{color:var(--red);border-color:var(--red)}
 .home-card-save.on svg path{fill:currentColor}
+@media(max-width:1100px){#featured.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
 @media(max-width:640px){#featured.cards{grid-template-columns:1fr}}
 /* process */
 .how-it-works{background:var(--soft)}
