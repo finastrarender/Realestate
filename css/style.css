@@ -105,6 +105,9 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:700px){.about-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.about-feature{min-height:290px}.about-panorama{height:260px}}
 @media(max-width:480px){.about-cards{grid-template-columns:1fr}.about-panorama{height:210px;border-radius:14px}}
+.browse-types{padding-bottom:40px}.browse-types+.band{padding-top:40px}
+@media(max-width:860px){.browse-types{padding-bottom:28px}.browse-types+.band{padding-top:28px}}
+@media(max-width:560px){.browse-types{padding-bottom:16px}.browse-types+.band{padding-top:16px}}
 .cats{display:flex;gap:14px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--mut) transparent}
 .cat-card{display:flex;flex:0 0 200px;min-width:0;flex-direction:column;overflow:hidden;padding:0;border:1px solid transparent;border-radius:24px;background:transparent;color:var(--ink);text-align:left;cursor:pointer;scroll-snap-align:start;box-shadow:none;transition:transform .2s}
 .cat-card:hover{transform:translateY(-3px)}
