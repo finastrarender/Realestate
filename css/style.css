@@ -52,7 +52,7 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .hero-eyebrow{display:inline-flex;align-items:center;min-height:30px;padding:6px 13px;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--card) 76%,transparent);font:300 12px/1 var(--hd);letter-spacing:.04em}
 .hero h1{max-width:none;margin-top:18px;font-size:clamp(36px,4.6vw,64px);white-space:nowrap}
 .hero p.lead{max-width:none;margin:16px 0 0;color:var(--mut);font-size:17px;white-space:nowrap}
-.heroart{position:absolute;inset:auto 0 0;display:block;width:100%;height:48%;object-fit:cover;object-position:center 60%;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 12%);mask-image:linear-gradient(to bottom,transparent 0,#000 12%)}
+.heroart{position:absolute;inset:auto 0 0;display:block;width:100%;height:52%;object-fit:cover;object-position:center 60%}
 .hero-search{position:absolute;z-index:3;inset:auto 0 28px}
 .ctaimg{width:100%;aspect-ratio:21/8;object-fit:cover;display:block;margin-bottom:40px}
 .sbox{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;max-width:1120px;margin:0 auto;background:var(--card);border:1px solid color-mix(in srgb,var(--line) 75%,transparent);border-radius:20px;box-shadow:0 18px 48px -22px rgba(0,0,0,.32);padding:10px}
@@ -61,7 +61,7 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .tabs button.on{background:var(--ink);color:var(--bg)}
 .sgrid{display:grid;grid-template-columns:1fr 1.6fr 1fr 1fr auto;gap:8px;padding:6px}
 @media(max-width:1000px){.sbox{grid-template-columns:1fr}.sgrid{grid-template-columns:1fr 1fr}.sgrid .btn{grid-column:1/-1}.hero-search{bottom:20px}}
-@media(max-width:860px){.hero{min-height:700px}.heroart{height:46%}.sgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:860px){.hero{min-height:700px}.heroart{height:50%}.sgrid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.hero h1,.hero p.lead{white-space:normal}}
 @media(max-width:560px){.hero{min-height:740px}.hero-copy{padding-top:44px}.hero h1{font-size:clamp(36px,10vw,52px)}.hero p.lead{font-size:15px}.heroart{height:48%;object-position:58% center}.hero-search{bottom:14px}.sbox{padding:8px}.tabs{justify-content:space-between}.tabs button{padding:9px 10px}.sgrid{gap:6px}}
 /* forms */
