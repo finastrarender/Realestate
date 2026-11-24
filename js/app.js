@@ -25,8 +25,13 @@ function art(kind,h,v=0){const id='a'+(++gid);const sky=`<defs><linearGradient i
 //hero now a photo
 0&&(`<rect y="380" width="1440" height="50" fill="hsl(95,16%,72%)"/>`+tree(40,380,2.2,'#5d7a4e')+tree(1390,385,2.4,'#4f6b45')+tree(500,382,1.4,'#3f5a3a')+tree(950,382,1.5,'#3f5a3a')+house(260,230,1,'#b98250')+house(720,215,1.12,'#c48c58')+house(1180,230,1,'#b4794a'));
 $('#aboutpic2').innerHTML='<img src="img/about-page.jpg" alt="Low-rise apartment building with balconies and garden courtyard" loading="lazy">';
-const PHOTOS=new Set(['UK-10421','UK-10433','UK-10458','UK-10462','UK-10477','UK-10480']);
-const photo=(l,v=0)=>v===0&&PHOTOS.has(l.ref)?`<img src="img/${l.ref}.jpg" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v);
+const PHOTOS=new Map([
+ ['UK-10421','UK-10421.jpg'],['UK-10433','UK-10433.jpg'],['UK-10458','UK-10458.jpg'],
+ ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg'],
+ ['IN-20314','UK-10433.jpg'],['IN-20327','UK-10458.jpg'],['IN-20341','UK-10421.jpg'],
+ ['IN-20355','UK-10462.jpg'],['IN-20368','UK-10477.jpg']
+]);
+const photo=(l,v=0)=>v===0&&PHOTOS.has(l.ref)?`<img src="img/${PHOTOS.get(l.ref)}" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v);
 
 /* ---------- data (sample) ---------- */
 const COS=[{id:'c1',name:'Harbourline Estates',cty:'UK',city:'Bristol',since:2011,verified:true,about:'Sales and lettings across Bristol and the South West.'},
