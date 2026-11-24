@@ -99,9 +99,10 @@ function card(l){return `<article class="card"><div class="img" data-open="${l.r
 <div class="specs">${specs(l)}</div><label class="cmp"><input type="checkbox" data-cmp="${l.ref}" ${S.cmp.has(l.ref)?'checked':''}> Compare</label></article>`}
 function homeCard(l){const secondary=l.beds?`${l.beds} bed${l.beds===1?'':'s'}`:l.baths?`${l.baths} bath${l.baths===1?'':'s'}`:l.cat;
  const added=new Date(`${l.added}T00:00:00`).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+ const summary=l.desc.replace(`${l.title} in ${l.area}, ${l.city}. `,'').replace(/ Viewings by appointment\.$/,'');
  return `<article class="card home-card"><div class="img" data-open="${l.ref}">${photo(l)}<span class="tag">${l.purpose==='Rent'?'To rent':'For sale'} · ${esc(l.seg)}</span>${l.featured?'<span class="tag r">Featured</span>':''}</div>
  <div class="home-card-body"><div class="home-card-price"><strong>${money(l.price,l.cty)}</strong><small>${l.freq?per(l):'List price'}</small></div>
- <h3 class="home-card-title" data-open="${l.ref}">${esc(l.title)}</h3><p class="home-card-location">${esc(l.area)}, ${esc(l.city)} · ${esc(l.code)}</p><p class="home-card-summary">${esc(l.desc)}</p>
+ <h3 class="home-card-title" data-open="${l.ref}">${esc(l.title)}</h3><p class="home-card-location">${esc(l.area)}, ${esc(l.city)} · ${esc(l.code)}</p><p class="home-card-summary">${esc(summary)}</p>
  <div class="home-card-details"><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>${l.size.toLocaleString(l.cty==='UK'?'en-GB':'en-IN')} sq ft Living</span><span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 11 12 4l8 7v9H4zM9 20v-6h6v6" fill="none" stroke="currentColor" stroke-width="1.7"/></svg>${esc(secondary)}</span></div>
  <div class="home-card-meta"><span>By <b>${esc(coName(l.co))}</b></span><time datetime="${esc(l.added)}">${added}</time></div>
  <div class="home-card-actions"><button class="home-card-cta" type="button" data-open="${l.ref}">View details</button><button class="home-card-save ${S.favs.has(l.ref)?'on':''}" type="button" data-fav="${l.ref}" aria-label="Save ${esc(l.title)}" aria-pressed="${S.favs.has(l.ref)}">${heart}<span>Save</span></button></div></div></article>`}
@@ -149,6 +150,8 @@ function filterForm(){const f=S.f,c=S.cty,sel=(n,opts,v)=>`<select name="${n}">$
  $('#clear').onclick=()=>{resetF();renderSearch()}}
 $('#filters').addEventListener('input',e=>{const t=e.target,n=t.name;if(!n)return;if(n==='cty'){S.cty=t.value;save();chrome();S.f.min=S.f.max='';S.f.code=''}else if(n==='amen')S.f.amen=$$('#filters [name=amen]:checked').map(x=>x.value);else if(n==='parking')S.f.parking=t.checked;else S.f[n]=t.value;S.page=1;if(t.tagName==='SELECT'||t.type==='checkbox'){if(n==='cty')filterForm();results()}else{clearTimeout(S.t);S.t=setTimeout(results,250)}});
 $('#ftog').onclick=()=>$('#filters').classList.toggle('closed');
+$('#search-categories').addEventListener('click',e=>{const b=e.target.closest('[data-search-cat]');if(!b)return;S.f.cat=b.dataset.searchCat;S.page=1;filterForm();results()});
+$('#browse-properties').addEventListener('click',()=>$('#results').scrollIntoView({behavior:'smooth',block:'start'}));
 $('#sort').onchange=e=>{S.sort=e.target.value;results()};
 $$('.seg button').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;$$('.seg button').forEach(x=>x.classList.toggle('on',x===b));results()});
 function query(){const f=S.f,q=f.q.toLowerCase();let r=L.filter(l=>isPublic(l)&&l.cty===S.cty
@@ -161,13 +164,14 @@ function query(){const f=S.f,q=f.q.toLowerCase();let r=L.filter(l=>isPublic(l)&&
  const s=S.sort;r.sort((a,b)=>s==='lo'?a.price-b.price:s==='hi'?b.price-a.price:s==='new'?b.added.localeCompare(a.added):(b.featured-a.featured)||b.added.localeCompare(a.added));return r}
 function results(){const r=query(),f=S.f,per=6,pages=Math.max(1,Math.ceil(r.length/per));S.page=Math.min(S.page,pages);
  $('#stitle').innerHTML=`${f.cat?esc(f.cat):'Properties'} ${f.purpose==='Rent'?'to rent':f.purpose==='Buy'?'for sale':''} <em class="i">in ${ctyName(S.cty)}</em>`;
+ $$('#search-categories [data-search-cat]').forEach(b=>b.classList.toggle('is-active',b.dataset.searchCat===f.cat));
  $('#count').textContent=`${r.length} ${r.length===1?'property':'properties'}`;
  const act=[f.purpose,f.seg,f.cat,f.q&&`“${f.q}”`,f.code,f.min&&`From ${money(f.min,S.cty)}`,f.max&&`Up to ${money(f.max,S.cty)}`,f.beds&&`${f.beds}+ bed`,f.baths&&`${f.baths}+ bath`,f.size&&`${f.size}+ sq ft`,f.furn,f.cond,f.avail&&'Available now',f.parking&&'Parking',...f.amen].filter(Boolean);
  $('#active').innerHTML=act.map(a=>`<span>${esc(a)}</span>`).join('');
  if(!r.length){$('#results').innerHTML=`<div class="empty"><h3 style="color:var(--ink)">No properties match yet</h3><p style="margin:8px 0 18px">Try widening your price range or removing a filter.</p><button class="btn" type="button" id="clr2">Clear filters</button></div>`;$('#clr2').onclick=()=>{resetF();renderSearch()};$('#pager').innerHTML='';return}
  if(S.mode==='map'){$('#pager').innerHTML='';const base=`<svg class="base" viewBox="0 0 100 105" preserveAspectRatio="none">${[...Array(9)].map((_,i)=>`<path d="M0 ${i*12+6}Q50 ${i*12+(i%2?2:10)} 100 ${i*12+6}" stroke="currentColor" opacity=".08" fill="none" stroke-width=".6"/><path d="M${i*12+6} 0Q${i*12+(i%2?2:10)} 50 ${i*12+6} 105" stroke="currentColor" opacity=".08" fill="none" stroke-width=".6"/>`).join('')}<path d="M10 90Q40 70 60 80T95 60" stroke="#8fb0c9" stroke-width="3" fill="none" opacity=".6"/></svg>`;
   $('#results').innerHTML=`<div class="map">${base}<span class="lbl">${S.cty==='UK'?'United Kingdom':'India'} · ${r.length} pins</span>${r.map(l=>`<button class="pin" style="left:${l.xy[1]}%;top:${l.xy[0]+6}%" data-open="${l.ref}" title="${esc(l.title)}">${money(l.price,l.cty)}${l.freq?' /mo':''}</button>`).join('')}</div><p class="note" style="margin-top:10px">Map preview — pins are placed by city. A live map/geocoding provider plugs in here.</p>`;return}
- $('#results').innerHTML=`<div class="cards three">${r.slice((S.page-1)*per,S.page*per).map(card).join('')}</div>`;
+ $('#results').innerHTML=`<div class="cards three search-results">${r.slice((S.page-1)*per,S.page*per).map(card).join('')}</div>`;
  $('#pager').innerHTML=pages>1?[...Array(pages)].map((_,i)=>`<button type="button" class="${i+1===S.page?'on':''}" data-pg="${i+1}" aria-label="Page ${i+1}">${i+1}</button>`).join(''):'';
  $$('#pager button').forEach(b=>b.onclick=()=>{S.page=+b.dataset.pg;results();window.scrollTo({top:0})})}
 function renderSearch(){filterForm();$('#sort').value=S.sort;results()}

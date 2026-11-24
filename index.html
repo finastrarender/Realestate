@@ -20,7 +20,7 @@
  <div class="wrap nav">
   <a class="logo" href="#home" aria-label="Nestora home"><svg viewBox="0 0 28 28"><path d="M3 4h6v14h16v6H3z" fill="currentColor"/><path d="M12 4h13v11h-6V9h-7z" fill="currentColor"/></svg>Nestora</a>
   <nav class="links" id="links" aria-label="Main">
-   <a href="#home">Home</a><a href="#about">About</a><a href="#companies">Companies</a><a href="#contact">Contact</a>
+   <a href="#home">Home</a><a href="#search">Properties</a><a href="#about">About</a><a href="#companies">Companies</a><a href="#contact">Contact</a>
   </nav>
   <div class="tools">
    <a class="ico hide-s" href="#favourites" aria-label="Favourites"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><b id="favn" hidden></b></a>
@@ -106,7 +106,24 @@
 
 <!-- SEARCH -->
 <section data-view="search"><div class="wrap">
- <div class="page-h"><span class="chip">Search</span><h1 style="margin-top:14px;font-size:clamp(32px,4vw,48px)" id="stitle">Properties</h1></div>
+ <div class="search-hero">
+  <img src="img/hero.jpg" alt="" aria-hidden="true">
+  <div class="search-hero-copy">
+   <span class="chip">Property search</span>
+   <h1 id="stitle">Properties</h1>
+   <p>Browse homes, apartments, land and workspaces across the UK and India.</p>
+   <button class="btn d" id="browse-properties" type="button">Browse listings <span aria-hidden="true">&rarr;</span></button>
+  </div>
+ </div>
+ <nav class="search-categories" id="search-categories" aria-label="Browse property categories">
+  <button class="search-category is-active" type="button" data-search-cat="">All properties</button>
+  <button class="search-category" type="button" data-search-cat="House">Houses</button>
+  <button class="search-category" type="button" data-search-cat="Flat/Apartment">Apartments</button>
+  <button class="search-category" type="button" data-search-cat="Plot/Land">Land</button>
+  <button class="search-category" type="button" data-search-cat="Office">Offices</button>
+  <button class="search-category" type="button" data-search-cat="Retail">Retail</button>
+  <button class="search-category" type="button" data-search-cat="Warehouse">Warehouses</button>
+ </nav>
  <div class="lay">
   <form class="filters closed" id="filters" aria-label="Filters"></form>
   <div>
