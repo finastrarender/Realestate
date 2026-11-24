@@ -40,7 +40,7 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .logo svg{width:28px;height:28px}
 .links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:4px;font:15px var(--hd)}
 .links a{white-space:nowrap;padding:8px 10px;text-decoration:none;opacity:.78;border-radius:999px}.links a.on,.links a:hover{opacity:1;background:var(--soft)}
-.tools{display:flex;align-items:center;gap:8px}
+.tools{display:flex;align-items:center;gap:8px;margin-left:auto}
 .ico{flex:none;position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--ink);text-decoration:none}
 .ico svg{width:19px;height:19px}.ico b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;font:400 11px/18px var(--hd);min-width:18px;border-radius:9px;text-align:center}
 .burger{display:none}
