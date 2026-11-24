@@ -100,10 +100,13 @@ textarea{min-height:110px;resize:vertical}
 .about-feature-copy p{max-width:290px;margin-bottom:16px;font:300 16px/1.4 var(--hd)}
 .about-story h2{max-width:760px;font-weight:400}
 .about-pillars{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(20px,4vw,54px);margin-top:30px}
-.about-pillar{padding:22px;border:1px solid var(--line);border-radius:16px;background:var(--card);box-shadow:0 12px 30px rgba(22,20,21,.05)}
-.about-pillar-number{display:grid;place-items:center;width:34px;height:34px;margin-bottom:18px;border-radius:11px;background:var(--sage);font:300 13px/1 var(--hd)}
-.about-pillars h3{margin-bottom:9px;font-size:19px;font-weight:400}
+.about-pillar{display:flex;min-height:320px;flex-direction:column;padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:0 14px 34px rgba(22,20,21,.06)}
+.about-pillars h3{font-size:21px;font-weight:400}
+.about-pillar-bottom{margin-top:auto;padding-top:42px}
+.about-pillar-bottom::before{display:block;width:34px;height:2px;margin-bottom:16px;background:var(--line);content:""}
 .about-pillars p{max-width:390px;color:var(--mut);font-size:15px;line-height:1.6}
+.about-pillar-icon{display:grid;place-items:center;width:42px;height:42px;margin-top:24px;border:1px solid var(--line);border-radius:50%;background:var(--soft);color:var(--ink)}
+.about-pillar-icon svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .about-panorama{height:clamp(230px,38vw,460px);margin:clamp(32px,5vw,64px) 0 0;overflow:hidden;border-radius:20px;background:var(--soft)}
 .about-panorama img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 55%}
 @media(max-width:760px){.about-intro{grid-template-columns:1fr;gap:30px}.about-feature{max-width:460px}.about-pillars{gap:20px}.about-panorama{height:260px}}
