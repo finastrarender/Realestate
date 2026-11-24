@@ -1,0 +1,398 @@
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem('nst_'+k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem('nst_'+k,JSON.stringify(v))}catch(e){}}};
+const now=()=>new Date().toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+/* ---------- drawn art ---------- */
+let gid=0;
+const tree=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><rect x="-3" y="-10" width="6" height="40" fill="#5b4632"/><ellipse cx="0" cy="-34" rx="26" ry="38" fill="${c}"/><ellipse cx="-8" cy="-44" rx="12" ry="18" fill="#ffffff" opacity=".12"/></g>`;
+function house(x,y,s,w){const id='h'+(++gid);return `<g transform="translate(${x} ${y}) scale(${s})"><defs><pattern id="${id}" width="9" height="10" patternUnits="userSpaceOnUse"><rect width="9" height="10" fill="${w}"/><rect width="2" height="10" fill="#000" opacity=".18"/></pattern><linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a4b57"/><stop offset="1" stop-color="#1c262d"/></linearGradient></defs>
+<ellipse cx="0" cy="150" rx="170" ry="10" fill="#000" opacity=".12"/><path d="M0 -105 L150 15 L150 150 L-150 150 L-150 15 Z" fill="url(#${id})"/><path d="M0 -122 L172 22 L150 22 L0 -98 L-150 22 L-172 22 Z" fill="#2c2420"/><path d="M0 -88 L105 0 L105 6 L-105 6 L-105 0Z" fill="#000" opacity=".12"/>
+<rect x="-110" y="40" width="220" height="110" fill="url(#${id}g)"/><g stroke="#cdbfa9" stroke-width="3"><path d="M-55 40v110M0 40v110M55 40v110M-110 95h220"/></g><rect x="-110" y="40" width="220" height="110" fill="none" stroke="#2c2420" stroke-width="5"/><path d="M-110 40 L-20 150 L-110 150Z" fill="#fff" opacity=".07"/><rect x="-120" y="146" width="240" height="8" fill="#9c9387"/><rect x="95" y="-60" width="14" height="40" fill="#a9a39a"/></g>`}
+function room(id,h){return `<rect width="400" height="260" fill="hsl(${h},25%,92%)"/><rect y="190" width="400" height="70" fill="#c9a57e"/><rect x="200" y="30" width="170" height="160" fill="#7da36b"/><ellipse cx="260" cy="110" rx="60" ry="70" fill="#5e8c55"/><ellipse cx="345" cy="80" rx="40" ry="60" fill="#8db47a"/><path d="M200 30h170v160H200z" fill="none" stroke="#2c2420" stroke-width="6"/><path d="M285 30v160" stroke="#2c2420" stroke-width="4"/><rect x="40" y="70" width="44" height="58" fill="#e8d9b8" stroke="#8b6a4a" stroke-width="4"/><circle cx="62" cy="99" r="12" fill="hsl(${h},55%,55%)"/>
+<rect x="30" y="160" width="160" height="40" rx="10" fill="#e6ded2"/><rect x="30" y="140" width="160" height="30" rx="10" fill="#efe8dc"/><rect x="40" y="150" width="34" height="26" rx="6" fill="hsl(${h},50%,58%)"/><rect x="34" y="200" width="6" height="12" fill="#6b5340"/><rect x="180" y="200" width="6" height="12" fill="#6b5340"/><ellipse cx="200" cy="228" rx="60" ry="10" fill="#a47a52"/><rect x="194" y="228" width="12" height="18" fill="#7a5a3c"/><path d="M150 60v80" stroke="#444" stroke-width="2"/><path d="M135 60h30l-6-18h-18z" fill="#d4b26a"/>`}
+function art(kind,h,v=0){const id='a'+(++gid);const sky=`<defs><linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="hsl(${h},48%,84%)"/><stop offset="1" stop-color="#fbf6ec"/></linearGradient></defs><rect width="400" height="260" fill="url(#${id}s)"/>`;
+ if(v===1)return `<svg viewBox="0 0 400 260" role="img" aria-label="Interior">${room(id,h)}</svg>`;
+ const vb=v===2?'90 40 220 143':'0 0 400 260';const g='<rect y="214" width="400" height="46" fill="hsl(95,18%,68%)"/>';let b='';
+ if(kind==='house')b=house(200,62,.7,`hsl(${28+h%20},48%,${52+h%10}%)`)+tree(40,200,.9,'#5d7a4e')+tree(360,205,1,'#4f6b45');
+ else if(kind==='flat'){for(let t=0;t<3;t++){const x=60+t*100,hh=120+((t*37+h)%60),y=214-hh;b+=`<rect x="${x}" y="${y}" width="84" height="${hh}" fill="hsl(${h+t*12},18%,${70-t*8}%)"/><rect x="${x}" y="${y}" width="84" height="8" fill="#2c2420" opacity=".7"/>`;for(let r=y+18;r<206;r+=22)for(let c=0;c<3;c++)b+=`<rect x="${x+10+c*25}" y="${r}" width="16" height="13" fill="#2f3d48"/><rect x="${x+8+c*25}" y="${r+13}" width="20" height="3" fill="#ddd"/>`}b+=tree(30,214,.7,'#5d7a4e')}
+ else if(kind==='office'){b=`<rect x="120" y="30" width="160" height="184" fill="hsl(${h},30%,55%)"/>`;for(let r=38;r<206;r+=16)b+=`<rect x="126" y="${r}" width="148" height="11" fill="hsl(${h},40%,78%)" opacity=".75"/>`;b+=`<path d="M120 30l60 184h-60z" fill="#fff" opacity=".12"/><rect x="280" y="110" width="80" height="104" fill="hsl(${h},15%,72%)"/>`;for(let r=120;r<206;r+=18)b+=`<rect x="288" y="${r}" width="64" height="10" fill="#33424d"/>`;b+=tree(70,214,.9,'#4f6b45')}
+ else if(kind==='retail'){b=`<rect x="70" y="80" width="260" height="134" fill="hsl(${h},35%,80%)"/><rect x="70" y="72" width="260" height="14" fill="#2c2420"/><g>${[0,1,2,3,4,5,6,7,8,9].map(i=>`<path d="M${70+i*26} 100h26l-4 26h-18z" fill="${i%2?'#fff':`hsl(${h},55%,45%)`}"/>`).join('')}</g><rect x="88" y="132" width="110" height="82" fill="#2f3d48"/><rect x="214" y="132" width="98" height="82" fill="#2f3d48"/><path d="M88 132l60 82h-60z" fill="#fff" opacity=".1"/><rect x="246" y="150" width="34" height="64" fill="#a47a52"/>`+tree(30,214,.7,'#5d7a4e')+tree(370,214,.8,'#4f6b45')}
+ else if(kind==='warehouse'){b=`<path d="M30 214V110Q200 50 370 110V214z" fill="hsl(${h},12%,72%)"/><path d="M30 110Q200 50 370 110" fill="none" stroke="#2c2420" stroke-width="6"/>${[0,1,2].map(i=>`<rect x="${70+i*95}" y="140" width="70" height="74" fill="#55606a"/>${[0,1,2,3,4,5].map(j=>`<rect x="${70+i*95}" y="${144+j*12}" width="70" height="2" fill="#7c8791"/>`).join('')}`).join('')}<rect x="30" y="206" width="340" height="8" fill="#8a8a80"/>`}
+ else {b=`<path d="M0 150Q100 120 200 140T400 130V214H0z" fill="hsl(${100+h%20},22%,62%)"/><path d="M0 214L400 214 400 170Q200 150 0 175z" fill="hsl(${90+h%20},30%,56%)"/>${[0,1,2,3,4,5,6,7,8,9,10].map(i=>`<rect x="${20+i*36}" y="${186-i*1.2}" width="4" height="24" fill="#6b5340"/>`).join('')}<path d="M20 192L380 180" stroke="#6b5340" stroke-width="2"/><g fill="${'#c03a38'}"><rect x="120" y="196" width="3" height="16"/><path d="M123 196l12 4-12 4z"/><rect x="280" y="194" width="3" height="16"/><path d="M283 194l12 4-12 4z"/></g>`+tree(330,150,.6,'#4f6b45')+tree(60,155,.5,'#5d7a4e')}
+ return `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${kind}">${sky}${g}${b}</svg>`}
+//hero now a photo
+0&&(`<rect y="380" width="1440" height="50" fill="hsl(95,16%,72%)"/>`+tree(40,380,2.2,'#5d7a4e')+tree(1390,385,2.4,'#4f6b45')+tree(500,382,1.4,'#3f5a3a')+tree(950,382,1.5,'#3f5a3a')+house(260,230,1,'#b98250')+house(720,215,1.12,'#c48c58')+house(1180,230,1,'#b4794a'));
+$('#aboutpic').innerHTML='<img src="img/about-home.jpg" alt="Dark timber barn-style house with glass gables in a meadow" loading="lazy">';$('#aboutpic2').innerHTML='<img src="img/about-page.jpg" alt="Low-rise apartment building with balconies and garden courtyard" loading="lazy">';
+const PHOTOS=new Set(['UK-10421','UK-10433','UK-10458','UK-10462','UK-10477','UK-10480']);
+const photo=(l,v=0)=>v===0&&PHOTOS.has(l.ref)?`<img src="img/${l.ref}.jpg" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v);
+
+/* ---------- data (sample) ---------- */
+const COS=[{id:'c1',name:'Harbourline Estates',cty:'UK',city:'Bristol',since:2011,verified:true,about:'Sales and lettings across Bristol and the South West.'},
+{id:'c2',name:'Northgate Lettings',cty:'UK',city:'Manchester',since:2016,verified:true,about:'Residential and commercial lettings in Greater Manchester and Yorkshire.'},
+{id:'c3',name:'Deccan Realty',cty:'IN',city:'Bengaluru',since:2009,verified:true,about:'Apartments, villas and plots across Bengaluru, Hyderabad and Chennai.'},
+{id:'c4',name:'Meridian Commercial',cty:'IN',city:'Gurugram',since:2014,verified:true,about:'Office, retail and warehousing for businesses in North and West India.'}];
+const A=['Garden','Parking','EV charging','Balcony','Lift','Gym','Security','Power backup','Swimming pool','Concierge','Air conditioning','Pet friendly'];
+const L=[
+['UK-10421','UK','Buy','Residential','House','Timber-clad family house','Bristol','Stoke Bishop','BS9 1AB','',685000,null,4,3,2150,'Unfurnished',true,['Garden','Parking','EV charging'],'Good','Available now','c1','house',30,1,[42,74],'2026-11-18'],
+['UK-10433','UK','Rent','Residential','Flat/Apartment','Canal-side two-bed flat','Manchester','Ancoats','M4 6DE','',1650,'pcm',2,2,820,'Furnished',true,['Balcony','Lift','Gym','Concierge'],'Excellent','Available now','c2','flat',200,0,[52,52],'2026-11-20'],
+['UK-10458','UK','Buy','Residential','Flat/Apartment','Mansion block apartment','London','Maida Vale','W9 1QD','',895000,null,2,1,940,'Unfurnished',false,['Lift','Concierge'],'Good','Available now',null,'flat',20,0,[66,80],'2026-11-10'],
+['UK-10462','UK','Rent','Commercial','Office','Studio office with skylights','Leeds','City Centre','LS1 4AP','',2400,'pcm',0,2,1600,'Furnished',true,['Air conditioning','Parking'],'Excellent','From 1 Jan 2027','c2','office',210,1,[56,46],'2026-11-15'],
+['UK-10477','UK','Buy','Commercial','Retail','Corner retail unit','Edinburgh','Old Town','EH1 1QS','',320000,null,0,1,1100,'Unfurnished',false,['Security'],'Needs updating','Available now',null,'retail',10,0,[48,18],'2026-11-02'],
+['UK-10480','UK','Rent','Residential','House','Cottage with walled garden','York','Bishophill','YO1 6JE','',1250,'pcm',3,1,1050,'Part furnished',true,['Garden','Pet friendly','Parking'],'Good','Available now',null,'house',40,0,[60,40],'2026-11-21'],
+['UK-10491','UK','Buy','Commercial','Warehouse','Logistics warehouse, three dock doors','Northampton','Brackmills','NN4 7PB','',1950000,null,0,2,12500,'Unfurnished',true,['Parking','Security'],'Good','Available now','c1','warehouse',220,0,[62,64],'2026-10-28'],
+['UK-10502','UK','Buy','Residential','Plot/Land','Self-build plot with planning permission','Cotswolds','Bourton-on-the-Water','GL54 2AN','',240000,null,0,0,17400,'—',false,[],'—','Available now',null,'plot',10,0,[50,72],'2026-11-12'],
+['IN-20314','IN','Buy','Residential','Flat/Apartment','3 BHK apartment with lake view','Bengaluru','Hebbal','560024','Karnataka',18500000,null,3,3,1780,'Semi-furnished',true,['Lift','Gym','Swimming pool','Power backup','Security'],'Excellent','Ready to move','c3','flat',190,1,[42,80],'2026-11-19'],
+['IN-20327','IN','Rent','Residential','Flat/Apartment','2 BHK near Baner metro','Pune','Baner','411045','Maharashtra',38000,'month',2,2,1050,'Furnished',true,['Lift','Power backup','Security'],'Good','Available now',null,'flat',30,0,[28,62],'2026-11-22'],
+['IN-20341','IN','Buy','Residential','House','Independent villa with courtyard','Hyderabad','Gachibowli','500032','Telangana',34000000,null,4,4,3600,'Unfurnished',true,['Garden','Parking','Security','Power backup'],'Excellent','Ready to move','c3','house',25,1,[46,66],'2026-11-16'],
+['IN-20355','IN','Rent','Commercial','Office','Fitted office floor in Cyber City','Gurugram','DLF Cyber City','122002','Haryana',420000,'month',0,4,6000,'Furnished',true,['Air conditioning','Power backup','Lift','Security'],'Excellent','Available now','c4','office',205,0,[40,22],'2026-11-14'],
+['IN-20368','IN','Buy','Commercial','Retail','High-street showroom','Mumbai','Bandra West','400050','Maharashtra',67500000,null,0,1,1450,'Unfurnished',false,['Security','Air conditioning'],'Good','Available now','c4','retail',15,0,[22,58],'2026-11-06'],
+['IN-20372','IN','Buy','Residential','Plot/Land','Plot in gated community','Chennai','OMR, Navalur','600130','Tamil Nadu',7200000,null,0,0,2400,'—',false,['Security'],'—','Available now','c3','plot',20,0,[52,84],'2026-11-08'],
+['IN-20389','IN','Rent','Commercial','Warehouse','Warehouse on Mumbai–Nashik highway','Bhiwandi','Vadape','421302','Maharashtra',650000,'month',0,2,25000,'Unfurnished',true,['Parking','Security','Power backup'],'Good','Available now','c4','warehouse',215,0,[25,54],'2026-10-30'],
+['UK-10510','UK','Buy','Residential','House','Suspended listing (never public)','Bath','Centre','BA1 1AA','',500000,null,3,2,1200,'Unfurnished',false,[],'Good','Available now',null,'house',10,0,[50,70],'2026-11-01','Suspended','Unpublished'],
+['IN-20390','IN','Rent','Residential','Flat/Apartment','Pending listing (never public)','Kochi','Kakkanad','682030','Kerala',22000,'month',2,2,950,'Furnished',false,[],'Good','Available now',null,'flat',10,0,[30,90],'2026-11-23','Pending Review','Unpublished']
+].map(r=>({ref:r[0],cty:r[1],purpose:r[2],seg:r[3],cat:r[4],title:r[5],city:r[6],area:r[7],code:r[8],state:r[9],price:r[10],freq:r[11],beds:r[12],baths:r[13],size:r[14],furn:r[15],parking:r[16],amen:r[17],cond:r[18],avail:r[19],co:r[20],kind:r[21],hue:r[22],featured:!!r[23],xy:r[24],added:r[25],ver:r[26]||'Approved',pub:r[27]||'Published',
+ desc:`${r[5]} in ${r[7]}, ${r[6]}. ${r[4]==='Plot/Land'?'A level, well-drained site with road access and utilities close by.':r[3]==='Commercial'?'Well-connected premises suited to a growing business, with flexible layouts and good transport links.':'Light-filled rooms, a practical layout and easy access to schools, shops and transport.'} Viewings by appointment.`}));
+const isPublic=l=>l.ver==='Approved'&&l.pub==='Published';
+const CATS={Residential:['House','Flat/Apartment','Plot/Land'],Commercial:['Office','Retail','Warehouse','Plot/Land']};
+const ALLCATS=['House','Flat/Apartment','Plot/Land','Office','Retail','Warehouse'];
+
+/* ---------- state ---------- */
+const S={cty:store.get('cty','UK'),user:store.get('user',null),favs:new Set(store.get('favs',[])),cmp:new Set(),own:store.get('own',null),enq:store.get('enq',[]),notes:store.get('notes',null),pays:store.get('pays',[]),draft:store.get('draft',null),
+ f:{purpose:'Buy',seg:'',cat:'',q:'',code:'',min:'',max:'',freq:'',beds:'',baths:'',size:'',furn:'',parking:false,amen:[],cond:'',avail:''},sort:'rel',mode:'list',page:1,consent:store.get('consent',[])};
+const save=()=>{store.set('cty',S.cty);store.set('user',S.user);store.set('favs',[...S.favs]);store.set('own',S.own);store.set('enq',S.enq);store.set('notes',S.notes);store.set('pays',S.pays);store.set('consent',S.consent)};
+if(!S.notes)S.notes=[];
+const cur=c=>c==='UK'?'GBP':'INR';
+const money=(n,c)=>new Intl.NumberFormat(c==='UK'?'en-GB':'en-IN',{style:'currency',currency:cur(c),maximumFractionDigits:0}).format(n);
+const per=l=>l.freq==='pcm'?'per month':l.freq==='pw'?'per week':l.freq==='month'?'per month':'';
+const addr=l=>l.cty==='UK'?`${l.area}, ${l.city}, ${l.code}, United Kingdom`:`${l.area}, ${l.city}, ${l.state} – ${l.code}, India`;
+const ctyName=c=>c==='UK'?'the UK':'India';
+const coName=id=>id?(COS.find(c=>c.id===id)||{}).name:'Private owner';
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.remove('on'),2800)}
+function modal(html){$('#mbox').innerHTML=html;$('#modal').classList.add('open');const f=$('#mbox').querySelector('input,select,textarea,button');f&&f.focus()}
+const closeModal=()=>$('#modal').classList.remove('open');
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal'||e.target.closest('[data-close]'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+function notify(t,b){S.notes.unshift({t,b,at:now(),read:false});save();chrome()}
+const X='<button class="ico" data-close aria-label="Close" type="button"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2"/></svg></button>';
+
+/* ---------- cards ---------- */
+const heart='<svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
+function specs(l){const s=[];if(l.beds)s.push(`${l.beds} bed`);if(l.baths)s.push(`${l.baths} bath`);s.push(`${l.size.toLocaleString(l.cty==='UK'?'en-GB':'en-IN')} sq ft`);s.push(l.cat);if(l.furn!=='—')s.push(l.furn);return s.map(x=>`<span>${esc(x)}</span>`).join('')}
+function card(l){return `<article class="card"><div class="img" data-open="${l.ref}">${photo(l)}<span class="tag">${l.purpose==='Rent'?'To rent':'For sale'} · ${esc(l.seg)}</span>${l.featured?'<span class="tag r">Featured</span>':''}</div>
+<button class="fav ${S.favs.has(l.ref)?'on':''}" data-fav="${l.ref}" aria-label="Save ${esc(l.title)}" aria-pressed="${S.favs.has(l.ref)}">${heart}</button>
+<div class="t"><div><h3 data-open="${l.ref}">${esc(l.title)}</h3><p class="loc">${esc(l.area)}, ${esc(l.city)} · ${esc(l.code)}</p></div><div class="price"><b>${money(l.price,l.cty)}</b>${l.freq?`<small>${per(l)}</small>`:''}</div></div>
+<div class="specs">${specs(l)}</div><label class="cmp"><input type="checkbox" data-cmp="${l.ref}" ${S.cmp.has(l.ref)?'checked':''}> Compare</label></article>`}
+document.addEventListener('click',e=>{const o=e.target.closest('[data-open]');if(o){location.hash='property-'+o.dataset.open.toLowerCase();return}
+ const f=e.target.closest('[data-fav]');if(f){const r=f.dataset.fav;if(S.favs.has(r)){S.favs.delete(r);toast('Removed from favourites')}else{S.favs.add(r);toast(S.user?'Saved to favourites':'Saved for this visit — sign in to keep favourites')}save();$$(`[data-fav="${r}"]`).forEach(b=>{b.classList.toggle('on',S.favs.has(r));b.setAttribute('aria-pressed',S.favs.has(r))});chrome();if(location.hash==='#favourites')renderFavs()}});
+document.addEventListener('change',e=>{const c=e.target.closest('[data-cmp]');if(c){const r=c.dataset.cmp;if(c.checked){if(S.cmp.size>=4){c.checked=false;toast('Compare up to 4 properties');return}S.cmp.add(r)}else S.cmp.delete(r);chrome()}});
+
+/* ---------- header ---------- */
+function chrome(){$('#cty').value=S.cty;const fn=S.favs.size,nn=S.notes.filter(n=>!n.read).length;$('#favn').hidden=!fn;$('#favn').textContent=fn;$('#notn').hidden=!nn;$('#notn').textContent=nn;
+ const a=$('#authbtn');if(S.user){a.textContent=S.user.name.split(' ')[0];a.href='#profile'}else{a.textContent='Sign in / Register';a.href='#account'}
+ $('#cmpbar').classList.toggle('on',S.cmp.size>0);$('#cmpn').textContent=`${S.cmp.size} selected to compare`}
+$('#cty').addEventListener('change',e=>{S.cty=e.target.value;save();S.page=1;route()});
+$('#burger').addEventListener('click',()=>{const o=$('#links').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
+
+/* ---------- home ---------- */
+let hp='Buy';
+function priceOpts(c,purpose){const v=c==='UK'?(purpose==='Rent'?[750,1000,1500,2000,3000,5000]:[200000,300000,500000,750000,1000000,2000000]):(purpose==='Rent'?[15000,25000,40000,75000,200000,500000]:[5000000,10000000,20000000,40000000,80000000]);return '<option value="">No max price</option>'+v.map(x=>`<option value="${x}">Up to ${money(x,c)}</option>`).join('')}
+function renderHome(){$('#h-cty').value=S.cty;$('#h-max').innerHTML=priceOpts(S.cty,hp==='Rent'?'Rent':'Buy');
+ $('#h-cat').innerHTML='<option value="">Any type</option>'+(hp==='Commercial'?CATS.Commercial:CATS.Residential).map(c=>`<option>${c}</option>`).join('');
+ const f=L.filter(l=>isPublic(l)&&l.cty===S.cty).sort((a,b)=>b.featured-a.featured||b.added.localeCompare(a.added)).slice(0,4);$('#featured').innerHTML=f.map(card).join('');$('#fcty').textContent=ctyName(S.cty);
+ $('#cats').innerHTML=ALLCATS.map(c=>`<button type="button" data-cat="${c}">${c}</button>`).join('')}
+$('#hsearch .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hp=b.dataset.p;$$('#hsearch .tabs button').forEach(x=>x.classList.toggle('on',x===b));renderHome()});
+$('#h-cty').addEventListener('change',e=>{S.cty=e.target.value;save();chrome();renderHome()});
+$('#hsearch').addEventListener('submit',e=>{e.preventDefault();resetF();S.f.purpose=hp==='Rent'?'Rent':hp==='Commercial'?'':'Buy';S.f.seg=hp==='Commercial'?'Commercial':hp==='Buy'||hp==='Rent'?'':'';if(hp!=='Commercial')S.f.seg='Residential';S.f.q=$('#h-q').value.trim();S.f.cat=$('#h-cat').value;S.f.max=$('#h-max').value;location.hash='search'});
+$('#cats').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;resetF();S.f.purpose='';S.f.cat=b.dataset.cat;location.hash='search'});
+function resetF(){S.f={purpose:'',seg:'',cat:'',q:'',code:'',min:'',max:'',freq:'',beds:'',baths:'',size:'',furn:'',parking:false,amen:[],cond:'',avail:''};S.page=1}
+
+/* ---------- search ---------- */
+function filterForm(){const f=S.f,c=S.cty,sel=(n,opts,v)=>`<select name="${n}">${opts.map(o=>{const[val,t]=Array.isArray(o)?o:[o,o];return `<option value="${val}" ${String(v)===String(val)?'selected':''}>${t}</option>`}).join('')}</select>`;
+ $('#filters').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><h4>Filters</h4><button class="btn g s" type="button" id="clear">Clear all</button></div>
+ <label class="f">Country${sel('cty',[['UK','United Kingdom (GBP)'],['IN','India (INR)']],c)}</label>
+ <label class="f">Looking to${sel('purpose',[['','Buy or rent'],'Buy','Rent'],f.purpose)}</label>
+ <label class="f">Sector${sel('seg',[['','Residential & commercial'],'Residential','Commercial'],f.seg)}</label>
+ <label class="f">Category${sel('cat',[['','Any category'],...ALLCATS],f.cat)}</label>
+ <label class="f">Keyword, city or area<input name="q" value="${esc(f.q)}" placeholder="e.g. garden, Hebbal"></label>
+ <label class="f">${c==='UK'?'Postcode':'PIN code'}<input name="code" value="${esc(f.code)}" placeholder="${c==='UK'?'e.g. BS9':'e.g. 560024'}"></label>
+ <div><span class="f" style="font:300 14px var(--hd)">Price (${cur(c)})</span><div class="row" style="margin-top:6px"><input name="min" inputmode="numeric" placeholder="Min" value="${esc(f.min)}" aria-label="Minimum price"><input name="max" inputmode="numeric" placeholder="Max" value="${esc(f.max)}" aria-label="Maximum price"></div></div>
+ <label class="f">Rental frequency${sel('freq',[['','Any'],['month','Monthly'],['pw','Weekly']],f.freq)}</label>
+ <div class="row"><label class="f">Bedrooms${sel('beds',[['','Any'],['1','1+'],['2','2+'],['3','3+'],['4','4+']],f.beds)}</label><label class="f">Bathrooms${sel('baths',[['','Any'],['1','1+'],['2','2+'],['3','3+']],f.baths)}</label></div>
+ <label class="f">Min floor / land area (sq ft)<input name="size" inputmode="numeric" value="${esc(f.size)}"></label>
+ <label class="f">Furnishing${sel('furn',[['','Any'],'Furnished','Semi-furnished','Part furnished','Unfurnished'],f.furn)}</label>
+ <label class="f">Condition${sel('cond',[['','Any'],'Excellent','Good','Needs updating'],f.cond)}</label>
+ <label class="f">Availability${sel('avail',[['','Any'],['now','Available now / ready to move']],f.avail)}</label>
+ <label class="ck"><input type="checkbox" name="parking" ${f.parking?'checked':''}> Parking</label>
+ <details style="padding:6px 0;border:0"><summary style="font-size:16px">Amenities</summary><div class="amen" style="margin-top:10px">${A.map(a=>`<label class="ck"><input type="checkbox" name="amen" value="${a}" ${f.amen.includes(a)?'checked':''}> ${a}</label>`).join('')}</div></details>`;
+ $('#clear').onclick=()=>{resetF();renderSearch()}}
+$('#filters').addEventListener('input',e=>{const t=e.target,n=t.name;if(!n)return;if(n==='cty'){S.cty=t.value;save();chrome();S.f.min=S.f.max='';S.f.code=''}else if(n==='amen')S.f.amen=$$('#filters [name=amen]:checked').map(x=>x.value);else if(n==='parking')S.f.parking=t.checked;else S.f[n]=t.value;S.page=1;if(t.tagName==='SELECT'||t.type==='checkbox'){if(n==='cty')filterForm();results()}else{clearTimeout(S.t);S.t=setTimeout(results,250)}});
+$('#ftog').onclick=()=>$('#filters').classList.toggle('closed');
+$('#sort').onchange=e=>{S.sort=e.target.value;results()};
+$$('.seg button').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;$$('.seg button').forEach(x=>x.classList.toggle('on',x===b));results()});
+function query(){const f=S.f,q=f.q.toLowerCase();let r=L.filter(l=>isPublic(l)&&l.cty===S.cty
+ &&(!f.purpose||l.purpose===f.purpose)&&(!f.seg||l.seg===f.seg)&&(!f.cat||l.cat===f.cat)
+ &&(!q||[l.title,l.city,l.area,l.desc,l.code,l.state,l.cat,...l.amen].join(' ').toLowerCase().includes(q))
+ &&(!f.code||l.code.toLowerCase().replace(/\s/g,'').startsWith(f.code.toLowerCase().replace(/\s/g,'')))
+ &&(!f.min||l.price>=+f.min)&&(!f.max||l.price<=+f.max)&&(!f.freq||(f.freq==='month'?['pcm','month'].includes(l.freq):l.freq===f.freq))
+ &&(!f.beds||l.beds>=+f.beds)&&(!f.baths||l.baths>=+f.baths)&&(!f.size||l.size>=+f.size)&&(!f.furn||l.furn===f.furn)&&(!f.cond||l.cond===f.cond)
+ &&(!f.avail||/now|ready/i.test(l.avail))&&(!f.parking||l.parking)&&f.amen.every(a=>l.amen.includes(a)));
+ const s=S.sort;r.sort((a,b)=>s==='lo'?a.price-b.price:s==='hi'?b.price-a.price:s==='new'?b.added.localeCompare(a.added):(b.featured-a.featured)||b.added.localeCompare(a.added));return r}
+function results(){const r=query(),f=S.f,per=6,pages=Math.max(1,Math.ceil(r.length/per));S.page=Math.min(S.page,pages);
+ $('#stitle').innerHTML=`${f.cat?esc(f.cat):'Properties'} ${f.purpose==='Rent'?'to rent':f.purpose==='Buy'?'for sale':''} <em class="i">in ${ctyName(S.cty)}</em>`;
+ $('#count').textContent=`${r.length} ${r.length===1?'property':'properties'}`;
+ const act=[f.purpose,f.seg,f.cat,f.q&&`“${f.q}”`,f.code,f.min&&`From ${money(f.min,S.cty)}`,f.max&&`Up to ${money(f.max,S.cty)}`,f.beds&&`${f.beds}+ bed`,f.baths&&`${f.baths}+ bath`,f.size&&`${f.size}+ sq ft`,f.furn,f.cond,f.avail&&'Available now',f.parking&&'Parking',...f.amen].filter(Boolean);
+ $('#active').innerHTML=act.map(a=>`<span>${esc(a)}</span>`).join('');
+ if(!r.length){$('#results').innerHTML=`<div class="empty"><h3 style="color:var(--ink)">No properties match yet</h3><p style="margin:8px 0 18px">Try widening your price range or removing a filter.</p><button class="btn" type="button" id="clr2">Clear filters</button></div>`;$('#clr2').onclick=()=>{resetF();renderSearch()};$('#pager').innerHTML='';return}
+ if(S.mode==='map'){$('#pager').innerHTML='';const base=`<svg class="base" viewBox="0 0 100 105" preserveAspectRatio="none">${[...Array(9)].map((_,i)=>`<path d="M0 ${i*12+6}Q50 ${i*12+(i%2?2:10)} 100 ${i*12+6}" stroke="currentColor" opacity=".08" fill="none" stroke-width=".6"/><path d="M${i*12+6} 0Q${i*12+(i%2?2:10)} 50 ${i*12+6} 105" stroke="currentColor" opacity=".08" fill="none" stroke-width=".6"/>`).join('')}<path d="M10 90Q40 70 60 80T95 60" stroke="#8fb0c9" stroke-width="3" fill="none" opacity=".6"/></svg>`;
+  $('#results').innerHTML=`<div class="map">${base}<span class="lbl">${S.cty==='UK'?'United Kingdom':'India'} · ${r.length} pins</span>${r.map(l=>`<button class="pin" style="left:${l.xy[1]}%;top:${l.xy[0]+6}%" data-open="${l.ref}" title="${esc(l.title)}">${money(l.price,l.cty)}${l.freq?' /mo':''}</button>`).join('')}</div><p class="note" style="margin-top:10px">Map preview — pins are placed by city. A live map/geocoding provider plugs in here.</p>`;return}
+ $('#results').innerHTML=`<div class="cards three">${r.slice((S.page-1)*per,S.page*per).map(card).join('')}</div>`;
+ $('#pager').innerHTML=pages>1?[...Array(pages)].map((_,i)=>`<button type="button" class="${i+1===S.page?'on':''}" data-pg="${i+1}" aria-label="Page ${i+1}">${i+1}</button>`).join(''):'';
+ $$('#pager button').forEach(b=>b.onclick=()=>{S.page=+b.dataset.pg;results();window.scrollTo({top:0})})}
+function renderSearch(){filterForm();$('#sort').value=S.sort;results()}
+
+/* ---------- property ---------- */
+function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.own||[]).find(x=>x.ref.toLowerCase()===ref&&false);
+ if(!l||!isPublic(l)){$('#prop').innerHTML=`<div class="empty"><h2 style="color:var(--ink)">This listing isn't available</h2><p style="margin:10px 0 20px">It may have been sold, let, withdrawn or is not published.</p><a class="btn" href="#search">Back to search</a></div>`;return}
+ const co=COS.find(c=>c.id===l.co);
+ $('#prop').innerHTML=`<a href="#search" style="font:15px var(--hd);text-decoration:none">← Back to results</a>
+ <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;margin:18px 0 24px"><div><span class="chip">${l.purpose==='Rent'?'To rent':'For sale'} · ${esc(l.seg)}</span><h1 style="margin-top:14px;font-size:clamp(30px,4vw,52px)">${esc(l.title)}</h1><p style="color:var(--mut);margin-top:8px">${esc(addr(l))}</p></div>
+ <div class="price"><b style="font-size:34px">${money(l.price,l.cty)}</b>${l.freq?`<small>${per(l)}</small>`:''}<small>Ref ${l.ref}</small></div></div>
+ <div class="gal" id="gal">${[0,1,2].map(v=>`<div>${photo(l,v)}</div>`).join('')}</div>
+ <div class="galnav"><button class="ico" type="button" id="gp" aria-label="Previous image">‹</button><button class="ico" type="button" id="gn" aria-label="Next image">›</button></div>
+ <div class="dl"><div>
+  <div class="spec">${[['Price',money(l.price,l.cty)+(l.freq?' '+per(l):'')],['Terms',l.purpose==='Rent'?'Rental':'Freehold sale'],['Type',l.cat],['Bedrooms',l.beds||'—'],['Bathrooms',l.baths||'—'],['Area',l.size.toLocaleString()+' sq ft'],['Furnishing',l.furn],['Parking',l.parking?'Yes':'No'],['Condition',l.cond],['Availability',l.avail],['Listed',new Date(l.added).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})],['Currency',cur(l.cty)]].map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>
+  <h3>About this property</h3><p style="margin-top:10px;color:var(--mut);max-width:680px">${esc(l.desc)}</p>
+  ${l.amen.length?`<h3 style="margin-top:32px">Amenities</h3><div class="am">${l.amen.map(a=>`<span>${esc(a)}</span>`).join('')}</div>`:''}
+  <h3 style="margin-top:32px">Location</h3><div class="map" style="aspect-ratio:16/7;margin-top:14px"><svg class="base" viewBox="0 0 100 44" preserveAspectRatio="none"><path d="M0 22H100M50 0V44M0 8Q50 14 100 6M20 0Q24 22 18 44" stroke="currentColor" opacity=".1" fill="none"/></svg><span class="pin" style="left:50%;top:52%">${esc(l.area)}</span></div><p class="note" style="margin-top:8px">${esc(addr(l))}</p>
+ </div>
+ <aside class="side">
+  <div class="verified"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>This property was reviewed and approved by Nestora before publishing. Always view in person and take independent advice.</span></div>
+  <div class="box"><p class="note">Advertised by</p><div class="co" style="margin-top:10px"><div class="mk" style="width:48px;height:48px;font-size:18px">${esc(coName(l.co)[0])}</div><div><b style="font:300 18px var(--hd)">${esc(coName(l.co))}</b>${co?`<br><a href="#company-${co.id}" style="font-size:14px">View company profile</a>${co.verified?' <span class="badge ok">Verified company</span>':''}`:'<br><span class="note">Individual owner</span>'}</div></div>
+   <div style="display:grid;gap:8px;margin-top:18px"><button class="btn" type="button" id="enqb">Send enquiry</button><button class="btn d" type="button" id="viewb">Request a viewing</button>
+   <div style="display:flex;gap:8px"><button class="btn w s" type="button" data-fav="${l.ref}" style="flex:1">${S.favs.has(l.ref)?'♥ Saved':'♡ Save'}</button><button class="btn w s" type="button" id="cmpb" style="flex:1">${S.cmp.has(l.ref)?'✓ In compare':'+ Compare'}</button></div></div></div>
+ </aside></div>`;
+ const g=$('#gal'),step=d=>g.scrollBy({left:d*g.clientWidth,behavior:'smooth'});$('#gp').onclick=()=>step(-1);$('#gn').onclick=()=>step(1);g.tabIndex=0;g.onkeydown=e=>{if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)};
+ $('#enqb').onclick=()=>enquiry(l,'enquiry');$('#viewb').onclick=()=>enquiry(l,'viewing');
+ $('#cmpb').onclick=()=>{if(S.cmp.has(l.ref))S.cmp.delete(l.ref);else if(S.cmp.size<4)S.cmp.add(l.ref);else return toast('Compare up to 4 properties');chrome();renderProperty(ref)}}
+function enquiry(l,type){const u=S.user||{};const tm=new Date(Date.now()+864e5*2).toISOString().slice(0,10);
+ modal(`<div class="mtop"><div><p class="note">${l.ref}</p><h3>${type==='viewing'?'Request a viewing':'Send an enquiry'}</h3></div>${X}</div>
+ <form id="eform" novalidate style="display:grid;gap:14px">
+ <div class="g2"><label class="f">Name<input name="name" required value="${esc(u.name||'')}" autocomplete="name"></label><label class="f">Phone<input name="phone" required value="${esc(u.phone||'')}" autocomplete="tel"></label></div>
+ <label class="f">Email<input name="email" type="email" required value="${esc(u.email||'')}" autocomplete="email"></label>
+ ${type==='viewing'?`<div class="g2"><label class="f">Preferred date<input name="date" type="date" min="${tm}" required></label><label class="f">Time window<select name="win"><option>Morning (9–12)</option><option>Afternoon (12–4)</option><option>Evening (4–7)</option></select></label></div>`:''}
+ <label class="f">Message ${type==='viewing'?'<small>Optional</small>':''}<textarea name="msg" ${type==='viewing'?'':'required'}>${type==='viewing'?'':`Hello, I'm interested in ${esc(l.title)} (${l.ref}). Is it still available?`}</textarea></label>
+ <label class="ck"><input type="checkbox" name="consent" required> I agree to share my details with the advertiser for this ${type}.</label>
+ <label class="ck"><input type="checkbox" name="human" required> I'm not a robot <span class="note">(anti-spam check placeholder)</span></label>
+ <button class="btn" type="submit">${type==='viewing'?'Send viewing request':'Send enquiry'}</button></form>`);
+ $('#eform').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;const d=Object.fromEntries(new FormData(e.target));
+  S.enq.unshift({id:'E'+Date.now().toString().slice(-6),type,ref:l.ref,title:l.title,to:coName(l.co),at:now(),status:'Sent',when:type==='viewing'?`${d.date}, ${d.win}`:'',msg:d.msg,mine:!!S.user});
+  notify(type==='viewing'?'Viewing request sent':'Enquiry sent',`${l.title} (${l.ref}) — the advertiser has been notified.`);save();closeModal();toast(S.user?'Sent. Track replies in your dashboard.':'Sent. Sign in to track replies.')}}
+function validate(form){let ok=true;form.querySelectorAll('.emsg').forEach(x=>x.remove());form.querySelectorAll('.err').forEach(x=>x.classList.remove('err'));
+ form.querySelectorAll('[required]').forEach(i=>{let bad=i.type==='checkbox'?!i.checked:!i.value.trim();if(!bad&&i.type==='email')bad=!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(i.value);if(!bad&&i.dataset.re)bad=!new RegExp(i.dataset.re,'i').test(i.value.trim());
+  if(bad){ok=false;const w=i.closest('label');w.classList.add('err');const m=document.createElement('span');m.className='emsg';m.textContent=i.dataset.msg||(i.type==='checkbox'?'Please tick to continue.':i.type==='email'?'Enter a valid email address.':'This field is required.');w.appendChild(m)}});
+ if(!ok){const f=form.querySelector('.err input,.err select,.err textarea');f&&f.focus()}return ok}
+
+/* ---------- auth ---------- */
+let authMode='login',pending=null;
+function renderAccount(){const a=$('#auth');const back=sessionStorage.getItem?.('nst_ret')||'';
+ if(authMode==='otp'){a.innerHTML=`<h2 style="font-size:34px">Verify your ${pending.via}</h2><p style="color:var(--mut)">We sent a 6-digit code to <b>${esc(pending.via==='email'?pending.email:pending.phone)}</b>. It expires in 10 minutes and can be used once.</p>
+  <p class="note" style="background:var(--sage);padding:10px 12px;border-radius:10px">Demo mode — your code is <b>${pending.code}</b></p>
+  <form id="otpf" style="display:grid;gap:14px"><label class="f">Verification code<input name="code" inputmode="numeric" maxlength="6" required data-re="^\\d{6}$" data-msg="Enter the 6-digit code." style="font:300 24px var(--hd);letter-spacing:.3em;text-align:center"></label><button class="btn">Verify and continue</button></form>
+  <button class="btn g s" id="resend" type="button">Resend code</button>`;
+  $('#otpf').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;if(e.target.code.value!==pending.code){toast('That code is not correct');return}
+   S.user={name:pending.name,email:pending.email,phone:pending.phone,cty:pending.cty,verified:true,photo:'',prefs:{email:true,sms:false,marketing:pending.mkt}};S.cty=pending.cty;
+   S.consent.push({what:'Terms & privacy notice accepted',at:now()});if(pending.mkt)S.consent.push({what:'Marketing emails opted in',at:now()});
+   seedOwner();notify('Welcome to Nestora','Your account is verified. You can now save favourites and list a property.');pending=null;authMode='login';save();chrome();location.hash=ret();};
+  $('#resend').onclick=()=>{pending.code=String(Math.floor(1e5+Math.random()*9e5));toast('A new code was sent');renderAccount()};return}
+ if(authMode==='reset'){a.innerHTML=`<h2 style="font-size:34px">Reset password</h2><p style="color:var(--mut)">Enter your email and we'll send a one-time reset link that expires in 30 minutes.</p><form id="rf" style="display:grid;gap:14px" novalidate><label class="f">Email<input name="email" type="email" required></label><button class="btn">Send reset link</button></form><button class="btn g s" type="button" id="bk">Back to sign in</button>`;
+  $('#rf').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;toast('If an account exists, a reset link is on its way');authMode='login';renderAccount()};$('#bk').onclick=()=>{authMode='login';renderAccount()};return}
+ const reg=authMode==='register';
+ a.innerHTML=`<div class="seg" style="justify-self:start"><button type="button" class="${reg?'':'on'}" data-a="login">Sign in</button><button type="button" class="${reg?'on':''}" data-a="register">Register</button></div>
+ <h2 style="font-size:34px">${reg?'Create your account':'Welcome back'}</h2>${sessionStorage.getItem?.('nst_msg')?`<p class="fb">${esc(sessionStorage.getItem('nst_msg'))}</p>`:''}
+ <form id="af" style="display:grid;gap:14px" novalidate>
+ ${reg?`<label class="f">Full name<input name="name" required autocomplete="name"></label><label class="f">Mobile number<input name="phone" type="tel" required autocomplete="tel" placeholder="+44 or +91" data-re="^\\+?[0-9 ]{10,15}$" data-msg="Enter a valid mobile number with country code."></label>`:''}
+ <label class="f">Email<input name="email" type="email" required autocomplete="email"></label>
+ <label class="f">Password ${reg?'<small>At least 8 characters with a number</small>':''}<input name="pw" type="password" required autocomplete="${reg?'new-password':'current-password'}" ${reg?'data-re="^(?=.*\\d).{8,}$" data-msg="Use 8+ characters including a number."':''}></label>
+ ${reg?`<label class="f">Preferred country<select name="cty"><option value="UK">United Kingdom</option><option value="IN" ${S.cty==='IN'?'selected':''}>India</option></select></label>
+ <label class="f">Verify by<select name="via"><option value="email">Email code</option><option value="mobile">SMS code</option></select></label>
+ <label class="ck"><input type="checkbox" name="terms" required> I accept the <a href="#terms">Terms</a> and have read the <a href="#privacy">Privacy notice</a>.</label>
+ <label class="ck"><input type="checkbox" name="mkt"> Send me property tips and offers (optional).</label>`:''}
+ <button class="btn">${reg?'Create account':'Sign in'}</button></form>
+ ${reg?'':'<button class="btn g s" type="button" id="fg" style="justify-self:start">Forgot password?</button>'}`;
+ $$('#auth [data-a]').forEach(b=>b.onclick=()=>{authMode=b.dataset.a;renderAccount()});$('#fg')&&($('#fg').onclick=()=>{authMode='reset';renderAccount()});
+ $('#af').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;const d=Object.fromEntries(new FormData(e.target));
+  if(reg){pending={name:d.name,email:d.email,phone:d.phone,cty:d.cty,via:d.via==='mobile'?'mobile':'email',mkt:!!d.mkt,code:String(Math.floor(1e5+Math.random()*9e5))};authMode='otp';renderAccount()}
+  else{S.user=S.user&&S.user.email===d.email?S.user:{name:d.email.split('@')[0].replace(/[._]/g,' ').replace(/\b\w/g,c=>c.toUpperCase()),email:d.email,phone:'',cty:S.cty,verified:true,prefs:{email:true,sms:false,marketing:false}};seedOwner();save();chrome();toast('Signed in');location.hash=ret()}}}
+const ret=()=>{let r='dashboard';try{r=sessionStorage.getItem('nst_ret')||'dashboard';sessionStorage.removeItem('nst_ret');sessionStorage.removeItem('nst_msg')}catch(e){}return r};
+function need(view,msg){if(S.user)return true;try{sessionStorage.setItem('nst_ret',view);sessionStorage.setItem('nst_msg',msg)}catch(e){}authMode='login';location.hash='account';return false}
+
+/* ---------- owner listings ---------- */
+function mk(ref,title,ver,pub,extra={}){return Object.assign({ref,title,cty:'UK',purpose:'Rent',seg:'Residential',cat:'Flat/Apartment',city:'Bristol',area:'Clifton',code:'BS8 1AA',state:'',price:1400,freq:'pcm',beds:2,baths:1,size:780,kind:'flat',hue:180,ver,pub,fb:'',hist:[{s:ver,at:'20 Nov 2026, 10:12',by:'You'}]},extra)}
+function seedOwner(){if(S.own)return;const c=S.cty;S.own=c==='UK'?[
+ mk('UK-10399','Garden flat in Clifton','Approved','Published',{hist:[{s:'Submitted',at:'2 Nov 2026, 09:40',by:'You'},{s:'Approved',at:'4 Nov 2026, 15:05',by:'Reviewer'},{s:'Published',at:'4 Nov 2026, 15:20',by:'You'}]}),
+ mk('UK-10512','Two-bed terrace, Bedminster','Changes Requested','Unpublished',{purpose:'Buy',cat:'House',kind:'house',hue:35,price:365000,freq:null,fb:'Please upload a clearer floor plan and proof of ownership (e.g. title register or council tax bill).',hist:[{s:'Submitted',at:'18 Nov 2026, 11:00',by:'You'},{s:'Changes Requested',at:'20 Nov 2026, 16:42',by:'Reviewer'}]}),
+ mk('UK-D-0007','Studio near Temple Meads','Draft','Unpublished',{hist:[{s:'Draft',at:'22 Nov 2026, 19:30',by:'You'}]}),
+ mk('UK-10388','Garage with storage','Rejected','Unpublished',{cat:'Warehouse',seg:'Commercial',kind:'warehouse',hue:210,price:180,fb:'Parking-only spaces are not accepted in this category.',hist:[{s:'Submitted',at:'1 Nov 2026, 08:00',by:'You'},{s:'Rejected',at:'3 Nov 2026, 12:30',by:'Reviewer'}]})]
+ :[mk('IN-20301','2 BHK in Indiranagar','Approved','Published',{cty:'IN',city:'Bengaluru',area:'Indiranagar',code:'560038',state:'Karnataka',price:45000,freq:'month',hue:30}),
+ mk('IN-20380','Plot in Sarjapur','Changes Requested','Unpublished',{cty:'IN',purpose:'Buy',cat:'Plot/Land',kind:'plot',city:'Bengaluru',area:'Sarjapur',code:'562125',state:'Karnataka',price:6500000,freq:null,fb:'Please add the RERA/khata details and a copy of the sale deed.',hist:[{s:'Submitted',at:'17 Nov 2026, 10:00',by:'You'},{s:'Changes Requested',at:'19 Nov 2026, 14:00',by:'Reviewer'}]}),
+ mk('IN-D-0003','Villa in Whitefield','Draft','Unpublished',{cty:'IN',cat:'House',kind:'house',city:'Bengaluru',area:'Whitefield',code:'560066',state:'Karnataka',price:90000,freq:'month'})];save()}
+const GROUPS=[['all','All'],['Draft','Draft'],['Pending Review','Pending review'],['Changes Requested','Changes requested'],['Published','Approved / published'],['Rejected','Rejected'],['Suspended','Suspended'],['Archived','Archived'],['activity','My enquiries & viewings']];
+let dtab='all';
+const grp=l=>l.pub==='Archived'?'Archived':l.ver==='Approved'?'Published':['Submitted','Under Review'].includes(l.ver)?'Pending Review':l.ver;
+const vb=v=>({Approved:'ok','Changes Requested':'wa','Pending Review':'in',Submitted:'in','Under Review':'in',Rejected:'no',Suspended:'no',Draft:''}[v]??'');
+function renderDash(){const own=S.own||[];
+ $('#dtabs').innerHTML=GROUPS.map(([k,t])=>{const n=k==='all'?own.length:k==='activity'?S.enq.length:own.filter(l=>grp(l)===k).length;return `<button type="button" class="${dtab===k?'on':''}" data-t="${k}">${t} (${n})</button>`}).join('');
+ $$('#dtabs button').forEach(b=>b.onclick=()=>{dtab=b.dataset.t;renderDash()});
+ if(dtab==='activity'){$('#dlist').innerHTML=S.enq.length?`<div class="scroll"><table class="stack"><thead><tr><th>Ref</th><th>Type</th><th>Property</th><th>Advertiser</th><th>Sent</th><th>Status</th></tr></thead><tbody>${S.enq.map(q=>`<tr><td>${esc(q.id)}</td><td>${q.type==='viewing'?'Viewing — '+esc(q.when):'Enquiry'}</td><td><a href="#property-${esc(q.ref.toLowerCase())}">${esc(q.title)}</a></td><td>${esc(q.to)}</td><td>${esc(q.at)}</td><td><span class="badge in">${esc(q.status)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No enquiries or viewing requests yet. Open a property and tap “Send enquiry”.</div>';return}
+ const list=dtab==='all'?own:own.filter(l=>grp(l)===dtab);
+ $('#dlist').innerHTML=list.length?list.map(l=>{const g=grp(l),acts=[];
+  if(['Draft','Changes Requested'].includes(l.ver))acts.push(['edit','Edit & '+(l.ver==='Draft'?'submit':'resubmit')]);
+  if(g==='Published'&&l.pub==='Published')acts.push(['sold',l.purpose==='Rent'?'Mark let agreed':'Mark sold'],['withdraw','Withdraw'],['boost','Boost']);
+  if(g==='Published'&&l.pub!=='Published'&&l.pub!=='Archived')acts.push(['renew','Request renewal']);
+  if(l.pub!=='Archived')acts.push(['archive','Archive']);
+  return `<div class="lrow"><div class="th">${art(l.kind,l.hue)}</div><div><b style="font:300 18px var(--hd)">${esc(l.title)}</b><p class="note">Ref ${esc(l.ref)} · ${esc(l.area)}, ${esc(l.city)} · ${money(l.price,l.cty)}${l.freq?' '+per(l):''}</p>
+  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:8px"><span class="badge ${vb(l.ver)}">Review: ${esc(l.ver)}</span><span class="badge ${l.pub==='Published'?'ok':''}">Visibility: ${esc(l.pub)}</span>${l.boost?'<span class="badge wa">Featured boost</span>':''}</div>
+  ${l.fb?`<div class="fb"><b>Reviewer feedback:</b> ${esc(l.fb)}</div>`:''}
+  <div class="hist">${l.hist.map(h=>`${esc(h.s)} · ${esc(h.at)} · ${esc(h.by)}`).join(' → ')}</div></div>
+  <div class="acts">${acts.map(([k,t])=>`<button class="btn ${k==='edit'?'':'w'} s" type="button" data-act="${k}" data-ref="${esc(l.ref)}">${t}</button>`).join('')}</div></div>`}).join(''):'<div class="empty">Nothing in this group.</div>';
+ $$('#dlist [data-act]').forEach(b=>b.onclick=()=>ownerAct(b.dataset.act,b.dataset.ref))}
+function ownerAct(k,ref){const l=S.own.find(x=>x.ref===ref);const log=s=>l.hist.push({s,at:now(),by:'You'});
+ if(k==='edit'){S.draft=Object.assign({},l,{editing:ref});store.set('draft',S.draft);wstep=0;location.hash='add-property';return}
+ if(k==='boost'){location.hash='plans';return}
+ const lab={sold:l.purpose==='Rent'?'Let Agreed':'Sold',withdraw:'Withdrawn',renew:'Renewal requested',archive:'Archived'}[k];
+ modal(`<div class="mtop"><h3>${k==='renew'?'Request renewal?':`Mark as ${lab}?`}</h3>${X}</div><p style="color:var(--mut)">${k==='renew'?'We will send this listing for renewal under your current plan.':'This removes the listing from public search and the map straight away.'}</p><div style="display:flex;gap:8px"><button class="btn" type="button" id="ok">Confirm</button><button class="btn g" type="button" data-close>Cancel</button></div>`);
+ $('#ok').onclick=()=>{if(k==='renew'){log('Renewal requested');notify('Renewal requested',`${l.title} (${l.ref})`)}else{l.pub=lab;log(lab)}save();closeModal();renderDash();toast('Status updated')}}
+
+/* ---------- add property wizard ---------- */
+const WS=['Purpose & category','Title & description','Price','Address','Specifications','Photos','Ownership & contact','Preview & submit'];
+let wstep=0,files=[];
+const blank=()=>({cty:S.cty,purpose:'Buy',seg:'Residential',cat:'House',title:'',desc:'',price:'',freq:'',line1:'',city:'',area:'',code:'',state:'',beds:'',baths:'',size:'',furn:'Unfurnished',parking:false,cond:'Good',avail:'Available now',amen:[],doc:'',cname:S.user?.name||'',cphone:S.user?.phone||'',cemail:S.user?.email||'',show:'form',decl:false});
+function renderWiz(){if(!S.draft||!('line1' in S.draft))S.draft=Object.assign(blank(),S.draft||{});const d=S.draft,c=d.cty;
+ $('#wsteps').innerHTML=WS.map((t,i)=>`<li class="${i===wstep?'on':''} ${i<wstep?'done':''}" data-s="${i}"><i>${i<wstep?'✓':i+1}</i><span>${t}</span></li>`).join('');
+ $$('#wsteps li').forEach(li=>li.onclick=()=>{if(+li.dataset.s<wstep){wstep=+li.dataset.s;renderWiz()}});
+ const sel=(n,o,v)=>`<select name="${n}">${o.map(x=>{const[a,b]=Array.isArray(x)?x:[x,x];return `<option value="${a}" ${String(v)===String(a)?'selected':''}>${b}</option>`}).join('')}</select>`;
+ const body=[
+ ()=>`<label class="f">Country ${sel('cty',[['UK','United Kingdom (GBP)'],['IN','India (INR)']],c)}</label><div class="g2"><label class="f">Purpose ${sel('purpose',[['Buy','For sale'],['Rent','For rent']],d.purpose)}</label><label class="f">Sector ${sel('seg',['Residential','Commercial'],d.seg)}</label></div><label class="f">Category ${sel('cat',CATS[d.seg],d.cat)}</label>`,
+ ()=>`<label class="f">Listing title<small>Max 70 characters</small><input name="title" required maxlength="70" value="${esc(d.title)}" placeholder="e.g. Bright two-bed flat with balcony"></label><label class="f">Description<small>At least 80 characters</small><textarea name="desc" required data-re="^[\\s\\S]{80,}$" data-msg="Please write at least 80 characters." style="min-height:170px">${esc(d.desc)}</textarea></label>`,
+ ()=>`<div class="g2"><label class="f">${d.purpose==='Rent'?'Rent':'Asking price'} (${cur(c)})<input name="price" inputmode="numeric" required data-re="^\\d{2,}$" data-msg="Enter a whole number, no symbols." value="${esc(d.price)}"></label>${d.purpose==='Rent'?`<label class="f">Rental frequency ${sel('freq',c==='UK'?[['pcm','Per month'],['pw','Per week']]:[['month','Per month']],d.freq||(c==='UK'?'pcm':'month'))}</label>`:''}</div><p class="note">Prices stay in ${cur(c)} and are never converted to another currency.</p>`,
+ ()=>`<label class="f">Address line<input name="line1" required value="${esc(d.line1)}" autocomplete="address-line1"></label><div class="g2"><label class="f">${c==='UK'?'Town / city':'City'}<input name="city" required value="${esc(d.city)}"></label><label class="f">${c==='UK'?'Area / district':'Locality'}<input name="area" required value="${esc(d.area)}"></label></div>
+  <div class="g2">${c==='UK'?`<label class="f">Postcode<input name="code" required value="${esc(d.code)}" data-re="^[A-Z]{1,2}\\d[A-Z\\d]? ?\\d[A-Z]{2}$" data-msg="Enter a valid UK postcode, e.g. BS9 1AB."></label>`:`<label class="f">PIN code<input name="code" inputmode="numeric" required value="${esc(d.code)}" data-re="^[1-9]\\d{5}$" data-msg="Enter a valid 6-digit PIN code."></label><label class="f">State ${sel('state',['','Andhra Pradesh','Delhi','Goa','Gujarat','Haryana','Karnataka','Kerala','Maharashtra','Punjab','Rajasthan','Tamil Nadu','Telangana','Uttar Pradesh','West Bengal'],d.state).replace('<select','<select required')}</label>`}</div>`,
+ ()=>`<div class="g3"><label class="f">Bedrooms<input name="beds" type="number" min="0" value="${esc(d.beds)}"></label><label class="f">Bathrooms<input name="baths" type="number" min="0" value="${esc(d.baths)}"></label><label class="f">Area (sq ft)<input name="size" type="number" min="1" required value="${esc(d.size)}"></label></div>
+  <div class="g3"><label class="f">Furnishing ${sel('furn',['Unfurnished','Part furnished','Semi-furnished','Furnished'],d.furn)}</label><label class="f">Condition ${sel('cond',['Excellent','Good','Needs updating'],d.cond)}</label><label class="f">Availability ${sel('avail',['Available now','Ready to move','Within 3 months','Under construction'],d.avail)}</label></div>
+  <label class="ck"><input type="checkbox" name="parking" ${d.parking?'checked':''}> Parking available</label><p style="font:300 14px var(--hd)">Amenities</p><div class="g3">${A.map(a=>`<label class="ck"><input type="checkbox" name="amen" value="${a}" ${d.amen.includes(a)?'checked':''}> ${a}</label>`).join('')}</div>`,
+ ()=>`<label class="f">Photos<small>JPG or PNG, up to 10 MB each, max 20 photos. At least one required.</small><input type="file" id="ph" accept="image/jpeg,image/png" multiple></label><div class="thumbs" id="thumbs"></div>`,
+ ()=>`<label class="f">Proof of ownership or authority to advertise<small>${c==='UK'?'e.g. title register, council tax bill or landlord authority letter':'e.g. sale deed, khata / property tax receipt, or owner authority letter'} — PDF/JPG/PNG up to 10 MB. Kept private: only you and reviewers can see it.</small><input type="file" id="doc" accept="application/pdf,image/jpeg,image/png"></label>${d.doc?`<p class="note">Uploaded: ${esc(d.doc)}</p>`:''}
+  <div class="g2"><label class="f">Contact name<input name="cname" required value="${esc(d.cname)}"></label><label class="f">Contact phone<input name="cphone" required value="${esc(d.cphone)}"></label></div><label class="f">Contact email<input name="cemail" type="email" required value="${esc(d.cemail)}"></label>
+  <label class="f">Show to enquirers ${sel('show',[['form','Enquiry form only (recommended)'],['phone','Form and phone number']],d.show)}</label>`,
+ ()=>`<div class="lrow" style="grid-template-columns:180px 1fr;border:0;padding:0"><div class="th">${files[0]?`<img src="${files[0].url}" alt="" style="width:100%;height:100%;object-fit:cover">`:art(d.cat==='House'?'house':d.cat==='Plot/Land'?'plot':d.cat==='Flat/Apartment'?'flat':d.cat.toLowerCase(),30)}</div>
+  <div><h3>${esc(d.title||'Untitled listing')}</h3><p class="note">${esc(d.line1)}, ${esc(d.area)}, ${esc(d.city)}${c==='IN'?', '+esc(d.state)+' –':','} ${esc(d.code)}</p><p style="font:300 22px var(--hd);margin-top:6px">${d.price?money(d.price,c):'—'} ${d.purpose==='Rent'?(d.freq==='pw'?'per week':'per month'):''}</p><p class="note">${esc(d.purpose==='Rent'?'For rent':'For sale')} · ${esc(d.seg)} · ${esc(d.cat)} · ${d.beds||0} bed · ${d.baths||0} bath · ${esc(d.size)} sq ft · ${files.length} photo(s)</p></div></div>
+  <p style="color:var(--mut)">${esc(d.desc)}</p>
+  <label class="ck"><input type="checkbox" name="decl" required ${d.decl?'checked':''}> I declare that I own this property or am authorised by the owner to advertise it, and that the details are accurate.</label>
+  <p class="note">Submitting creates a review request. Your listing stays private until an administrator approves it.</p>`][wstep]();
+ $('#wform').innerHTML=`<div class="prog"><i style="width:${(wstep+1)/WS.length*100}%"></i></div><div><p class="note">Step ${wstep+1} of ${WS.length}${d.editing?` · editing ${esc(d.editing)}`:''}</p><h2 style="font-size:30px;margin-top:4px">${WS[wstep]}</h2></div>${body}
+ <div class="wfoot"><div style="display:flex;gap:8px">${wstep?'<button class="btn g" type="button" id="wb">Back</button>':''}<button class="btn w" type="button" id="wd">Save draft</button></div><button class="btn" type="submit">${wstep===WS.length-1?'Submit for review':'Continue'}</button></div>`;
+ if(wstep===5){drawThumbs();$('#ph').onchange=e=>{[...e.target.files].forEach(f=>{if(!/image\/(jpeg|png)/.test(f.type)||f.size>10e6){toast(`${f.name}: wrong type or over 10 MB`);return}if(files.length>=20)return;const o={name:f.name,url:URL.createObjectURL(f),p:0};files.push(o);const t=setInterval(()=>{o.p=Math.min(100,o.p+20+Math.random()*25);drawThumbs();if(o.p>=100)clearInterval(t)},180)});drawThumbs()}}
+ if(wstep===6)$('#doc').onchange=e=>{const f=e.target.files[0];if(!f)return;if(f.size>10e6){toast('File is over 10 MB');e.target.value='';return}d.doc=f.name;toast('Document uploaded privately')};
+ $('#wb')&&($('#wb').onclick=()=>{grab();wstep--;renderWiz()});
+ $('#wd').onclick=()=>{grab();store.set('draft',S.draft);if(!d.editing){d.editing=(d.cty==='UK'?'UK-D-':'IN-D-')+String(Date.now()).slice(-4);(S.own=S.own||[]).unshift(Object.assign(toListing(d,d.editing),{ver:'Draft',pub:'Unpublished',hist:[{s:'Draft',at:now(),by:'You'}]}))}else{const o=S.own.find(x=>x.ref===d.editing);o&&Object.assign(o,toListing(d,o.ref,o))}save();toast('Draft saved — resume any time')};
+ $('#wform [name=cty]')?.addEventListener('change',()=>{grab();d.code='';d.state='';d.freq='';renderWiz()});$('#wform [name=seg]')?.addEventListener('change',()=>{grab();d.cat=CATS[d.seg][0];renderWiz()});$('#wform [name=purpose]')?.addEventListener('change',grab)}
+function drawThumbs(){const t=$('#thumbs');if(!t)return;t.innerHTML=files.map((f,i)=>`<div>${f.p>=100?`<img src="${f.url}" alt="${esc(f.name)}">`:`<span style="position:absolute;inset:8px">${esc(f.name)}</span><div class="prog"><i style="width:${f.p}%"></i></div>`}${f.p>=100?`<button class="fav" type="button" data-rm="${i}" aria-label="Remove photo" style="width:30px;height:30px;top:6px;right:6px">×</button>`:''}</div>`).join('');$$('[data-rm]').forEach(b=>b.onclick=()=>{files.splice(+b.dataset.rm,1);drawThumbs()})}
+function grab(){const d=S.draft,f=$('#wform');f.querySelectorAll('input[name],select[name],textarea[name]').forEach(i=>{if(i.name==='amen')return;if(i.type==='checkbox')d[i.name]=i.checked;else d[i.name]=i.name==='code'?i.value.toUpperCase().trim():i.value});if(f.querySelector('[name=amen]'))d.amen=$$('#wform [name=amen]:checked').map(x=>x.value)}
+const toListing=(d,ref,o={})=>({ref,title:d.title||'Untitled listing',cty:d.cty,purpose:d.purpose,seg:d.seg,cat:d.cat,city:d.city||'—',area:d.area||'—',code:d.code,state:d.state,price:+d.price||0,freq:d.purpose==='Rent'?(d.freq||(d.cty==='UK'?'pcm':'month')):null,beds:+d.beds||0,baths:+d.baths||0,size:+d.size||0,kind:d.cat==='House'?'house':d.cat==='Plot/Land'?'plot':d.cat==='Flat/Apartment'?'flat':d.cat.toLowerCase(),hue:o.hue||30,fb:'',hist:o.hist||[]});
+$('#wform').addEventListener('submit',e=>{e.preventDefault();if(!validate(e.target))return;grab();const d=S.draft;
+ if(wstep===5&&!files.some(f=>f.p>=100)){toast('Add at least one photo (wait for uploads to finish)');return}
+ if(wstep===6&&!d.doc){toast('Upload proof of ownership or authority to continue');return}
+ if(wstep<WS.length-1){wstep++;store.set('draft',d);renderWiz();window.scrollTo({top:0});return}
+ const isNew=!d.editing||/-D-/.test(d.editing);const ref=isNew?(d.cty==='UK'?'UK-':'IN-')+(d.cty==='UK'?10600:20500+0)+Math.floor(Math.random()*400):d.editing;
+ S.own=S.own||[];let o=S.own.find(x=>x.ref===d.editing);if(o){Object.assign(o,toListing(d,ref,o))}else{o=toListing(d,ref);S.own.unshift(o)}
+ o.ver='Pending Review';o.pub='Unpublished';o.fb='';o.hist.push({s:'Submitted',at:now(),by:'You'},{s:'Pending Review',at:now(),by:'System'});
+ notify('Listing submitted for review',`${o.title} — reference ${ref}. We'll email you when the review is complete.`);
+ S.draft=null;store.set('draft',null);files=[];wstep=0;save();
+ modal(`<div class="mtop"><h3>Submitted for review</h3>${X}</div><p>Your property reference is <b>${ref}</b>, submitted ${now()}.</p><p style="color:var(--mut)">Status: <span class="badge in">Pending Review</span>. It will stay private until approved. We'll notify you if changes are needed.</p><a class="btn" href="#dashboard" data-close>Go to my dashboard</a>`)});
+
+/* ---------- favourites & compare ---------- */
+function renderFavs(){const fv=[...S.favs].map(r=>L.find(l=>l.ref===r)).filter(Boolean);
+ $('#favs').innerHTML=fv.length?`<div class="cards three">${fv.map(l=>isPublic(l)?card(l):`<article class="card"><div class="img" style="opacity:.5">${photo(l)}</div><div class="t"><h3>${esc(l.title)}</h3></div><span class="badge no">No longer available</span><button class="btn g s" type="button" data-fav="${l.ref}" style="margin-top:10px">Remove</button></article>`).join('')}</div>`:'<div class="empty">No saved properties yet. Tap the heart on any listing to save it.</div>';
+ const cl=[...S.cmp].map(r=>L.find(l=>l.ref===r)).filter(Boolean);
+ if(cl.length<2){$('#cmptable').innerHTML=`<div class="empty">Tick “Compare” on 2–4 properties to see them side by side.${cl.length?` (${cl.length} selected)`:''}</div>`;return}
+ const rows=[['Price',l=>money(l.price,l.cty)+(l.freq?' '+per(l):'')],['Currency',l=>cur(l.cty)],['Purpose',l=>l.purpose==='Rent'?'Rent':'Sale'],['Category',l=>l.cat],['Location',l=>`${l.area}, ${l.city} ${l.code}`],['Size',l=>l.size.toLocaleString()+' sq ft'],['Bedrooms',l=>l.beds||'—'],['Bathrooms',l=>l.baths||'—'],['Furnishing',l=>l.furn],['Parking',l=>l.parking?'Yes':'No'],...['Garden','Lift','Gym','Security','Power backup'].map(a=>[a,l=>l.amen.includes(a)?'✓':'—']),['Status',l=>isPublic(l)?'Available':'Unavailable']];
+ const mixed=new Set(cl.map(l=>l.cty)).size>1;
+ $('#cmptable').innerHTML=`${mixed?'<p class="fb" style="margin-bottom:14px">You are comparing GBP and INR listings. Prices are shown in their own currency and are not converted.</p>':''}<div class="scroll"><table><thead><tr><th></th>${cl.map(l=>`<th style="min-width:180px"><div style="aspect-ratio:16/10;overflow:hidden;border-radius:10px;margin-bottom:8px">${photo(l).replace('<img ','<img style="width:100%;height:100%;object-fit:cover" ')}</div><a href="#property-${l.ref.toLowerCase()}" style="font:300 16px var(--hd);color:var(--ink)">${esc(l.title)}</a><br><button class="btn g s" type="button" data-uncmp="${l.ref}" style="margin-top:8px">Remove</button></th>`).join('')}</tr></thead><tbody>${rows.map(([k,f])=>`<tr><th>${k}</th>${cl.map(l=>`<td>${esc(f(l))}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ $$('[data-uncmp]').forEach(b=>b.onclick=()=>{S.cmp.delete(b.dataset.uncmp);chrome();renderFavs()})}
+
+/* ---------- profile ---------- */
+function renderProfile(){const u=S.user;
+ $('#profile').innerHTML=`<form class="panel" id="pf" novalidate><h3>Personal details</h3>
+ <div class="co"><div class="mk" id="av" style="overflow:hidden">${u.photo?`<img src="${u.photo}" alt="" style="width:100%;height:100%;object-fit:cover">`:esc(u.name[0])}</div><label class="btn w s" style="cursor:pointer">Change photo<input type="file" accept="image/*" id="avf" class="sr"></label></div>
+ <label class="f">Full name<input name="name" required value="${esc(u.name)}"></label><label class="f">Email<small>Changing this needs your password</small><input name="email" type="email" required value="${esc(u.email)}"></label><label class="f">Phone<input name="phone" value="${esc(u.phone)}"></label>
+ <label class="f">Preferred country<select name="cty"><option value="UK" ${u.cty==='UK'?'selected':''}>United Kingdom</option><option value="IN" ${u.cty==='IN'?'selected':''}>India</option></select></label><button class="btn">Save changes</button></form>
+ <div style="display:grid;gap:20px"><form class="panel" id="np"><h3>Notification preferences</h3><p class="note">Security, verification and payment messages are always sent.</p>
+ <label class="ck"><input type="checkbox" name="email" ${u.prefs.email?'checked':''}> Email updates on enquiries and listings</label><label class="ck"><input type="checkbox" name="sms" ${u.prefs.sms?'checked':''}> SMS alerts for viewing requests</label><label class="ck"><input type="checkbox" name="marketing" ${u.prefs.marketing?'checked':''}> Property tips and offers</label><button class="btn w">Save preferences</button></form>
+ <div class="panel"><h3>Consent &amp; privacy log</h3>${S.consent.length?S.consent.map(c=>`<p style="font-size:15px">${esc(c.what)} <span class="note">· ${esc(c.at)}</span></p>`).join(''):'<p class="note">No records yet.</p>'}</div>
+ <div class="panel"><h3>Account</h3><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn d" type="button" id="lo">Log out</button><button class="btn g" type="button" id="del">Request deactivation or deletion</button></div></div></div>`;
+ $('#avf').onchange=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{u.photo=r.result;save();renderProfile();toast('Photo updated')};r.readAsDataURL(f)};
+ $('#pf').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;const d=Object.fromEntries(new FormData(e.target));const apply=()=>{Object.assign(u,d);save();chrome();toast('Profile saved')};
+  if(d.email!==u.email){modal(`<div class="mtop"><h3>Confirm it's you</h3>${X}</div><form id="ra" style="display:grid;gap:12px" novalidate><label class="f">Current password<input type="password" required></label><button class="btn">Confirm</button></form>`);$('#ra').onsubmit=ev=>{ev.preventDefault();if(!validate(ev.target))return;apply();closeModal();notify('Email changed','Your account email was changed. If this wasn\'t you, contact support.')}}else apply()};
+ $('#np').onsubmit=e=>{e.preventDefault();const f=e.target;['email','sms','marketing'].forEach(k=>{if(u.prefs[k]!==f[k].checked)S.consent.push({what:`${k==='marketing'?'Marketing':k.toUpperCase()} ${f[k].checked?'opted in':'opted out'}`,at:now()});u.prefs[k]=f[k].checked});save();renderProfile();toast('Preferences saved')};
+ $('#lo').onclick=()=>{S.user=null;save();chrome();toast('Logged out');location.hash='home'};
+ $('#del').onclick=()=>{modal(`<div class="mtop"><h3>Deactivate or delete account</h3>${X}</div><form id="dr" style="display:grid;gap:12px" novalidate><label class="f">What would you like?<select><option>Deactivate (hide my listings, keep data)</option><option>Delete my account and data</option></select></label><label class="f">Password<input type="password" required></label><p class="note">Our team will confirm by email. Records we must keep by law (e.g. invoices) are retained.</p><button class="btn">Send request</button></form>`);$('#dr').onsubmit=ev=>{ev.preventDefault();if(!validate(ev.target))return;closeModal();notify('Account request received','We will confirm your deactivation/deletion request by email.');toast('Request sent')}}}
+
+/* ---------- notifications ---------- */
+function renderNotes(){$('#nlist').innerHTML=S.notes.length?S.notes.map((n,i)=>`<div class="notif ${n.read?'read':''}"><i></i><div><b style="font:300 17px var(--hd)">${esc(n.t)}</b><p style="color:var(--mut);font-size:15px">${esc(n.b)}</p><p class="note">${esc(n.at)}</p></div></div>`).join(''):'<div class="empty">You are all caught up.</div>';S.notes.forEach(n=>n.read=true);save();chrome()}
+$('#markall').onclick=()=>{S.notes.forEach(n=>n.read=true);save();renderNotes()};
+
+/* ---------- plans ---------- */
+const PLANS={UK:[{id:'free',n:'Free',p:0,per:'',lim:['1 active listing','Up to 10 photos','Live for 60 days','Standard placement'],note:'No payment needed.'},
+ {id:'single',n:'Paid listing',p:29.99,per:'one-off, 90 days',lim:['1 additional listing','Up to 30 photos + floor plan','Live for 90 days','Listing statistics'],note:'Does not renew automatically. Refundable in full if cancelled before approval.',hl:1},
+ {id:'boost',n:'Featured boost',p:14.99,per:'add-on, 14 days',lim:['Top of search results','“Featured” badge','Homepage featured slot (when available)','For an already approved listing'],note:'Does not renew automatically. Non-refundable once the boost starts.'}],
+ IN:[{id:'free',n:'Free',p:0,per:'',lim:['1 active listing','Up to 10 photos','Live for 60 days','Standard placement'],note:'No payment needed.'},
+ {id:'single',n:'Paid listing',p:999,per:'one-off, 90 days, incl. GST',lim:['1 additional listing','Up to 30 photos + floor plan','Live for 90 days','Listing statistics'],note:'Does not renew automatically. Refundable in full if cancelled before approval.',hl:1},
+ {id:'boost',n:'Featured boost',p:499,per:'add-on, 14 days, incl. GST',lim:['Top of search results','“Featured” badge','Homepage featured slot (when available)','For an already approved listing'],note:'Does not renew automatically. Non-refundable once the boost starts.'}]};
+function renderPlans(){const c=S.cty;$('#pcty').textContent=ctyName(c);
+ $('#plans').innerHTML=PLANS[c].map(p=>`<div class="plan ${p.hl?'hl':''}"><h3>${p.n}</h3><div class="amt">${p.p?new Intl.NumberFormat(c==='UK'?'en-GB':'en-IN',{style:'currency',currency:cur(c)}).format(p.p):money(0,c)}</div><p class="note">${p.per||'Always free'}</p><ul>${p.lim.map(x=>`<li>${x}</li>`).join('')}</ul><p class="note">${p.note}</p><button class="btn ${p.hl?'':'d'}" type="button" data-plan="${p.id}">${p.p?'Choose '+p.n.toLowerCase():'Start for free'}</button></div>`).join('')+'';
+ $$('[data-plan]').forEach(b=>b.onclick=()=>checkout(PLANS[c].find(p=>p.id===b.dataset.plan),c));
+ $('#payhist').innerHTML=S.pays.length?`<div class="scroll"><table class="stack"><thead><tr><th>Receipt</th><th>Item</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead><tbody>${S.pays.map(p=>`<tr><td>${esc(p.id)}</td><td>${esc(p.n)}${p.ref?' · '+esc(p.ref):''}</td><td>${esc(p.amt)}</td><td>${esc(p.at)}</td><td><span class="badge ${p.st==='Paid'?'ok':'no'}">${esc(p.st)}</span></td></tr>`).join('')}</tbody></table></div>`:'<div class="empty">No payments yet.</div>';
+ $('#plans').insertAdjacentHTML('afterend','')}
+function checkout(p,c){if(!need('plans','Sign in to choose a plan.'))return;if(!p.p){toast('You are on the Free plan');location.hash='add-property';return}
+ const pubs=(S.own||[]).filter(l=>l.ver==='Approved'&&l.pub==='Published'&&l.cty===c);const amt=new Intl.NumberFormat(c==='UK'?'en-GB':'en-IN',{style:'currency',currency:cur(c)}).format(p.p);
+ modal(`<div class="mtop"><div><p class="note">Checkout · ${cur(c)}</p><h3>${p.n}</h3></div>${X}</div>
+ <form id="co" style="display:grid;gap:14px" novalidate>${p.id==='boost'?`<label class="f">Listing to boost<select name="ref" required><option value="">Choose an approved listing</option>${pubs.map(l=>`<option value="${esc(l.ref)}">${esc(l.title)} (${esc(l.ref)})</option>`).join('')}</select></label>`:''}
+ <table><tbody><tr><td>Price</td><td style="text-align:right"><b>${amt}</b></td></tr><tr><td>Billing</td><td style="text-align:right">${p.per}</td></tr><tr><td>Renewal</td><td style="text-align:right">None — one-off payment</td></tr><tr><td>Refunds</td><td style="text-align:right;max-width:260px">${p.note.replace('Does not renew automatically. ','')}</td></tr></tbody></table>
+ <label class="ck"><input type="checkbox" required> I have read the price, duration, limits and refund terms above.</label>
+ <button class="btn">Pay ${amt} securely</button><p class="note">You'll be taken to the payment provider. Features unlock only after the payment is confirmed by our server.</p></form>`);
+ $('#co').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;const ref=e.target.ref?.value||'';const bt=e.target.querySelector('.btn');bt.disabled=true;bt.textContent='Waiting for payment confirmation…';
+  setTimeout(()=>{const id='RC-'+String(Date.now()).slice(-6);S.pays.unshift({id,n:p.n,ref,amt,at:now(),st:'Paid'});if(ref){const l=S.own.find(x=>x.ref===ref);l.boost=true;l.hist.push({s:'Featured boost activated',at:now(),by:'System'})}
+   notify('Payment confirmed',`${p.n} — ${amt}. Receipt ${id}.`);save();closeModal();renderPlans();toast('Payment confirmed — entitlement active')},1600)}}
+
+/* ---------- companies ---------- */
+function renderCompanies(){$('#comps').innerHTML=COS.map(c=>{const n=L.filter(l=>l.co===c.id&&isPublic(l)).length;return `<a class="box" href="#company-${c.id}" style="text-decoration:none;display:grid;gap:14px"><div class="co"><div class="mk">${esc(c.name[0])}</div><div><b style="font:300 21px var(--hd)">${esc(c.name)}</b><p class="note">${esc(c.city)}, ${c.cty==='UK'?'United Kingdom':'India'} · since ${c.since}</p></div></div><p style="color:var(--mut)">${esc(c.about)}</p><div style="display:flex;gap:8px;flex-wrap:wrap">${c.verified?'<span class="badge ok">Verified company</span>':''}<span class="badge">${n} live listing${n===1?'':'s'}</span></div></a>`}).join('')}
+function renderCompany(id){const c=COS.find(x=>x.id===id);if(!c){$('#company').innerHTML='<div class="empty">Company not found.</div>';return}const ls=L.filter(l=>l.co===c.id&&isPublic(l));
+ $('#company').innerHTML=`<div class="page-h"><a href="#companies" style="font:15px var(--hd);text-decoration:none">← All companies</a><div class="co" style="margin-top:20px"><div class="mk" style="width:84px;height:84px;font-size:30px">${esc(c.name[0])}</div><div><h1 style="font-size:clamp(30px,4vw,48px)">${esc(c.name)}</h1><p style="color:var(--mut)">${esc(c.city)}, ${c.cty==='UK'?'United Kingdom':'India'} · since ${c.since} ${c.verified?'<span class="badge ok">Verified company</span>':''}</p></div></div><p style="margin-top:18px;max-width:700px;color:var(--mut)">${esc(c.about)} Each listing below was reviewed individually before publishing.</p></div>
+ <h2 style="font-size:30px;margin-bottom:24px">Portfolio <em class="i">(${ls.length})</em></h2><div class="cards three">${ls.map(card).join('')||'<div class="empty">No live listings right now.</div>'}</div>`}
+
+/* ---------- static bits ---------- */
+$('#faq').innerHTML=[['Is every listing checked?','Yes. Every property is reviewed by an administrator before it can appear in search, on the map or on company pages. A verified company still has each of its listings reviewed separately.'],
+['How do I list my property?','Register and verify your email or mobile, then open Add Property. Complete the eight steps, upload photos and proof that you may advertise the property, and submit. You can save a draft at any point.'],
+['How long does a review take?','Usually 1–2 working days. You can follow the status in your dashboard, and we will notify you if the reviewer needs changes.'],
+['Why are UK and India prices never converted?','Listing prices and plan prices are set in the local currency (GBP or INR). Converting them automatically could show misleading figures, so we keep them separate.'],
+['Can I save favourites without an account?','You can save during your visit, but to keep your shortlist across visits and devices you need to sign in.'],
+['What happens when my property is sold or let?','Mark it as Sold, Let agreed or Withdrawn in your dashboard. It leaves public search and the map immediately.'],
+['Are my documents public?','Never. Ownership and identity documents are stored privately and are only visible to you and authorised reviewers.']].map(([q,a])=>`<details><summary>${q}</summary><p>${a}</p></details>`).join('');
+$('#cform').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;e.target.reset();toast('Thanks — your message has been sent to our support team')};
+
+/* ---------- router ---------- */
+const PROT={'add-property':'Sign in or register to list a property.',dashboard:'Sign in to see your listings.',favourites:'Sign in to view your saved list.',profile:'Sign in to manage your profile.',notifications:'Sign in to see your notifications.'};
+function route(){let h=(location.hash||'#home').slice(1)||'home';if(h==='main')h='home';
+ if(PROT[h]&&!need(h,PROT[h]))return;
+ if(h==='account'&&S.user&&authMode!=='otp'){location.hash='profile';return}
+ let v=h;if(h.startsWith('property-'))v='property';else if(h.startsWith('company-'))v='company';
+ if(!$(`[data-view="${v}"]`))v=h='home';
+ $$('[data-view]').forEach(s=>s.classList.toggle('on',s.dataset.view===v));
+ $$('#links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));$('#links').classList.remove('open');
+ ({home:renderHome,search:renderSearch,property:()=>renderProperty(h.slice(9)),'add-property':renderWiz,dashboard:renderDash,favourites:renderFavs,account:renderAccount,profile:renderProfile,notifications:renderNotes,plans:renderPlans,companies:renderCompanies,company:()=>renderCompany(h.slice(8))}[v]||(()=>{}))();
+ document.body.classList.toggle('over',v==='home');chrome();window.scrollTo({top:0});document.body.classList.remove('scrolled')}
+const onScroll=()=>document.body.classList.toggle('scrolled',window.scrollY>40);window.addEventListener('scroll',onScroll,{passive:true});
+window.addEventListener('hashchange',route);route();
+}
