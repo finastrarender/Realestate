@@ -57,6 +57,14 @@ const L=[
 const isPublic=l=>l.ver==='Approved'&&l.pub==='Published';
 const CATS={Residential:['House','Flat/Apartment','Plot/Land'],Commercial:['Office','Retail','Warehouse','Plot/Land']};
 const ALLCATS=['House','Flat/Apartment','Plot/Land','Office','Retail','Warehouse'];
+const CAT_TILES={
+ House:{image:'UK-10421.jpg',description:'Family homes and more'},
+ 'Flat/Apartment':{image:'UK-10458.jpg',description:'Apartments and city living'},
+ 'Plot/Land':{image:'about-home.jpg',description:'Space to build or invest'},
+ Office:{image:'UK-10462.jpg',description:'Workspaces for business'},
+ Retail:{image:'UK-10477.jpg',description:'Shops and storefronts'},
+ Warehouse:{image:'about-page.jpg',description:'Storage and industrial spaces'}
+};
 
 /* ---------- state ---------- */
 const S={cty:store.get('cty','UK'),user:store.get('user',null),favs:new Set(store.get('favs',[])),cmp:new Set(),own:store.get('own',null),enq:store.get('enq',[]),notes:store.get('notes',null),pays:store.get('pays',[]),draft:store.get('draft',null),
@@ -100,7 +108,7 @@ function priceOpts(c,purpose){const v=c==='UK'?(purpose==='Rent'?[750,1000,1500,
 function renderHome(){$('#h-cty').value=S.cty;$('#h-max').innerHTML=priceOpts(S.cty,hp==='Rent'?'Rent':'Buy');
  $('#h-cat').innerHTML='<option value="">Any type</option>'+(hp==='Commercial'?CATS.Commercial:CATS.Residential).map(c=>`<option>${c}</option>`).join('');
  const f=L.filter(l=>isPublic(l)&&l.cty===S.cty).sort((a,b)=>b.featured-a.featured||b.added.localeCompare(a.added)).slice(0,4);$('#featured').innerHTML=f.map(card).join('');$('#fcty').textContent=ctyName(S.cty);
- $('#cats').innerHTML=ALLCATS.map(c=>`<button type="button" data-cat="${c}">${c}</button>`).join('')}
+ $('#cats').innerHTML=ALLCATS.map(c=>{const tile=CAT_TILES[c];return `<button class="cat-card" type="button" data-cat="${esc(c)}" aria-label="Browse ${esc(c)} properties"><span class="cat-card-image"><img src="img/${tile.image}" alt="" loading="lazy"></span><span class="cat-card-content"><span class="cat-card-copy"><strong>${esc(c)}</strong><small>${esc(tile.description)}</small></span><span class="cat-card-action" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span></button>`}).join('')}
 $('#hsearch .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hp=b.dataset.p;$$('#hsearch .tabs button').forEach(x=>x.classList.toggle('on',x===b));renderHome()});
 $('#h-cty').addEventListener('change',e=>{S.cty=e.target.value;save();chrome();renderHome()});
 $('#hsearch').addEventListener('submit',e=>{e.preventDefault();resetF();S.f.purpose=hp==='Rent'?'Rent':hp==='Commercial'?'':'Buy';S.f.seg=hp==='Commercial'?'Commercial':hp==='Buy'||hp==='Rent'?'':'';if(hp!=='Commercial')S.f.seg='Residential';S.f.q=$('#h-q').value.trim();S.f.cat=$('#h-cat').value;S.f.max=$('#h-max').value;location.hash='search'});
