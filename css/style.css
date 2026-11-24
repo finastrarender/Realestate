@@ -17,7 +17,7 @@ h1{font-size:clamp(36px,5.4vw,64px);letter-spacing:-.03em}h2{font-size:clamp(30p
 em.i{font:inherit;font-style:normal;letter-spacing:inherit}
 a{color:inherit}p{margin:0}
 .wrap{max-width:1280px;margin:0 auto;padding:0 max(4vw,16px)}
-.band{padding:120px}
+.band{padding:120px 100px}
 @media(max-width:860px){.band{padding:48px}}
 @media(max-width:560px){.band{padding:16px}}
 .sage{background:var(--sage)}.khaki{background:var(--khaki)}
