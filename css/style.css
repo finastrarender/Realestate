@@ -104,7 +104,7 @@ textarea{min-height:110px;resize:vertical}
 .about-pillar-bottom{margin-top:auto;padding-top:22px}
 .about-pillar-bottom::before{display:block;width:34px;height:2px;margin-bottom:12px;background:var(--line);content:""}
 .about-pillar p{max-width:390px;color:var(--mut);font-size:15px;line-height:1.6}
-.about-panorama{height:clamp(230px,38vw,460px);margin:clamp(32px,5vw,64px) 0 0;overflow:hidden;border-radius:20px;background:var(--soft)}
+.about-panorama{height:clamp(230px,38vw,460px);margin:10px 0 0;overflow:hidden;border-radius:20px;background:var(--soft)}
 .about-panorama img{width:100%;height:100%;display:block;object-fit:cover;object-position:center 55%}
 @media(max-width:700px){.about-cards{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.about-feature{min-height:290px}.about-panorama{height:260px}}
