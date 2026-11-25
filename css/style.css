@@ -187,16 +187,16 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:640px){#featured.cards{grid-template-columns:1fr}}
 @media(max-width:640px){.home-card{max-width:440px;width:100%;margin-inline:auto}.home-card .img{aspect-ratio:1.4}.home-card-body{gap:8px;padding:12px 6px 6px}.home-card .home-card-title{font-size:14px}.home-card-price strong{font-size:13px}.home-card-details span{gap:4px;font-size:10px}.home-card-details svg{width:14px;height:14px}}
 /* process */
-.how-it-works{background:#000;color:#fff}
-.how-panel{padding:clamp(28px,4vw,56px);overflow:hidden;background:transparent}
+.how-it-works{background:#ededed;color:var(--ink)}
+.how-panel{padding:clamp(28px,4vw,56px);overflow:hidden;border-radius:18px;background:#fff}
 .how-heading{max-width:620px;margin:0 auto 34px;text-align:center}
 .how-heading h2{margin:0}
-.how-heading p{margin-top:9px;color:rgba(255,255,255,.72);font-size:14px}
-.how-heading .how-cta{gap:14px;margin-top:18px;padding:6px 8px 6px 18px;background:#fafafa;color:#161415;font-size:13px}
+.how-heading p{margin-top:9px;color:var(--mut);font-size:14px}
+.how-cta{gap:14px;margin-top:18px;padding:6px 8px 6px 18px;font-size:13px}
 .how-cta span{display:grid;width:26px;height:26px;place-items:center;border-radius:50%;background:#fff;color:var(--ink);font-size:17px}
 .how-layout{position:relative;display:grid;min-height:390px;grid-template-columns:minmax(0,1fr) 270px minmax(0,1fr);grid-template-rows:1fr 1fr;gap:18px 24px;align-items:center}
 .how-visual{grid-column:2;grid-row:1/3;justify-self:center}
-.how-phone{width:250px;height:350px;overflow:hidden;padding:7px;border:7px solid #fafafa;border-radius:34px;background:#fff;box-shadow:0 22px 48px rgba(22,20,21,.18);transform:rotate(-2deg)}
+.how-phone{width:250px;height:350px;overflow:hidden;padding:7px;border:7px solid #171515;border-radius:34px;background:#fff;box-shadow:0 22px 48px rgba(22,20,21,.18);transform:rotate(-2deg)}
 .how-phone-top{display:grid;height:18px;place-items:center}
 .how-phone-top span{width:48px;height:5px;border-radius:99px;background:#171515}
 .how-phone>img{display:block;width:100%;height:184px;border-radius:19px;object-fit:cover}
@@ -205,11 +205,11 @@ textarea{min-height:110px;resize:vertical}
 .how-phone-info strong{display:block;margin-top:8px;font:500 15px/1.2 var(--title)}
 .how-phone-info p{margin-top:6px;color:var(--mut);font-size:11px}
 .how-steps{display:contents}
-.how-step{display:flex;width:min(310px,100%);gap:13px;padding:17px;border:1px solid rgba(255,255,255,.72);border-radius:16px;background:#f5f5f5;box-shadow:0 12px 30px rgba(0,0,0,.2)}
+.how-step{display:flex;width:min(310px,100%);gap:13px;padding:17px;border:1px solid rgba(22,20,21,.08);border-radius:16px;background:#fff;box-shadow:0 12px 30px rgba(22,20,21,.08)}
 .how-step:nth-child(1){grid-column:1;grid-row:1;justify-self:end;align-self:start}
 .how-step:nth-child(2){grid-column:1;grid-row:2;justify-self:end;align-self:end}
 .how-step:nth-child(3){grid-column:3;grid-row:1/3;justify-self:start;align-self:center}
-.how-step-icon{display:grid;width:42px;height:42px;flex:none;place-items:center;border:1px solid rgba(22,20,21,.1);border-radius:12px;background:#e9e9e9;color:#262626}
+.how-step-icon{display:grid;width:42px;height:42px;flex:none;place-items:center;border:1px solid rgba(22,20,21,.08);border-radius:12px;background:#f2f5f5;color:var(--ink)}
 .how-step-icon svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .how-step h3{font-size:15px;font-weight:500;color:var(--ink)}
 .how-step p{margin-top:6px;color:var(--mut);font-size:12px;line-height:1.5}
