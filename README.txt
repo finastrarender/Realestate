@@ -37,5 +37,5 @@ IMPORTANT
   This is a front-end prototype. Sign-in (OTP), favourites, listings you add, enquiries and payments
   are saved only in the visitor's own browser (localStorage) and are simulated. Before going live
   with real users you need a backend: real authentication + OTP/SMS, database, admin review panel,
-  payment gateway (e.g. Stripe for GBP, Razorpay for INR), map provider and private document storage.
+  payment gateway for GBP, map provider and private document storage.
   Sample listings, companies, prices and contact details are placeholders.
