@@ -142,23 +142,20 @@ function resetF(){S.f={purpose:'',seg:'',cat:'',q:'',code:'',min:'',max:'',freq:
 
 /* ---------- search ---------- */
 function filterForm(){const f=S.f,sel=(n,opts,v)=>`<select name="${n}">${opts.map(o=>{const[val,t]=Array.isArray(o)?o:[o,o];return `<option value="${val}" ${String(v)===String(val)?'selected':''}>${t}</option>`}).join('')}</select>`;
- $('#filters').innerHTML=`<div style="display:flex;justify-content:space-between;align-items:center"><h4>Filters</h4><button class="btn g s" type="button" id="clear">Clear all</button></div>
- <label class="f">Looking to${sel('purpose',[['','Buy or rent'],'Buy','Rent'],f.purpose)}</label>
- <label class="f">Sector${sel('seg',[['','Residential & commercial'],'Residential','Commercial'],f.seg)}</label>
- <label class="f">Category${sel('cat',[['','Any category'],...ALLCATS],f.cat)}</label>
- <label class="f">Keyword, city or area<input name="q" value="${esc(f.q)}" placeholder="e.g. garden, Manchester"></label>
- <label class="f">Postcode<input name="code" value="${esc(f.code)}" placeholder="e.g. BS9 1AB"></label>
- <div><span class="f" style="font:300 14px var(--hd)">Price (GBP)</span><div class="row" style="margin-top:6px"><input name="min" inputmode="numeric" placeholder="Min" value="${esc(f.min)}" aria-label="Minimum price"><input name="max" inputmode="numeric" placeholder="Max" value="${esc(f.max)}" aria-label="Maximum price"></div></div>
- <label class="f">Rental frequency${sel('freq',[['','Any'],['month','Monthly'],['pw','Weekly']],f.freq)}</label>
- <div class="row"><label class="f">Bedrooms${sel('beds',[['','Any'],['1','1+'],['2','2+'],['3','3+'],['4','4+']],f.beds)}</label><label class="f">Bathrooms${sel('baths',[['','Any'],['1','1+'],['2','2+'],['3','3+']],f.baths)}</label></div>
- <label class="f">Min floor / land area (sq ft)<input name="size" inputmode="numeric" value="${esc(f.size)}"></label>
- <label class="f">Furnishing${sel('furn',[['','Any'],'Furnished','Semi-furnished','Part furnished','Unfurnished'],f.furn)}</label>
- <label class="f">Condition${sel('cond',[['','Any'],'Excellent','Good','Needs updating'],f.cond)}</label>
- <label class="f">Availability${sel('avail',[['','Any'],['now','Available now / ready to move']],f.avail)}</label>
- <label class="ck"><input type="checkbox" name="parking" ${f.parking?'checked':''}> Parking</label>
- <details style="padding:6px 0;border:0"><summary style="font-size:16px">Amenities</summary><div class="amen" style="margin-top:10px">${A.map(a=>`<label class="ck"><input type="checkbox" name="amen" value="${a}" ${f.amen.includes(a)?'checked':''}> ${a}</label>`).join('')}</div></details>`;
+ const group=(title,content,open=false)=>`<details class="filter-group"${open?' open':''}><summary>${title}</summary><div class="filter-group-content">${content}</div></details>`;
+ const radios=(name,opts,value)=>`<div class="filter-options" role="group" aria-label="${name}">${opts.map(([val,label])=>`<label class="filter-option"><input type="radio" name="${name}" value="${esc(val)}" ${String(value)===String(val)?'checked':''}><span>${esc(label)}</span></label>`).join('')}</div>`;
+ $('#filters').innerHTML=`<div class="filter-head"><h4>Filters</h4><button class="btn g s" type="button" id="clear">Clear all</button></div>
+ <label class="filter-search"><span class="sr">Search by keyword or location</span><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg><input type="search" name="q" value="${esc(f.q)}" placeholder="Search" aria-label="Search by keyword or location"></label>
+ ${group('Looking to',radios('purpose',[['','Buy or rent'],['Buy','Buy'],['Rent','Rent']],f.purpose),true)}
+ ${group('Sector',radios('seg',[['','Residential & commercial'],['Residential','Residential'],['Commercial','Commercial']],f.seg))}
+ ${group('Property type',radios('cat',[['','Any category'],...ALLCATS.map(c=>[c,c])],f.cat),true)}
+ ${group('Location',`<label class="f">Postcode<input name="code" value="${esc(f.code)}" placeholder="e.g. BS9 1AB"></label>`)}
+ ${group('Price',`<div><span class="filter-label">Price (GBP)</span><div class="row"><input name="min" inputmode="numeric" placeholder="Min" value="${esc(f.min)}" aria-label="Minimum price"><input name="max" inputmode="numeric" placeholder="Max" value="${esc(f.max)}" aria-label="Maximum price"></div></div><label class="f">Rental frequency${sel('freq',[['','Any'],['month','Monthly'],['pw','Weekly']],f.freq)}</label>`)}
+ ${group('Property details',`<div class="row"><label class="f">Bedrooms${sel('beds',[['','Any'],['1','1+'],['2','2+'],['3','3+'],['4','4+']],f.beds)}</label><label class="f">Bathrooms${sel('baths',[['','Any'],['1','1+'],['2','2+'],['3','3+']],f.baths)}</label></div><label class="f">Min floor / land area (sq ft)<input name="size" inputmode="numeric" value="${esc(f.size)}"></label>`)}
+ ${group('More filters',`<label class="f">Furnishing${sel('furn',[['','Any'],'Furnished','Semi-furnished','Part furnished','Unfurnished'],f.furn)}</label><label class="f">Condition${sel('cond',[['','Any'],'Excellent','Good','Needs updating'],f.cond)}</label><label class="f">Availability${sel('avail',[['','Any'],['now','Available now / ready to move']],f.avail)}</label><label class="ck"><input type="checkbox" name="parking" ${f.parking?'checked':''}> Parking</label><details class="filter-amenities"><summary>Amenities</summary><div class="amen">${A.map(a=>`<label class="ck"><input type="checkbox" name="amen" value="${a}" ${f.amen.includes(a)?'checked':''}> ${a}</label>`).join('')}</div></details>`)}
+ `;
  $('#clear').onclick=()=>{resetF();renderSearch()}}
-$('#filters').addEventListener('input',e=>{const t=e.target,n=t.name;if(!n)return;if(n==='amen')S.f.amen=$$('#filters [name=amen]:checked').map(x=>x.value);else if(n==='parking')S.f.parking=t.checked;else S.f[n]=t.value;S.page=1;if(t.tagName==='SELECT'||t.type==='checkbox')results();else{clearTimeout(S.t);S.t=setTimeout(results,250)}});
+$('#filters').addEventListener('input',e=>{const t=e.target,n=t.name;if(!n)return;if(n==='amen')S.f.amen=$$('#filters [name=amen]:checked').map(x=>x.value);else if(n==='parking')S.f.parking=t.checked;else S.f[n]=t.value;S.page=1;if(t.tagName==='SELECT'||t.type==='checkbox'||t.type==='radio')results();else{clearTimeout(S.t);S.t=setTimeout(results,250)}});
 $('#ftog').onclick=()=>$('#filters').classList.toggle('closed');
 $('#search-categories').addEventListener('click',e=>{const b=e.target.closest('[data-search-cat]');if(!b)return;S.f.cat=b.dataset.searchCat;S.page=1;filterForm();results()});
 $('#sort').onchange=e=>{S.sort=e.target.value;results()};
