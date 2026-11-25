@@ -120,12 +120,12 @@ textarea{min-height:110px;resize:vertical}
 .cat-card-action svg,.cat-card-cta svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .cat-card-content{display:grid;gap:16px;padding:17px 12px 10px}
 .cat-card-copy{display:grid;gap:4px}
-.cat-card-copy strong{font:400 clamp(22px,2.1vw,28px)/1.1 var(--hd);overflow-wrap:anywhere}
+.cat-card-copy strong{font:400 clamp(16px,1.3vw,19px)/1.1 var(--hd);overflow-wrap:anywhere}
 .cat-card-copy small{color:var(--mut);font:300 15px/1.35 "Inter Tight",sans-serif}
 .cat-card-cta{display:flex;min-height:44px;align-items:center;justify-content:center;gap:9px;padding:10px 16px;border-radius:999px;background:var(--ink);color:var(--bg);font:400 14px/1 var(--hd);transition:background .2s}
 .cat-card:hover .cat-card-cta{background:var(--red)}
 @media(max-width:900px){.cat-card{flex-basis:calc((100% - 18px)/2)}}
-@media(max-width:560px){.cats{gap:12px}.cat-card{flex-basis:min(84%,330px);border-radius:25px}.cat-card-image{aspect-ratio:1/1}.cat-card-content{gap:13px;padding:15px 10px 9px}.cat-card-copy strong{font-size:25px}.cat-card-copy small{font-size:15px}.cat-card-action{width:40px;height:40px}}
+@media(max-width:560px){.cats{gap:12px}.cat-card{flex-basis:min(84%,330px);border-radius:25px}.cat-card-image{aspect-ratio:1/1}.cat-card-content{gap:13px;padding:15px 10px 9px}.cat-card-copy strong{font-size:17px}.cat-card-copy small{font-size:15px}.cat-card-action{width:40px;height:40px}}
 /* cards */
 .cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
 .cards.three{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
