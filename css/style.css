@@ -10,7 +10,7 @@
 --hd:"Poppins",Arial,sans-serif;--title:"Plus Jakarta Sans",Arial,sans-serif;--it:"Poppins",Arial,sans-serif}
 :root[data-theme]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
-html{scroll-padding-top:90px}
+html{scroll-padding-top:76px}
 body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.55 var(--hd);overflow-x:clip}
 h1,h2,h3,h4{font-family:var(--title);font-weight:500;line-height:1.08;letter-spacing:-1px;margin:0;text-wrap:balance}
 h1{font-size:clamp(30px,4.4vw,54px)}h2{font-size:clamp(24px,3vw,40px)}h3{font-size:20px}
@@ -31,16 +31,16 @@ a{color:inherit}p{margin:0}
 .ar{width:16px;height:16px}
 /* nav */
 body>header{position:fixed;top:0;left:0;right:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);transition:background .3s,border-color .3s}
-main{padding-top:78px}body.over main{padding-top:0}
+main{padding-top:64px}body.over main{padding-top:0}
 body.over>header{background:transparent;border-color:transparent}
-body.scrolled>header{background:rgba(22,20,21,.1);border-color:rgba(255,255,255,.14);backdrop-filter:blur(16px);color:#fff}
+body.scrolled>header{background:rgba(22,20,21,.2);border-color:rgba(255,255,255,.14);backdrop-filter:blur(16px);color:#fff}
 body.scrolled .links a:hover{background:rgba(255,255,255,.12)}
 body.scrolled .links a.on{background:#000;color:#fff}
 body.scrolled .ico,body.scrolled .btn.w{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#fff}
 body.scrolled .links{background:transparent!important;color:#fff;border-color:transparent}
 body.over .hero-copy{padding-top:calc(70px + clamp(30px,4vw,60px))}
 body.over:not(.scrolled) .links a.on,body.over:not(.scrolled) .links a:hover{background:rgba(255,255,255,.55)}
-.nav{position:relative;display:flex;align-items:center;gap:20px;height:78px}
+.nav{position:relative;display:flex;align-items:center;gap:20px;height:64px}
 .logo{display:flex;align-items:center;gap:9px;font:300 25px/1 var(--hd);text-decoration:none;letter-spacing:-.02em}
 .logo svg{width:28px;height:28px}
 .links{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:4px;font:15px var(--hd)}
@@ -49,7 +49,7 @@ body.over:not(.scrolled) .links a.on,body.over:not(.scrolled) .links a:hover{bac
 .ico{flex:none;position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid var(--line);background:var(--card);cursor:pointer;color:var(--ink);text-decoration:none}
 .ico svg{width:19px;height:19px}.ico b{position:absolute;top:-3px;right:-3px;background:var(--red);color:#fff;font:400 11px/18px var(--hd);min-width:18px;border-radius:9px;text-align:center}
 .burger{display:none}
-@media(max-width:960px){.links{display:none;position:absolute;top:78px;left:0;right:0;transform:none;flex-direction:column;background:var(--bg)!important;padding:12px max(4vw,16px);border-bottom:1px solid var(--line)}.links.open{display:flex}.burger{display:grid}.nav .logo{margin-right:auto}.nav .tools{margin-left:auto}}
+@media(max-width:960px){.links{display:none;position:absolute;top:64px;left:0;right:0;transform:none;flex-direction:column;background:var(--bg)!important;padding:12px max(4vw,16px);border-bottom:1px solid var(--line)}.links.open{display:flex}.burger{display:grid}.nav .logo{margin-right:auto}.nav .tools{margin-left:auto}}
 @media(max-width:560px){.hide-s{display:none!important}}
 /* hero */
 .hero{--hero-image-height:52%;position:relative;width:100%;max-width:none;min-height:clamp(560px,60vw,740px);margin:0;border-radius:0;overflow:hidden;background:#FFFFFF}
@@ -402,7 +402,7 @@ section[data-view]:not([data-view="home"])>.wrap{padding-top:34px;padding-bottom
 .empty{min-height:180px;display:grid;place-items:center;padding:48px;border:1px solid var(--line);border-radius:22px;background:linear-gradient(135deg,var(--soft),var(--card));box-shadow:0 16px 40px rgba(22,20,21,.045)}
 
 /* shortlist and comparison */
-section[data-view="favourites"]>.wrap{min-height:calc(100vh - 78px)}
+section[data-view="favourites"]>.wrap{min-height:calc(100vh - 64px)}
 section[data-view="favourites"] .page-h{padding-top:28px;padding-bottom:18px}
 section[data-view="favourites"] #favs:empty{display:none}
 section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px solid var(--line);border-radius:18px;background:var(--soft);font-size:24px}
