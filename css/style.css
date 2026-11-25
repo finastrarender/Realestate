@@ -187,9 +187,9 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:640px){#featured.cards{grid-template-columns:1fr}}
 @media(max-width:640px){.home-card{max-width:440px;width:100%;margin-inline:auto}.home-card .img{aspect-ratio:1.4}.home-card-body{gap:8px;padding:12px 6px 6px}.home-card .home-card-title{font-size:14px}.home-card-price strong{font-size:13px}.home-card-details span{gap:4px;font-size:10px}.home-card-details svg{width:14px;height:14px}}
 .city-listings{background:#b5a895}
-[data-view="home"]>.band.city-listings{display:grid;min-height:100vh;align-items:center;padding-top:0;padding-bottom:0}
-.city-listings>.wrap{width:100%;max-width:none;margin:0;padding:24px}
-.city-showcase{position:relative;isolation:isolate;width:100%;height:calc(100vh - 48px);min-height:560px;overflow:hidden;border:8px solid #171615;border-radius:20px;background:#302a25;color:#fff;box-shadow:0 24px 55px rgba(39,31,24,.2)}
+[data-view="home"]>.band.city-listings{display:grid;min-height:100vh;min-height:100svh;align-items:stretch;padding-top:0;padding-bottom:0}
+.city-listings>.wrap{width:100%;max-width:none;height:100%;margin:0;padding:0}
+.city-showcase{position:relative;isolation:isolate;width:100%;height:100vh;height:100svh;min-height:100vh;min-height:100svh;overflow:hidden;border:0;border-radius:0;background:#302a25;color:#fff;box-shadow:none}
 .city-showcase-backdrop{position:absolute;z-index:-2;inset:0;overflow:hidden}
 .city-showcase-backdrop img,.city-showcase-backdrop svg{display:block;width:100%;height:100%;object-fit:cover;filter:brightness(.62) saturate(.78)}
 .city-showcase::after{position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(17,16,15,.68),rgba(17,16,15,.26) 58%,rgba(17,16,15,.1)),linear-gradient(0deg,rgba(17,16,15,.22),transparent 30%);content:""}
@@ -227,8 +227,8 @@ textarea{min-height:110px;resize:vertical}
 @keyframes city-backdrop-in{from{opacity:.35;transform:scale(1.05)}to{opacity:1;transform:scale(1)}}
 @keyframes city-copy-in{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:translateX(0)}}
 @keyframes city-card-in{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
-@media(max-width:1100px){.city-showcase{height:auto;min-height:calc(100vh - 48px)}.city-showcase-main{grid-template-columns:1fr;gap:24px}.city-showcase-copy{max-width:620px}.city-showcase-copy h2{font-size:clamp(46px,8vw,72px)}.city-showcase-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.city-showcase-card{height:250px}}
-@media(max-width:560px){.city-listings>.wrap{padding:16px}.city-showcase{min-height:calc(100vh - 32px);border-width:6px;border-radius:16px}.city-showcase-inner{padding:18px 14px 14px}.city-showcase-top,.city-showcase-footer{font-size:8px}.city-showcase-top span:last-child{display:none}.city-showcase-main{gap:20px;padding:20px 0}.city-showcase-copy h2{font-size:clamp(42px,12vw,62px)}.city-showcase-copy p{font-size:12px}.city-showcase-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.city-showcase-card{height:210px}.city-showcase-card:nth-child(3){display:none}.city-showcase-card-heading strong{font-size:12px}.city-showcase-footer>span:first-child{max-width:110px}.city-showcase-controls button{width:30px;height:30px}}
+@media(max-width:1100px){.city-showcase-main{grid-template-columns:1fr;gap:24px}.city-showcase-copy{max-width:620px}.city-showcase-copy h2{font-size:clamp(46px,8vw,72px)}.city-showcase-cards{grid-template-columns:repeat(3,minmax(0,1fr))}.city-showcase-card{height:250px}}
+@media(max-width:560px){.city-showcase-inner{padding:18px 14px 14px}.city-showcase-top,.city-showcase-footer{font-size:8px}.city-showcase-top span:last-child{display:none}.city-showcase-main{gap:20px;padding:20px 0}.city-showcase-copy h2{font-size:clamp(42px,12vw,62px)}.city-showcase-copy p{font-size:12px}.city-showcase-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.city-showcase-card{height:210px}.city-showcase-card:nth-child(3){display:none}.city-showcase-card-heading strong{font-size:12px}.city-showcase-footer>span:first-child{max-width:110px}.city-showcase-controls button{width:30px;height:30px}}
 @media(prefers-reduced-motion:reduce){.city-showcase.is-changing .city-showcase-backdrop img,.city-showcase.is-changing .city-showcase-backdrop svg,.city-showcase.is-changing .city-showcase-copy,.city-showcase.is-changing .city-showcase-card{animation:none}}
 /* process */
 [data-view="home"]>.band.how-it-works{padding-top:20px;padding-bottom:20px;background:#ededed;color:var(--ink)}
