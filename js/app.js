@@ -161,7 +161,6 @@ function filterForm(){const f=S.f,sel=(n,opts,v)=>`<select name="${n}">${opts.ma
 $('#filters').addEventListener('input',e=>{const t=e.target,n=t.name;if(!n)return;if(n==='amen')S.f.amen=$$('#filters [name=amen]:checked').map(x=>x.value);else if(n==='parking')S.f.parking=t.checked;else S.f[n]=t.value;S.page=1;if(t.tagName==='SELECT'||t.type==='checkbox')results();else{clearTimeout(S.t);S.t=setTimeout(results,250)}});
 $('#ftog').onclick=()=>$('#filters').classList.toggle('closed');
 $('#search-categories').addEventListener('click',e=>{const b=e.target.closest('[data-search-cat]');if(!b)return;S.f.cat=b.dataset.searchCat;S.page=1;filterForm();results()});
-$('#browse-properties').addEventListener('click',()=>$('#results').scrollIntoView({behavior:'smooth',block:'start'}));
 $('#sort').onchange=e=>{S.sort=e.target.value;results()};
 $$('.seg button').forEach(b=>b.onclick=()=>{S.mode=b.dataset.m;$$('.seg button').forEach(x=>x.classList.toggle('on',x===b));results()});
 function query(){const f=S.f,q=f.q.toLowerCase();let r=L.filter(l=>isPublic(l)&&l.cty===S.cty

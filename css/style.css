@@ -263,14 +263,13 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:640px){.how-panel{padding:28px 18px}.how-heading{margin-bottom:26px}.how-steps{grid-template-columns:1fr}.how-phone{width:230px;height:335px}.how-phone>img{height:170px}}
 /* search page */
 .page-h{padding:48px 0 28px}
-.search-hero{position:relative;display:flex;min-height:290px;align-items:center;overflow:hidden;margin:36px 0 24px;padding:38px 44px;border-radius:22px;background:var(--sage)}
+.search-hero{position:relative;display:flex;width:100vw;min-height:clamp(320px,28vw,460px);align-items:center;overflow:hidden;margin:36px calc(50% - 50vw) 24px;padding:38px 0;border-radius:0;background:var(--sage)}
 .search-hero>img{position:absolute;inset:0 0 0 auto;width:64%;height:100%;object-fit:cover;object-position:center 55%}
 .search-hero::after{position:absolute;inset:0;background:linear-gradient(90deg,var(--sage) 0%,color-mix(in srgb,var(--sage) 76%,transparent) 46%,transparent 100%);content:""}
-.search-hero-copy{position:relative;z-index:1;max-width:560px}
+.search-hero-copy{position:relative;z-index:1;width:min(100%,1280px);max-width:1280px;margin:0 auto;padding-inline:max(4vw,24px)}
 .search-hero .chip{background:var(--bg)}
 .search-hero h1{max-width:540px;margin-top:12px;font-size:clamp(30px,3.6vw,42px)}
 .search-hero p{max-width:440px;margin-top:10px;color:var(--mut)}
-.search-hero .btn{margin-top:18px}
 .search-categories{display:flex;gap:8px;overflow-x:auto;margin:0 0 26px;padding:2px 0 10px;scrollbar-width:none}
 .search-categories::-webkit-scrollbar{display:none}
 .search-category{flex:none;padding:10px 17px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:300 14px var(--hd);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -304,7 +303,8 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:1100px){.search-results.cards.three{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){
  .search-results.cards.three{grid-template-columns:1fr}
- .search-hero{min-height:260px;margin:20px 0 18px;padding:24px}
+ .search-hero{min-height:260px;margin:20px calc(50% - 50vw) 18px;padding:24px 0}
+ .search-hero-copy{padding-inline:24px}
  .search-hero>img{width:100%;opacity:.3}
  .search-hero::after{background:linear-gradient(90deg,color-mix(in srgb,var(--sage) 96%,transparent),color-mix(in srgb,var(--sage) 82%,transparent))}
  .search-hero h1{font-size:clamp(28px,8vw,36px)}
