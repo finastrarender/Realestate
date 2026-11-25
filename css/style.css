@@ -1,19 +1,19 @@
 /* VOICE: calm, premium, architectural — Arvynx look for a UK property marketplace
    IDEA: an architect's portfolio where every listing is a "project" card
    PICTURE: drawn gabled timber houses under a soft sky; each listing gets its own drawn building
-   COLOUR and TYPE: white backgrounds, terracotta red accent; Poppins + Oswald titles
+   COLOUR and TYPE: white backgrounds, terracotta red accent; Poppins + Plus Jakarta Sans titles
    LAYOUT: pill nav, two-column big cards, full-width sections, Arvynx-style footer */
 :root{color-scheme:light;
 --bg:#FFFFFF;--ink:#161415;--mut:#5f5a57;
 --sage:#FFFFFF;--khaki:#FFFFFF;--red:#C03A38;
 --card:#FFFFFF;--line:rgba(22,20,21,.13);--soft:#FFFFFF;
---hd:"Poppins",Arial,sans-serif;--title:"Oswald",Arial,sans-serif;--it:"Poppins",Arial,sans-serif}
+--hd:"Poppins",Arial,sans-serif;--title:"Plus Jakarta Sans",Arial,sans-serif;--it:"Poppins",Arial,sans-serif}
 :root[data-theme]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:90px}
 body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.55 var(--hd);overflow-x:clip}
-h1,h2,h3,h4{font-family:var(--title);font-weight:600;line-height:1.08;margin:0;text-wrap:balance}
-h1{font-size:clamp(36px,5.4vw,64px);letter-spacing:-.03em}h2{font-size:clamp(30px,3.6vw,48px);letter-spacing:-.025em}h3{font-size:22px;letter-spacing:-.01em}
+h1,h2,h3,h4{font-family:var(--title);font-weight:600;line-height:1.08;letter-spacing:-1px;margin:0;text-wrap:balance}
+h1{font-size:clamp(36px,5.4vw,64px)}h2{font-size:clamp(30px,3.6vw,48px)}h3{font-size:22px}
 em.i{font:inherit;font-style:normal;letter-spacing:inherit}
 a{color:inherit}p{margin:0}
 .wrap{max-width:1280px;margin:0 auto;padding:0 max(4vw,16px)}
