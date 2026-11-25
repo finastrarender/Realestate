@@ -105,18 +105,27 @@ function chrome(){const fn=S.favs.size,nn=S.notes.filter(n=>!n.read).length;$('#
 $('#burger').addEventListener('click',()=>{const o=$('#links').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
 
 /* ---------- home ---------- */
-let hp='Buy';
+let hp='Buy',cityEntries=[],cityIndex=0;
 function priceOpts(purpose){const v=purpose==='Rent'?[750,1000,1500,2000,3000,5000]:[200000,300000,500000,750000,1000000,2000000];return '<option value="">No max price</option>'+v.map(x=>`<option value="${x}">Up to ${money(x)}</option>`).join('')}
 function renderHome(){$('#h-max').innerHTML=priceOpts(hp==='Rent'?'Rent':'Buy');
  $('#h-cat').innerHTML='<option value="">Any type</option>'+(hp==='Commercial'?CATS.Commercial:CATS.Residential).map(c=>`<option>${c}</option>`).join('');
  const f=L.filter(l=>isPublic(l)&&l.cty===S.cty).sort((a,b)=>b.featured-a.featured||b.added.localeCompare(a.added)).slice(0,4);$('#featured').innerHTML=f.map(homeCard).join('');$('#fcty').textContent=ctyName(S.cty);
- $('#cats').innerHTML=ALLCATS.map(c=>{const tile=CAT_TILES[c];return `<button class="cat-card" type="button" data-cat="${esc(c)}" aria-label="Browse ${esc(c)} properties"><span class="cat-card-image"><img src="img/${tile.image}" alt="" loading="lazy"><span class="cat-card-action" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span><span class="cat-card-content"><span class="cat-card-copy"><strong>${esc(c)}</strong><small>${esc(tile.description)}</small></span></span></button>`}).join('')}
+ $('#cats').innerHTML=ALLCATS.map(c=>{const tile=CAT_TILES[c];return `<button class="cat-card" type="button" data-cat="${esc(c)}" aria-label="Browse ${esc(c)} properties"><span class="cat-card-image"><img src="img/${tile.image}" alt="" loading="lazy"><span class="cat-card-action" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span><span class="cat-card-content"><span class="cat-card-copy"><strong>${esc(c)}</strong><small>${esc(tile.description)}</small></span></span></button>`}).join('');
  const cities=new Map();L.filter(l=>isPublic(l)&&l.cty===S.cty).forEach(l=>{const city=cities.get(l.city);if(city)city.count++;else cities.set(l.city,{listing:l,count:1})});
- $('#city-listings').innerHTML=[...cities].sort((a,b)=>b[1].count-a[1].count||a[0].localeCompare(b[0])).map(([city,data])=>`<button class="city-card" type="button" data-city="${esc(city)}" aria-label="Browse properties in ${esc(city)}"><span class="city-card-image">${photo(data.listing)}</span><span class="city-card-copy"><strong>${esc(city)}</strong><small>${data.count} ${data.count===1?'listing':'listings'}</small></span><span class="city-card-arrow" aria-hidden="true">→</span></button>`).join('');
+ cityEntries=[...cities].sort((a,b)=>b[1].count-a[1].count||a[0].localeCompare(b[0]));cityIndex=cityEntries.length?cityIndex%cityEntries.length:0;renderCityShowcase();
+}
+function renderCityShowcase(){if(!cityEntries.length)return;const [city,data]=cityEntries[cityIndex],total=cityEntries.length;
+ $('#city-showcase-backdrop').innerHTML=photo(data.listing);$('#city-feature-title').textContent=city;
+ $('#city-feature-description').textContent=`Explore ${data.count} live ${data.count===1?'listing':'listings'} in ${city}.`;
+ $('#city-explore').dataset.city=city;$('#city-showcase-count').textContent=`${String(cityIndex+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
+ const previewCount=Math.min(3,Math.max(1,total-1));
+ $('#city-listings').innerHTML=Array.from({length:previewCount},(_,i)=>{const entryIndex=total===1?cityIndex:(cityIndex+i+1)%total,[name,entry]=cityEntries[entryIndex];
+ return `<button class="city-showcase-card" type="button" data-city="${esc(name)}" aria-label="Browse properties in ${esc(name)}"><span class="city-showcase-card-image">${photo(entry.listing)}</span><span class="city-showcase-card-badge">${String(i+1).padStart(2,'0')}</span><span class="city-showcase-card-info"><strong>${esc(name)}</strong><small>${entry.count} ${entry.count===1?'available listing':'available listings'}</small></span></button>`}).join('')
+}
 $('#hsearch .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hp=b.dataset.p;$$('#hsearch .tabs button').forEach(x=>x.classList.toggle('on',x===b));renderHome()});
 $('#hsearch').addEventListener('submit',e=>{e.preventDefault();resetF();S.f.purpose=hp==='Rent'?'Rent':hp==='Commercial'?'':'Buy';S.f.seg=hp==='Commercial'?'Commercial':hp==='Buy'||hp==='Rent'?'':'';if(hp!=='Commercial')S.f.seg='Residential';S.f.q=$('#h-q').value.trim();S.f.cat=$('#h-cat').value;S.f.max=$('#h-max').value;location.hash='search'});
 $('#cats').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;resetF();S.f.purpose='';S.f.cat=b.dataset.cat;location.hash='search'});
-$('#city-listings').addEventListener('click',e=>{const b=e.target.closest('[data-city]');if(!b)return;resetF();S.f.q=b.dataset.city;location.hash='search'});
+$('#city-showcase').addEventListener('click',e=>{const step=e.target.closest('[data-city-step]');if(step&&cityEntries.length){cityIndex=(cityIndex+Number(step.dataset.cityStep)+cityEntries.length)%cityEntries.length;renderCityShowcase();return}const b=e.target.closest('[data-city]');if(!b)return;resetF();S.f.q=b.dataset.city;location.hash='search'});
 function resetF(){S.f={purpose:'',seg:'',cat:'',q:'',code:'',min:'',max:'',freq:'',beds:'',baths:'',size:'',furn:'',parking:false,amen:[],cond:'',avail:''};S.page=1}
 
 /* ---------- search ---------- */

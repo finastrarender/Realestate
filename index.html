@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap">
-<link rel="stylesheet" href="css/style.css?v=53">
+<link rel="stylesheet" href="css/style.css?v=54">
 </head>
 <body>
 <a href="#main" class="sr">Skip to content</a>
@@ -88,8 +88,17 @@
   <div class="cards" id="featured"></div>
  </div></div>
  <div class="band city-listings"><div class="wrap">
-  <div class="head city-heading"><div><span class="chip">Explore by city</span><h2>Find a home <em class="i">in your city</em></h2></div><p>Browse live homes and spaces across the UK.</p></div>
-  <div class="city-grid" id="city-listings" aria-label="Browse properties by city"></div>
+  <section class="city-showcase" id="city-showcase" aria-label="Explore properties by city" aria-roledescription="carousel">
+   <div class="city-showcase-backdrop" id="city-showcase-backdrop" aria-hidden="true"></div>
+   <div class="city-showcase-inner">
+    <div class="city-showcase-top"><span>NESTORA <b>—</b> UK LOCATIONS</span><span>HOMES · FLATS · SPACES</span></div>
+    <div class="city-showcase-main">
+     <div class="city-showcase-copy"><span>EXPLORE BY CITY</span><h2 id="city-feature-title"></h2><p id="city-feature-description"></p><button class="city-explore" id="city-explore" type="button" data-city="">Explore listings <span aria-hidden="true">→</span></button></div>
+     <div class="city-showcase-cards" id="city-listings" aria-label="More cities"></div>
+    </div>
+    <div class="city-showcase-footer"><span>Find a place to call home</span><div class="city-showcase-controls"><button type="button" data-city-step="-1" aria-label="Previous city">←</button><button type="button" data-city-step="1" aria-label="Next city">→</button></div><span id="city-showcase-count"></span></div>
+   </div>
+  </section>
  </div></div>
  <div class="band how-it-works"><div class="wrap"><div class="how-panel">
   <header class="how-heading"><h2>How it works</h2><p>From your first search to finding the right place.</p><a class="btn d s how-cta" href="#search">Browse properties <span aria-hidden="true">→</span></a></header>
@@ -259,6 +268,6 @@
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="js/app.js?v=11" defer></script>
+<script src="js/app.js?v=13" defer></script>
 </body>
 </html>
