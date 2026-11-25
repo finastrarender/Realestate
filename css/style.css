@@ -454,7 +454,7 @@ b,strong{font-weight:400}
 .plan.hl{background:var(--ink);color:var(--bg)}.plan.hl .note,.plan.hl li{color:inherit;opacity:.85}
 .plan .amt{font:200 44px/1 var(--hd);letter-spacing:-.03em}.plan ul{margin:0;padding-left:18px;display:grid;gap:6px;font-size:15px}
 .plan .btn{margin-top:auto}
-.comp{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}@media(max-width:700px){.comp{grid-template-columns:1fr}}
+.comp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
 .company-card{position:relative;isolation:isolate;display:flex;min-height:330px;flex-direction:column;justify-content:space-between;overflow:hidden;padding:26px;border:1px solid rgba(255,255,255,.18);border-radius:24px;background:#3c332d;color:#fff;text-decoration:none;box-shadow:0 16px 36px rgba(22,20,21,.12);transition:transform .25s,box-shadow .25s}
 .company-card::before,.company-card::after{position:absolute;z-index:-1;inset:0;content:""}
 .company-card::before{background:var(--company-cover) center 52%/cover;transition:transform .5s}
@@ -468,6 +468,8 @@ b,strong{font-weight:400}
 .company-card-summary{max-width:500px;color:rgba(255,255,255,.92);font-size:16px;line-height:1.45}
 .company-card-stats{display:flex;flex-wrap:wrap;gap:8px}
 .company-card-stats span{padding:7px 11px;border:1px solid rgba(255,255,255,.3);border-radius:999px;background:rgba(20,18,16,.24);font-size:12px;backdrop-filter:blur(10px)}
+@media(max-width:1000px){.comp{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.comp{grid-template-columns:1fr}}
 .co{display:flex;gap:18px;align-items:center}.co .mk{width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:300 22px var(--hd);background:var(--sage);flex:none}
 details{border-bottom:1px solid var(--line);padding:18px 0}summary{cursor:pointer;font:500 18px var(--title);letter-spacing:-1px;list-style:none;display:flex;justify-content:space-between;gap:16px}section[data-view="help"] details>summary::after,section[data-view="privacy"] details>summary::after,section[data-view="terms"] details>summary::after{content:"+";font-size:24px;line-height:1}section[data-view="help"] details[open]>summary::after,section[data-view="privacy"] details[open]>summary::after,section[data-view="terms"] details[open]>summary::after{content:"–"}
 details p{margin-top:10px;color:var(--mut);max-width:760px}
