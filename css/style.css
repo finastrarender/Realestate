@@ -1,17 +1,17 @@
 /* VOICE: calm, premium, architectural — Arvynx look for a UK property marketplace
    IDEA: an architect's portfolio where every listing is a "project" card
    PICTURE: drawn gabled timber houses under a soft sky; each listing gets its own drawn building
-   COLOUR and TYPE: white backgrounds, terracotta red accent; Stack Sans Headline + Instrument Serif italic accents
+   COLOUR and TYPE: white backgrounds, terracotta red accent; Urbanist
    LAYOUT: pill nav, two-column big cards, full-width sections, Arvynx-style footer */
 :root{color-scheme:light;
 --bg:#FFFFFF;--ink:#161415;--mut:#5f5a57;
 --sage:#FFFFFF;--khaki:#FFFFFF;--red:#C03A38;
 --card:#FFFFFF;--line:rgba(22,20,21,.13);--soft:#FFFFFF;
---hd:"Stack Sans Headline","Inter Tight",Arial,sans-serif;--it:"Instrument Serif",Georgia,serif}
+--hd:"Urbanist",Arial,sans-serif;--it:"Urbanist",Arial,sans-serif}
 :root[data-theme]{color-scheme:light}
 *{box-sizing:border-box;min-width:0}
 html{scroll-padding-top:90px}
-body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.55 "Inter Tight",var(--hd);overflow-x:clip}
+body{margin:0;background:var(--bg);color:var(--ink);font:300 16px/1.55 var(--hd);overflow-x:clip}
 h1,h2,h3,h4{font-family:var(--hd);font-weight:200;line-height:1.08;margin:0;text-wrap:balance}
 h1{font-size:clamp(36px,5.4vw,64px);letter-spacing:-.03em}h2{font-size:clamp(30px,3.6vw,48px);letter-spacing:-.025em}h3{font-size:22px;letter-spacing:-.01em;font-weight:300}
 em.i{font:inherit;font-style:normal;letter-spacing:inherit}
@@ -80,8 +80,8 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 @media(max-width:560px){.hero{--hero-image-height:48%;min-height:740px}.hero-copy{padding-top:36px}.hero h1{font-size:clamp(36px,10vw,52px)}.hero p.lead{font-size:15px}.heroart{object-position:58% center}body.over .hero-copy{padding-top:92px}.hero-search{bottom:14px}.sbox{padding:8px}.tabs{justify-content:space-between}.tabs button{padding:9px 10px}.sgrid{gap:6px}}
 /* forms */
 label.f{display:grid;gap:6px;font:300 14px var(--hd)}
-label.f small{font:300 13px "Inter Tight";color:var(--mut)}
-input,select,textarea{font:16px "Inter Tight",sans-serif;color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:46px;width:100%}
+label.f small{font:300 13px var(--hd);color:var(--mut)}
+input,select,textarea{font:16px var(--hd);color:var(--ink);background:var(--soft);border:1px solid var(--line);border-radius:12px;padding:11px 13px;min-height:46px;width:100%}
 textarea{min-height:110px;resize:vertical}
 .err input,.err select,.err textarea{border-color:var(--red)}
 .emsg{color:var(--red);font-size:13px}
@@ -132,7 +132,7 @@ textarea{min-height:110px;resize:vertical}
 .cat-card-content{display:grid;padding:17px 12px 10px}
 .cat-card-copy{display:grid;gap:4px}
 #cats .cat-card-copy strong{font:400 clamp(14px,1vw,16px)/1.2 var(--hd);overflow-wrap:anywhere}
-.cat-card-copy small{color:var(--mut);font:300 15px/1.35 "Inter Tight",sans-serif}
+.cat-card-copy small{color:var(--mut);font:300 15px/1.35 var(--hd)}
 @media(max-width:900px){.cat-card{flex-basis:calc((100% - 18px)/2)}}
 @media(max-width:560px){.cats{gap:12px}.cat-card{flex-basis:min(84%,330px);border-radius:25px}.cat-card-image{aspect-ratio:1/1}.cat-card-content{gap:13px;padding:15px 10px 9px}#cats .cat-card-copy strong{font-size:15px}.cat-card-copy small{font-size:15px}.cat-card-action{width:40px;height:40px}}
 /* cards */
@@ -291,7 +291,7 @@ textarea{min-height:110px;resize:vertical}
 .property-price-card{padding:20px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:0 12px 32px rgba(22,20,21,.07)}
 .property-eyebrow{font:300 12px var(--hd);letter-spacing:.04em;text-transform:uppercase;color:var(--mut)}
 .property-price{margin-top:8px;font:500 30px/1.15 var(--hd)}
-.property-price small{margin-left:5px;font:300 14px "Inter Tight",sans-serif;color:var(--mut)}
+.property-price small{margin-left:5px;font:300 14px var(--hd);color:var(--mut)}
 .property-reference{margin-top:5px;color:var(--mut);font-size:12px}
 .property-breakdown{display:grid;gap:11px;margin-top:18px;padding:15px;border:1px solid var(--line);border-radius:14px}
 .property-breakdown h2{margin-bottom:2px;font:400 16px var(--hd)}
