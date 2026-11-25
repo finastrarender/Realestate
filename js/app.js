@@ -212,7 +212,7 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
  const advertiser=coName(l.co)||'Private owner';
  $('#prop').innerHTML=`<div class="property-layout">
  <main class="property-main">
-  <div class="property-toolbar"><a href="#search">← Back to properties</a><div class="property-actions"><button class="btn w s property-save" type="button" data-fav="${l.ref}" aria-label="Save ${esc(l.title)}" aria-pressed="${S.favs.has(l.ref)}"><span aria-hidden="true">${S.favs.has(l.ref)?'♥':'♡'}</span> ${S.favs.has(l.ref)?'Saved':'Save'}</button><button class="btn w s" type="button" id="cmpb">${S.cmp.has(l.ref)?'✓ Comparing':'+ Compare'}</button></div></div>
+  <div class="property-toolbar"><a href="#search">← Back to properties</a><div class="property-actions"><button class="btn w s property-save" type="button" data-fav="${l.ref}" aria-label="Save ${esc(l.title)}" aria-pressed="${S.favs.has(l.ref)}"><span aria-hidden="true">${S.favs.has(l.ref)?'♥':'♡'}</span> ${S.favs.has(l.ref)?'Saved':'Save'}</button></div></div>
   <div class="property-gallery" id="gal" aria-label="Property photos">${[0,1,2,3,4].map((v,i)=>`<div class="property-photo property-photo-${i+1}">${photo(l,v)}</div>`).join('')}<span class="property-gallery-count">5 photos</span></div>
   <header class="property-heading"><div><span class="chip">${l.purpose==='Rent'?'To rent':'For sale'} · ${esc(l.seg)}</span><h1>${esc(l.title)}</h1><p>${esc(addr(l))}</p></div><span class="badge ok">Verified listing</span></header>
   <div class="property-facts">${facts.map(([label,value])=>`<div><small>${propertyIcon(label)}${label}</small><b>${esc(value)}</b></div>`).join('')}</div>
@@ -233,7 +233,7 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
  <section class="property-related"><div class="property-related-heading"><div><span class="chip">More to explore</span><h2>Properties you may like</h2></div><a href="#search">View all properties →</a></div><div class="cards three">${similar.map(homeCard).join('')}</div></section>`;
  const g=$('#gal'),step=d=>g.scrollBy({left:d*g.clientWidth,behavior:'smooth'});$('#gp')?.addEventListener('click',()=>step(-1));$('#gn')?.addEventListener('click',()=>step(1));g.tabIndex=0;g.onkeydown=e=>{if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)};
  $('#enqb').onclick=()=>enquiry(l,'enquiry');$('#viewb').onclick=()=>enquiry(l,'viewing');
- $('#cmpb').onclick=()=>{if(S.cmp.has(l.ref))S.cmp.delete(l.ref);else if(S.cmp.size<4)S.cmp.add(l.ref);else return toast('Compare up to 4 properties');chrome();renderProperty(ref)}}
+}
 function enquiry(l,type){const u=S.user||{};const tm=new Date(Date.now()+864e5*2).toISOString().slice(0,10);
  modal(`<div class="mtop"><div><p class="note">${l.ref}</p><h3>${type==='viewing'?'Request a viewing':'Send an enquiry'}</h3></div>${X}</div>
  <form id="eform" novalidate style="display:grid;gap:14px">

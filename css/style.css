@@ -447,7 +447,7 @@ details{border-bottom:1px solid var(--line);padding:18px 0}summary{cursor:pointe
 details p{margin-top:10px;color:var(--mut);max-width:760px}
 .prose{max-width:780px;display:grid;gap:14px;color:var(--mut)}.prose h3{color:var(--ink);margin-top:14px}
 .auth{max-width:480px;margin:0 auto}
-.property-toolbar>a:first-child{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(22,20,21,.1);border-radius:10px;background:#FAFAFA;color:var(--ink);font:400 17px/1.3 var(--hd);text-decoration:none}
+.property-toolbar>a:first-child{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;border:1px solid rgba(22,20,21,.1);border-radius:10px;background:#FFFFFF;color:var(--ink);font:400 17px/1.3 var(--hd);text-decoration:none}
 .property-toolbar>a:first-child:hover{color:var(--red)}
 .otp{display:flex;gap:8px}.otp input{text-align:center;font:300 22px var(--hd);padding:0}
 .notif{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line)}.notif i{width:10px;height:10px;border-radius:50%;background:var(--red);margin-top:8px;flex:none}.notif.read i{background:var(--line)}
