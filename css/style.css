@@ -39,7 +39,7 @@ body.scrolled .links a.on{background:#000;color:#fff}
 body.scrolled .ico,body.scrolled .btn.w{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#fff}
 body.scrolled .links{background:transparent!important;color:#fff;border-color:transparent}
 body.over .hero-copy{padding-top:calc(70px + clamp(30px,4vw,60px))}
-body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
+body.over:not(.scrolled) .links a.on,body.over:not(.scrolled) .links a:hover{background:rgba(255,255,255,.55)}
 .nav{position:relative;display:flex;align-items:center;gap:20px;height:78px}
 .logo{display:flex;align-items:center;gap:9px;font:300 25px/1 var(--hd);text-decoration:none;letter-spacing:-.02em}
 .logo svg{width:28px;height:28px}
