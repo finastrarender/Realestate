@@ -187,7 +187,7 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:640px){#featured.cards{grid-template-columns:1fr}}
 @media(max-width:640px){.home-card{max-width:440px;width:100%;margin-inline:auto}.home-card .img{aspect-ratio:1.4}.home-card-body{gap:8px;padding:12px 6px 6px}.home-card .home-card-title{font-size:14px}.home-card-price strong{font-size:13px}.home-card-details span{gap:4px;font-size:10px}.home-card-details svg{width:14px;height:14px}}
 /* process */
-.how-it-works{background:#ededed;color:var(--ink)}
+.how-it-works{padding-block:20px;background:#ededed;color:var(--ink)}
 .how-panel{padding:clamp(28px,4vw,56px);overflow:hidden;border-radius:18px;background:#fff}
 .how-heading{max-width:620px;margin:0 auto 34px;text-align:center}
 .how-heading h2{margin:0}
