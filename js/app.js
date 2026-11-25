@@ -29,7 +29,17 @@ const PHOTOS=new Map([
  ['UK-10421','UK-10421.jpg'],['UK-10433','UK-10433.jpg'],['UK-10458','UK-10458.jpg'],
  ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg']
 ]);
-const photo=(l,v=0)=>v===0&&PHOTOS.has(l.ref)?`<img src="img/${PHOTOS.get(l.ref)}" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v);
+const GALLERY_PHOTOS=new Map([['UK-10433',{
+ 1:{src:'UK-10433-living-room.png',alt:'Living room'},
+ 2:{src:'UK-10433-bedroom.png',alt:'Bedroom'},
+ 3:{src:'UK-10433-kitchen.png',alt:'Kitchen and dining area'},
+ 4:{src:'UK-10433-balcony.png',alt:'Balcony overlooking the canal'}
+}]]);
+const photo=(l,v=0)=>{
+ const image=GALLERY_PHOTOS.get(l.ref)?.[v];
+ if(image)return `<img src="img/${image.src}" alt="${image.alt} for ${esc(l.title)}" loading="lazy">`;
+ return v===0&&PHOTOS.has(l.ref)?`<img src="img/${PHOTOS.get(l.ref)}" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v)
+};
 const cityPhoto=l=>PHOTOS.has(l.ref)?photo(l):`<img src="img/${l.kind==='plot'?'about-home.jpg':'about-page.jpg'}" alt="" loading="lazy">`;
 
 /* ---------- data (sample) ---------- */
