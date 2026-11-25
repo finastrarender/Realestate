@@ -30,6 +30,7 @@ const PHOTOS=new Map([
  ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg']
 ]);
 const photo=(l,v=0)=>v===0&&PHOTOS.has(l.ref)?`<img src="img/${PHOTOS.get(l.ref)}" alt="${esc(l.title)}" loading="lazy">`:art(l.kind,l.hue,v);
+const cityPhoto=l=>PHOTOS.has(l.ref)?photo(l):`<img src="img/${l.kind==='plot'?'about-home.jpg':'about-page.jpg'}" alt="" loading="lazy">`;
 
 /* ---------- data (sample) ---------- */
 const COS=[{id:'c1',name:'Harbourline Estates',cty:'UK',city:'Bristol',since:2011,verified:true,about:'Sales and lettings across Bristol and the South West.'},
@@ -114,18 +115,19 @@ function renderHome(){$('#h-max').innerHTML=priceOpts(hp==='Rent'?'Rent':'Buy');
  const cities=new Map();L.filter(l=>isPublic(l)&&l.cty===S.cty).forEach(l=>{const city=cities.get(l.city);if(city)city.count++;else cities.set(l.city,{listing:l,count:1})});
  cityEntries=[...cities].sort((a,b)=>b[1].count-a[1].count||a[0].localeCompare(b[0]));cityIndex=cityEntries.length?cityIndex%cityEntries.length:0;renderCityShowcase();
 }
-function renderCityShowcase(){if(!cityEntries.length)return;const [city,data]=cityEntries[cityIndex],total=cityEntries.length;
- $('#city-showcase-backdrop').innerHTML=photo(data.listing);$('#city-feature-title').textContent=city;
+function renderCityShowcase(animate=false){if(!cityEntries.length)return;const showcase=$('#city-showcase');showcase.classList.remove('is-changing');const [city,data]=cityEntries[cityIndex],total=cityEntries.length;
+ $('#city-showcase-backdrop').innerHTML=cityPhoto(data.listing);$('#city-feature-title').textContent=city;
  $('#city-feature-description').textContent=`Explore ${data.count} live ${data.count===1?'listing':'listings'} in ${city}.`;
  $('#city-explore').dataset.city=city;$('#city-showcase-count').textContent=`${String(cityIndex+1).padStart(2,'0')} / ${String(total).padStart(2,'0')}`;
  const previewCount=Math.min(3,Math.max(1,total-1));
  $('#city-listings').innerHTML=Array.from({length:previewCount},(_,i)=>{const entryIndex=total===1?cityIndex:(cityIndex+i+1)%total,[name,entry]=cityEntries[entryIndex];
- return `<button class="city-showcase-card" type="button" data-city="${esc(name)}" aria-label="Browse properties in ${esc(name)}"><span class="city-showcase-card-image">${photo(entry.listing)}</span><span class="city-showcase-card-badge">${String(i+1).padStart(2,'0')}</span><span class="city-showcase-card-info"><strong>${esc(name)}</strong><small>${entry.count} ${entry.count===1?'available listing':'available listings'}</small></span></button>`}).join('')
+ return `<button class="city-showcase-card" type="button" data-city="${esc(name)}" aria-label="Browse properties in ${esc(name)}"><span class="city-showcase-card-heading"><strong>${esc(name)}</strong><small>${entry.count} ${entry.count===1?'available listing':'available listings'}</small></span><span class="city-showcase-card-image">${cityPhoto(entry.listing)}</span><span class="city-showcase-card-badge" aria-hidden="true">↗</span></button>`}).join('');
+ if(animate){void showcase.offsetWidth;showcase.classList.add('is-changing')}
 }
 $('#hsearch .tabs').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;hp=b.dataset.p;$$('#hsearch .tabs button').forEach(x=>x.classList.toggle('on',x===b));renderHome()});
 $('#hsearch').addEventListener('submit',e=>{e.preventDefault();resetF();S.f.purpose=hp==='Rent'?'Rent':hp==='Commercial'?'':'Buy';S.f.seg=hp==='Commercial'?'Commercial':hp==='Buy'||hp==='Rent'?'':'';if(hp!=='Commercial')S.f.seg='Residential';S.f.q=$('#h-q').value.trim();S.f.cat=$('#h-cat').value;S.f.max=$('#h-max').value;location.hash='search'});
 $('#cats').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;resetF();S.f.purpose='';S.f.cat=b.dataset.cat;location.hash='search'});
-$('#city-showcase').addEventListener('click',e=>{const step=e.target.closest('[data-city-step]');if(step&&cityEntries.length){cityIndex=(cityIndex+Number(step.dataset.cityStep)+cityEntries.length)%cityEntries.length;renderCityShowcase();return}const b=e.target.closest('[data-city]');if(!b)return;resetF();S.f.q=b.dataset.city;location.hash='search'});
+$('#city-showcase').addEventListener('click',e=>{const step=e.target.closest('[data-city-step]');if(step&&cityEntries.length){cityIndex=(cityIndex+Number(step.dataset.cityStep)+cityEntries.length)%cityEntries.length;renderCityShowcase(true);return}const b=e.target.closest('[data-city]');if(!b)return;resetF();S.f.q=b.dataset.city;location.hash='search'});
 function resetF(){S.f={purpose:'',seg:'',cat:'',q:'',code:'',min:'',max:'',freq:'',beds:'',baths:'',size:'',furn:'',parking:false,amen:[],cond:'',avail:''};S.page=1}
 
 /* ---------- search ---------- */
