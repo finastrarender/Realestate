@@ -4,7 +4,7 @@
    COLOUR and TYPE: white backgrounds, terracotta red accent; Poppins + Plus Jakarta Sans titles
    LAYOUT: pill nav, two-column big cards, full-width sections, Arvynx-style footer */
 :root{color-scheme:light;
---bg:#FFFFFF;--ink:#161415;--mut:#5f5a57;
+--bg:#FAFAFA;--ink:#161415;--mut:#5f5a57;
 --sage:#FFFFFF;--khaki:#FFFFFF;--red:#C03A38;
 --card:#FFFFFF;--line:rgba(22,20,21,.13);--soft:#FFFFFF;
 --hd:"Poppins",Arial,sans-serif;--title:"Plus Jakarta Sans",Arial,sans-serif;--it:"Poppins",Arial,sans-serif}
