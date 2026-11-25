@@ -263,13 +263,20 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:640px){.how-panel{padding:28px 18px}.how-heading{margin-bottom:26px}.how-steps{grid-template-columns:1fr}.how-phone{width:230px;height:335px}.how-phone>img{height:170px}}
 /* search page */
 .page-h{padding:48px 0 28px}
-.search-hero{position:relative;display:flex;width:100vw;min-height:clamp(260px,22vw,420px);align-items:center;overflow:hidden;margin:36px calc(50% - 50vw) 24px;padding:38px 0;border-radius:16px;background:linear-gradient(110deg,#dceff0 0%,#eee9dc 55%,#f4ddc4 100%)}
-.search-hero>img{position:absolute;inset:0 0 0 auto;width:48%;height:100%;object-fit:cover;object-position:center 55%}
-.search-hero::after{position:absolute;inset:0;background:linear-gradient(90deg,#dceff0 0%,rgba(232,239,229,.96) 42%,rgba(240,232,215,.6) 58%,transparent 78%);content:""}
-.search-hero-copy{position:relative;z-index:1;width:100%;max-width:none;margin:0;padding-inline:clamp(32px,5vw,80px)}
-.search-hero .chip{border-color:transparent;border-radius:5px;background:rgba(255,255,255,.55)}
-.search-hero h1{max-width:540px;margin-top:12px;font-size:clamp(30px,3.6vw,42px)}
-.search-hero p{max-width:440px;margin-top:10px;color:var(--mut)}
+.search-hero{position:relative;display:flex;width:100vw;min-height:clamp(250px,22vw,380px);align-items:center;overflow:hidden;margin:36px calc(50% - 50vw) 24px;padding:34px 0;border-radius:18px;background:#cfe7ff}
+.search-hero>img{position:absolute;inset:0 0 0 auto;width:58%;height:100%;object-fit:contain;object-position:right bottom}
+.search-hero::after{position:absolute;inset:0;background:linear-gradient(90deg,#cfe7ff 0%,#cfe7ff 64%,rgba(207,231,255,.94) 74%,rgba(207,231,255,.22) 86%,transparent 97%);content:""}
+.search-hero-copy{position:relative;z-index:1;width:100%;max-width:none;margin:0;padding-inline:clamp(28px,4vw,64px)}
+.search-hero h1{max-width:340px;margin:0;font-size:clamp(24px,2.4vw,34px);font-weight:700;line-height:1.14}
+.search-hero-form{display:grid;justify-items:start;gap:13px;margin-top:16px}
+.search-hero-tabs{display:flex;gap:3px;padding:3px;border:1px solid rgba(255,255,255,.9);border-radius:6px;background:rgba(255,255,255,.82)}
+.search-hero-tabs button{min-width:54px;min-height:29px;padding:5px 13px;border:0;border-radius:4px;background:transparent;color:var(--ink);font:500 12px var(--hd);cursor:pointer}
+.search-hero-tabs button.is-active{background:#756bea;color:#fff}
+.search-hero-input{display:flex;width:min(100%,290px);height:42px;padding:3px;border-radius:7px;background:#fff;box-shadow:0 2px 6px rgba(35,62,90,.08)}
+.search-hero-input input{width:100%;min-width:0;min-height:0;padding:0 10px;border:0;border-radius:5px;background:transparent;font:400 12px var(--hd);outline:none}
+.search-hero-input input::-webkit-search-cancel-button{-webkit-appearance:none}
+.search-hero-input button{display:grid;width:38px;min-width:38px;min-height:36px;place-items:center;border:0;border-radius:5px;background:#ef8c6b;color:#fff;cursor:pointer}
+.search-hero-input button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .search-categories{display:flex;gap:8px;overflow-x:auto;margin:0 0 26px;padding:2px 0 10px;scrollbar-width:none}
 .search-categories::-webkit-scrollbar{display:none}
 .search-category{flex:none;padding:10px 17px;border:1px solid var(--line);border-radius:999px;background:var(--card);color:var(--ink);font:300 14px var(--hd);cursor:pointer;transition:background .2s,color .2s,border-color .2s}
@@ -322,9 +329,10 @@ textarea{min-height:110px;resize:vertical}
  .search-results.cards.three{grid-template-columns:1fr}
  .search-hero{min-height:260px;margin:20px calc(50% - 50vw) 18px;padding:24px 0;border-radius:12px}
  .search-hero-copy{padding-inline:24px}
- .search-hero>img{width:100%;opacity:.3}
- .search-hero::after{background:linear-gradient(90deg,rgba(220,239,240,.96),rgba(238,233,220,.76))}
- .search-hero h1{font-size:clamp(28px,8vw,36px)}
+ .search-hero>img{width:82%;opacity:.9;object-position:right bottom}
+ .search-hero::after{background:linear-gradient(90deg,rgba(207,231,255,.99) 0%,rgba(207,231,255,.92) 58%,rgba(207,231,255,.5) 100%)}
+ .search-hero h1{font-size:clamp(25px,7vw,32px)}
+ .search-hero-input{width:min(100%,290px)}
  .search-categories{margin-bottom:20px}
  .filters{padding:16px}
 }
