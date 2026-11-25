@@ -223,7 +223,7 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
  <aside class="property-sidebar">
   <div class="property-price-card"><span class="property-eyebrow">${l.purpose==='Rent'?'Rental price':'Asking price'}</span><div class="property-price">${money(l.price)}${l.freq?`<small>${per(l)}</small>`:''}</div><p class="property-reference">Reference ${esc(l.ref)}</p>
    <div class="property-breakdown"><h2>Price breakdown</h2><div><span>${l.purpose==='Rent'?'Listed rent':'Asking price'}</span><b>${esc(listedPrice)}</b></div><div><span>Availability</span><b>${esc(l.avail)}</b></div><div><span>Property type</span><b>${esc(l.cat)}</b></div></div>
-   <div class="property-advertiser"><span class="note">Advertised by</span><div class="co"><div class="mk">${esc(advertiser[0])}</div><div><b>${esc(advertiser)}</b>${co?`<a href="#company-${co.id}">View company profile</a>${co.verified?'<span class="badge ok">Verified company</span>':''}`:'<span class="note">Individual owner</span>'}</div></div></div>
+   <div class="property-advertiser"><span class="note">Advertised by</span><div class="co"><div class="mk advertiser-mark">${co?`<img src="img/${PHOTOS.get(l.ref)||'about-page.jpg'}" alt="">`:esc(advertiser[0])}</div><div><b>${esc(advertiser)}</b>${co?`<a href="#company-${co.id}">View company profile</a>${co.verified?'<span class="badge ok">Verified company</span>':''}`:'<span class="note">Individual owner</span>'}</div></div></div>
    <div class="property-contact"><button class="btn w" type="button" id="enqb">Contact advertiser</button><button class="btn" type="button" id="viewb">Schedule a viewing</button></div>
    <p class="property-fineprint">Your contact details are only shared with the advertiser when you send a request.</p>
   </div>
