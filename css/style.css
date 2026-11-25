@@ -56,7 +56,18 @@ body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .hero p.lead{max-width:none;margin:16px 0 0;color:var(--mut);font-size:17px;white-space:nowrap}
 .heroart{position:absolute;inset:auto 0 0;display:block;width:100%;height:var(--hero-image-height);object-fit:cover;object-position:center 60%;-webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%);mask-image:linear-gradient(to bottom,transparent 0,#000 14%)}
 .hero-search{position:absolute;z-index:3;inset:auto 0 28px}
-.ctaimg{width:100%;aspect-ratio:21/8;object-fit:cover;display:block;margin-bottom:40px}
+.owner-banner{padding-top:48px;padding-bottom:48px}
+.owner-promo{position:relative;display:flex;min-height:340px;align-items:center;overflow:hidden;padding:42px 48px;border-radius:26px;background:#dff2fa}
+.owner-promo-image{position:absolute;inset:0 0 0 auto;width:55%;height:100%}
+.owner-promo-image::before{position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,#dff2fa 0%,rgba(223,242,250,.8) 12%,rgba(223,242,250,0) 58%);content:""}
+.owner-promo-image img{display:block;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+.owner-promo-copy{position:relative;z-index:2;width:min(58%,570px)}
+.owner-promo-copy .chip{background:rgba(255,255,255,.72)}
+.owner-promo-copy h2{margin-top:16px;font-size:clamp(30px,3.6vw,46px);font-weight:400}
+.owner-promo-copy p{max-width:510px;margin-top:12px;color:#4f6269;font-size:15px}
+.owner-promo-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.owner-promo-actions .btn{min-height:42px}
+@media(max-width:700px){.owner-banner{padding-top:28px;padding-bottom:28px}.owner-promo{min-height:520px;align-items:flex-start;padding:26px 22px}.owner-promo-image{inset:auto 0 0;width:100%;height:48%}.owner-promo-image::before{background:linear-gradient(180deg,#dff2fa 0%,rgba(223,242,250,.65) 12%,rgba(223,242,250,0) 55%)}.owner-promo-copy{width:100%}.owner-promo-copy h2{max-width:460px;font-size:clamp(29px,8vw,40px)}.owner-promo-copy p{max-width:400px;font-size:14px}}
 .sbox{display:grid;grid-template-columns:auto minmax(0,1fr);align-items:center;gap:8px;max-width:1120px;margin:0 auto;background:var(--card);border:1px solid color-mix(in srgb,var(--line) 75%,transparent);border-radius:20px;box-shadow:0 18px 48px -22px rgba(0,0,0,.32);padding:10px}
 .tabs{display:flex;gap:4px;padding:4px}
 .tabs button{border:0;background:none;color:var(--ink);font:300 14px var(--hd);padding:10px 14px;border-radius:999px;cursor:pointer;min-height:42px}
@@ -85,7 +96,6 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:800px){.about{grid-template-columns:1fr}}
 .about-landing{padding-bottom:40px}
 .browse-types{padding-top:40px}
-.browse-types .head h2{font-family:"Outfit",sans-serif;font-weight:600}
 .about-kicker{display:inline-flex;padding:7px 13px;border:1px solid var(--line);border-radius:999px;font:300 12px/1 var(--hd);text-transform:uppercase;letter-spacing:.06em}
 .about-landing-title{max-width:1000px;margin-top:24px;font-weight:400}
 .about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch;margin-top:28px}
