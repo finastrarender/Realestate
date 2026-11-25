@@ -186,6 +186,20 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:1100px){#featured.cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
 @media(max-width:640px){#featured.cards{grid-template-columns:1fr}}
 @media(max-width:640px){.home-card{max-width:440px;width:100%;margin-inline:auto}.home-card .img{aspect-ratio:1.4}.home-card-body{gap:8px;padding:12px 6px 6px}.home-card .home-card-title{font-size:14px}.home-card-price strong{font-size:13px}.home-card-details span{gap:4px;font-size:10px}.home-card-details svg{width:14px;height:14px}}
+.city-heading p{max-width:280px;color:var(--mut);font-size:15px;line-height:1.55;text-align:right}
+.city-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.city-card{position:relative;display:flex;min-height:220px;align-items:flex-end;overflow:hidden;padding:18px;border:0;border-radius:18px;background:#282726;color:#fff;text-align:left;cursor:pointer;isolation:isolate}
+.city-card::after{position:absolute;z-index:-1;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.03) 25%,rgba(0,0,0,.72));content:""}
+.city-card img,.city-card svg{position:absolute;z-index:-2;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s}
+.city-card:hover img,.city-card:hover svg{transform:scale(1.05)}
+.city-card-copy{display:grid;gap:4px}
+.city-card-copy strong{font:500 20px/1.2 var(--title)}
+.city-card-copy small{font:300 13px/1.3 var(--hd);color:rgba(255,255,255,.82)}
+.city-card-arrow{position:absolute;top:14px;right:14px;display:grid;width:36px;height:36px;place-items:center;border-radius:50%;background:#fff;color:var(--ink);font-size:20px;transition:transform .2s}
+.city-card:hover .city-card-arrow{transform:translateX(3px)}
+@media(max-width:900px){.city-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.city-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.city-card{min-height:170px;padding:14px}.city-card-copy strong{font-size:17px}.city-heading p{text-align:left}}
+@media(max-width:380px){.city-grid{grid-template-columns:1fr}}
 /* process */
 [data-view="home"]>.band.how-it-works{padding-top:20px;padding-bottom:20px;background:#ededed;color:var(--ink)}
 [data-view="home"]>.band.how-it-works>.wrap{width:100%;max-width:none;margin:0;padding-right:20px;padding-left:20px}
