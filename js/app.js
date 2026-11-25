@@ -169,7 +169,6 @@ function query(){const f=S.f,q=f.q.toLowerCase();let r=L.filter(l=>isPublic(l)&&
  &&(!f.avail||/now|ready/i.test(l.avail))&&(!f.parking||l.parking)&&f.amen.every(a=>l.amen.includes(a)));
  const s=S.sort;r.sort((a,b)=>s==='lo'?a.price-b.price:s==='hi'?b.price-a.price:s==='new'?b.added.localeCompare(a.added):(b.featured-a.featured)||b.added.localeCompare(a.added));return r}
 function results(){const r=query(),f=S.f,per=6,pages=Math.max(1,Math.ceil(r.length/per));S.page=Math.min(S.page,pages);
- $('#stitle').innerHTML=`${f.cat?esc(f.cat):'Properties'} ${f.purpose==='Rent'?'to rent':f.purpose==='Buy'?'for sale':''} <em class="i">in ${ctyName(S.cty)}</em>`;
  $$('#search-categories [data-search-cat]').forEach(b=>b.classList.toggle('is-active',b.dataset.searchCat===f.cat));
  $('#count').textContent=`${r.length} ${r.length===1?'property':'properties'}`;
  const act=[f.purpose,f.seg,f.cat,f.q&&`“${f.q}”`,f.code,f.min&&`From ${money(f.min,S.cty)}`,f.max&&`Up to ${money(f.max,S.cty)}`,f.beds&&`${f.beds}+ bed`,f.baths&&`${f.baths}+ bath`,f.size&&`${f.size}+ sq ft`,f.furn,f.cond,f.avail&&'Available now',f.parking&&'Parking',...f.amen].filter(Boolean);
