@@ -85,6 +85,7 @@ textarea{min-height:110px;resize:vertical}
 @media(max-width:800px){.about{grid-template-columns:1fr}}
 .about-landing{padding-bottom:40px}
 .browse-types{padding-top:40px}
+.browse-types .head h2{font-family:"Outfit",sans-serif;font-weight:600}
 .about-kicker{display:inline-flex;padding:7px 13px;border:1px solid var(--line);border-radius:999px;font:300 12px/1 var(--hd);text-transform:uppercase;letter-spacing:.06em}
 .about-landing-title{max-width:1000px;margin-top:24px;font-weight:400}
 .about-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:stretch;margin-top:28px}
