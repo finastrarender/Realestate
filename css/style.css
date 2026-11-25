@@ -33,8 +33,10 @@ a{color:inherit}p{margin:0}
 body>header{position:fixed;top:0;left:0;right:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--line);transition:background .3s,border-color .3s}
 main{padding-top:78px}body.over main{padding-top:0}
 body.over>header{background:transparent;border-color:transparent}
-body.over.scrolled>header{background:color-mix(in srgb,var(--sage) 92%,transparent);backdrop-filter:blur(10px)}
-body:not(.over).scrolled>header{background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px)}
+body.scrolled>header{background:rgba(22,20,21,.92);border-color:rgba(255,255,255,.14);backdrop-filter:blur(10px);color:#fff}
+body.scrolled .links a.on,body.scrolled .links a:hover{background:rgba(255,255,255,.12)}
+body.scrolled .ico,body.scrolled .btn.w{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);color:#fff}
+body.scrolled .links{background:#161415!important;color:#fff;border-color:rgba(255,255,255,.14)}
 body.over .hero-copy{padding-top:calc(70px + clamp(30px,4vw,60px))}
 body.over .links a.on,body.over .links a:hover{background:rgba(255,255,255,.55)}
 .nav{position:relative;display:flex;align-items:center;gap:20px;height:78px}
