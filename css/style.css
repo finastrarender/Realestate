@@ -339,12 +339,15 @@ textarea{min-height:110px;resize:vertical}
 .property-facts>div:first-child{padding-left:0}
 .property-facts>div:last-child{border-right:0}
 .property-facts small,.property-breakdown span{color:var(--mut);font-size:12px}
+.property-facts small{display:flex;align-items:center;gap:8px}
+.property-facts svg,.property-amenities svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
 .property-facts b{font:300 16px var(--hd)}
 .property-section{margin-top:34px}
 .property-section h2,.property-related h2{font-size:22px;font-weight:500}
 .property-section>p{max-width:760px;margin-top:10px;color:var(--mut);line-height:1.7}
 .property-amenities{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:14px}
-.property-amenities span{padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:14px}
+.property-amenities span{display:flex;align-items:center;gap:10px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--card);font-size:14px}
+.property-amenities svg{color:var(--mut)}
 .property-map{aspect-ratio:16/7;margin-top:14px}
 .property-address{margin-top:9px;font-size:14px}
 .property-sidebar{position:sticky;top:98px;display:grid;gap:12px}

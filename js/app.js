@@ -177,6 +177,26 @@ function results(){const r=query(),f=S.f,per=6,pages=Math.max(1,Math.ceil(r.leng
 function renderSearch(){filterForm();$('#sort').value=S.sort;results()}
 
 /* ---------- property ---------- */
+const propertyIconPaths={
+ Bedrooms:'M3 18V8m0 7h18v3M5 15v-4h6a3 3 0 0 1 3 3v1m0 0v-4h4a3 3 0 0 1 3 3v1',
+ Bathrooms:'M4 12h16v3a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5zm2 0V6a2 2 0 0 1 4 0v1',
+ 'Floor area':'M4 7h16v10H4zM8 4v3m8-3v3M8 17v3m8-3v3',
+ Parking:'M5 17h14l1-5-2-5H6l-2 5 1 5zm0 0v2m14-2v2M4 12h16M7 15h.01M17 15h.01',
+ Condition:'M12 3l2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z',
+ Balcony:'M4 20h16M6 20V4h12v16M6 14h12M9 9h.01M15 9h.01M9 17v3m6-3v3',
+ Lift:'M6 3h12v18H6zM9 8l2-2 2 2m-2-2v5m4 5 2 2 2-2m-2 2v-5',
+ Gym:'M6 6v12m12-12v12M3 9v6m18-6v6M6 12h12m-15-3h3m12 0h3m-18 6h3m12 0h3',
+ Concierge:'M18 9a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9m-8 12a2 2 0 0 0 4 0',
+ Garden:'M12 21v-9m0 4c-7 0-9-7-4-9 2-4 8-2 8 2 5 1 4 7-4 7z',
+ 'EV charging':'M8 3h8v8H8zM10 11v3a2 2 0 0 0 4 0v-3m-2-7-2 3h2l-1 2',
+ Security:'M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7zM8.5 12l2.2 2.2 4.8-5',
+ 'Power backup':'M7 5h10v15H7zM10 2h4v3m-2 3v4m-2-2 2 2 2-2',
+ 'Swimming pool':'M3 15c2-2 4-2 6 0s4 2 6 0 4-2 6 0m-18 4c2-2 4-2 6 0s4 2 6 0 4-2 6 0M7 11V5a2 2 0 0 1 4 0',
+ 'Air conditioning':'M12 3v18m-7-14 14 10m0-10L5 17m3-8-3-3m3 13-3 3m11-13 3-3m-3 13 3 3',
+ 'Pet friendly':'M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z',
+ amenity:'M12 3l2.2 5.2L20 10l-5.8 1.8L12 17l-2.2-5.2L4 10l5.8-1.8z'
+};
+const propertyIcon=name=>`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${Object.hasOwn(propertyIconPaths,name)?propertyIconPaths[name]:propertyIconPaths.amenity}"/></svg>`;
 function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.own||[]).find(x=>x.ref.toLowerCase()===ref&&false);
  if(!l||!isPublic(l)){$('#prop').innerHTML=`<div class="empty"><h2 style="color:var(--ink)">This listing isn't available</h2><p style="margin:10px 0 20px">It may have been sold, let, withdrawn or is not published.</p><a class="btn" href="#search">Back to search</a></div>`;return}
  const co=COS.find(c=>c.id===l.co);
@@ -190,9 +210,9 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
   <div class="property-toolbar"><a href="#search">← Back to properties</a><div class="property-actions"><button class="btn w s property-save" type="button" data-fav="${l.ref}" aria-label="Save ${esc(l.title)}" aria-pressed="${S.favs.has(l.ref)}"><span aria-hidden="true">${S.favs.has(l.ref)?'♥':'♡'}</span> ${S.favs.has(l.ref)?'Saved':'Save'}</button><button class="btn w s" type="button" id="cmpb">${S.cmp.has(l.ref)?'✓ Comparing':'+ Compare'}</button></div></div>
   <div class="property-gallery" id="gal" aria-label="Property photos">${[0,1,2,3,4].map((v,i)=>`<div class="property-photo property-photo-${i+1}">${photo(l,v)}</div>`).join('')}<span class="property-gallery-count">5 photos</span></div>
   <header class="property-heading"><div><span class="chip">${l.purpose==='Rent'?'To rent':'For sale'} · ${esc(l.seg)}</span><h1>${esc(l.title)}</h1><p>${esc(addr(l))}</p></div><span class="badge ok">Verified listing</span></header>
-  <div class="property-facts">${facts.map(([label,value])=>`<div><small>${label}</small><b>${esc(value)}</b></div>`).join('')}</div>
+  <div class="property-facts">${facts.map(([label,value])=>`<div><small>${propertyIcon(label)}${label}</small><b>${esc(value)}</b></div>`).join('')}</div>
   <section class="property-section"><h2>About this property</h2><p>${esc(l.desc)}</p></section>
-  ${l.amen.length?`<section class="property-section"><h2>Building amenities</h2><div class="property-amenities">${l.amen.map(a=>`<span>${esc(a)}</span>`).join('')}</div></section>`:''}
+  ${l.amen.length?`<section class="property-section"><h2>Building amenities</h2><div class="property-amenities">${l.amen.map(a=>`<span>${propertyIcon(a)}${esc(a)}</span>`).join('')}</div></section>`:''}
   <section class="property-section"><h2>Location</h2><div class="map property-map"><svg class="base" viewBox="0 0 100 44" preserveAspectRatio="none"><path d="M0 22H100M50 0V44M0 8Q50 14 100 6M20 0Q24 22 18 44" stroke="currentColor" opacity=".1" fill="none"/></svg><span class="pin" style="left:50%;top:52%">${esc(l.area)}</span></div><p class="property-address">${esc(addr(l))}</p></section>
  </main>
  <aside class="property-sidebar">
