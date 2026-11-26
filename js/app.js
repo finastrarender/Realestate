@@ -441,7 +441,7 @@ function revealAboutSteps(){
  if(!steps.length)return;
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){steps.forEach(el=>el.classList.add('about-step-visible'));return}
  if(!aboutStepsObserver)aboutStepsObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('about-step-visible');aboutStepsObserver.unobserve(entry.target)}}),{threshold:.16});
- steps.forEach((el,i)=>{el.style.setProperty('--about-step-order',i);if(!el.classList.contains('about-step-observed')&&!el.classList.contains('about-step-visible')){el.classList.add('about-step-observed');aboutStepsObserver.observe(el)}})
+ steps.forEach((el,i)=>{el.style.setProperty('--about-step-order',i);el.style.setProperty('--about-step-offset',`${i*18}px`);if(!el.classList.contains('about-step-observed')&&!el.classList.contains('about-step-visible')){el.classList.add('about-step-observed');aboutStepsObserver.observe(el)}})
 }
 const PROT={'add-property':'Sign in or register to list a property.',dashboard:'Sign in to see your listings.',favourites:'Sign in to view your saved list.',profile:'Sign in to manage your profile.',notifications:'Sign in to see your notifications.'};
 function route(){let h=(location.hash||'#home').slice(1)||'home';if(h==='main')h='home';
