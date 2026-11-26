@@ -435,13 +435,21 @@ $('#faq').innerHTML=[['Is every listing checked?','Yes. Every property is review
 $('#cform').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;e.target.reset();toast('Thanks — your message has been sent to our support team')};
 
 /* ---------- router ---------- */
+let aboutStepsObserver;
+function revealAboutSteps(){
+ const steps=$$('.about-process-steps article');
+ if(!steps.length)return;
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){steps.forEach(el=>el.classList.add('about-step-visible'));return}
+ if(!aboutStepsObserver)aboutStepsObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('about-step-visible');aboutStepsObserver.unobserve(entry.target)}}),{threshold:.16});
+ steps.forEach((el,i)=>{el.style.setProperty('--about-step-order',i);if(!el.classList.contains('about-step-observed')&&!el.classList.contains('about-step-visible')){el.classList.add('about-step-observed');aboutStepsObserver.observe(el)}})
+}
 const PROT={'add-property':'Sign in or register to list a property.',dashboard:'Sign in to see your listings.',favourites:'Sign in to view your saved list.',profile:'Sign in to manage your profile.',notifications:'Sign in to see your notifications.'};
 function route(){let h=(location.hash||'#home').slice(1)||'home';if(h==='main')h='home';
  if(PROT[h]&&!need(h,PROT[h]))return;
  if(h==='account'&&S.user&&authMode!=='otp'){location.hash='profile';return}
  let v=h;if(h.startsWith('property-'))v='property';else if(h.startsWith('company-'))v='company';
  if(!$(`[data-view="${v}"]`))v=h='home';
- $$('[data-view]').forEach(s=>s.classList.toggle('on',s.dataset.view===v));
+ $$('[data-view]').forEach(s=>s.classList.toggle('on',s.dataset.view===v));if(v==='about')revealAboutSteps();
  $$('#links a').forEach(a=>a.classList.toggle('on',a.getAttribute('href')==='#'+h));$('#links').classList.remove('open');
  ({home:renderHome,search:renderSearch,property:()=>renderProperty(h.slice(9)),'add-property':renderWiz,dashboard:renderDash,favourites:renderFavs,account:renderAccount,profile:renderProfile,notifications:renderNotes,plans:renderPlans,companies:renderCompanies,company:()=>renderCompany(h.slice(8))}[v]||(()=>{}))();
  document.body.classList.toggle('over',v==='home');chrome();window.scrollTo({top:0});document.body.classList.remove('scrolled')}
