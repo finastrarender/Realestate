@@ -587,11 +587,12 @@ body:not(.over) main:has(section[data-view="search"].on) section[data-view="sear
 section[data-view]:not([data-view="home"])>.wrap{padding-top:34px;padding-bottom:90px}
 .page-h{position:relative;padding:54px 0 30px}
 .page-h h1{max-width:880px}
-.company-directory-banner{isolation:isolate;margin:0 0 28px;padding:clamp(40px,5vw,66px);border:1px solid rgba(20,20,20,.1);border-radius:30px;background:#f1f2f3;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.company-directory-banner::before{position:absolute;z-index:-1;inset:12px;border-radius:22px;background:#fff;content:""}
-.company-directory-banner .chip{margin-bottom:16px}
-.company-directory-banner h1{max-width:1000px;font-size:clamp(32px,4.2vw,54px)}
-.company-directory-banner p{max-width:900px;margin-top:14px;color:var(--mut);font-size:clamp(15px,1.8vw,20px);line-height:1.55}
+.company-directory-banner{position:relative;isolation:isolate;display:flex;min-height:300px;flex-direction:column;align-items:flex-start;justify-content:center;overflow:hidden;margin:0 0 28px;padding:clamp(32px,5vw,64px);border:1px solid rgba(20,20,20,.08);border-radius:28px;background:linear-gradient(112deg,#edf7f5 0%,#f6f7f3 52%,#f8eee5 100%);box-shadow:0 14px 34px rgba(22,20,21,.055)}
+.company-directory-banner::before{position:absolute;z-index:-1;top:-150px;right:3%;width:430px;height:430px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.9) 0%,rgba(255,255,255,.48) 38%,rgba(255,255,255,0) 72%);content:""}
+.company-directory-banner::after{position:absolute;top:50%;right:clamp(28px,6vw,84px);display:grid;min-height:48px;place-items:center;padding:0 18px;border:1px solid rgba(22,20,21,.08);border-radius:999px;background:rgba(255,255,255,.72);box-shadow:0 8px 22px rgba(22,20,21,.06);color:#315a45;content:"✓  Verified company details";font:500 13px/1 var(--hd);transform:translateY(-50%);backdrop-filter:blur(10px)}
+.company-directory-banner .chip{margin-bottom:13px;background:rgba(255,255,255,.76)}
+.company-directory-banner h1{max-width:min(900px,72%);font-size:clamp(32px,4vw,52px);line-height:1.08;letter-spacing:-1.4px}
+.company-directory-banner p{max-width:min(760px,70%);margin-top:14px;color:var(--mut);font-size:clamp(14px,1.5vw,18px);line-height:1.55}
 .chip{border:1px solid var(--line);border-radius:999px;background:var(--soft)}
 .head,.property-toolbar,.property-related-heading,.bar{border-radius:18px}
 .panel,.plan,.lrow,.comp>.co,.search-results .card,.property-price-card{box-shadow:0 16px 40px rgba(22,20,21,.055)}
@@ -614,5 +615,11 @@ section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px so
 @media(max-width:700px){
  section[data-view]:not([data-view="home"])>.wrap{padding-top:18px;padding-bottom:56px}
  .page-h{padding:38px 0 24px}
+ .company-directory-banner{min-height:0;margin-bottom:22px;padding:28px 22px;border-radius:22px}
+ .company-directory-banner::before{top:auto;right:-160px;bottom:-220px;width:340px;height:340px}
+ .company-directory-banner::after{position:relative;top:auto;right:auto;min-height:36px;margin-top:18px;padding:0 12px;font-size:11px;transform:none}
+ .company-directory-banner h1,.company-directory-banner p{max-width:100%}
+ .company-directory-banner h1{font-size:clamp(30px,8vw,42px);letter-spacing:-.9px}
+ .company-directory-banner p{font-size:13px}
  .compare-empty{align-items:flex-start}
 }
