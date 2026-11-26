@@ -766,6 +766,7 @@ section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px so
 .contact-form .ck{display:flex;align-items:flex-start;gap:8px;color:#62696c;font-size:11px;line-height:1.45}
 .contact-form .ck input{width:14px;height:14px;margin:1px 0 0;accent-color:#287fb5}
 .contact-submit{display:flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:10px 18px;border:0;border-radius:999px;background:#d8fa31;color:#162126;font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:transform .18s,filter .18s}
+.contact-submit{background:#111;color:#fff}
 .contact-submit:hover{transform:translateY(-1px);filter:brightness(.97)}
 .contact-offices{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;margin-top:18px;padding:30px clamp(24px,6vw,76px);border-radius:20px;background:#fff}
 .contact-offices .contact-eyebrow{margin-bottom:9px;color:#667564}
