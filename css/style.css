@@ -587,7 +587,7 @@ body:not(.over) main:has(section[data-view="search"].on) section[data-view="sear
 section[data-view]:not([data-view="home"])>.wrap{padding-top:34px;padding-bottom:90px}
 .page-h{position:relative;padding:54px 0 30px}
 .page-h h1{max-width:880px}
-.company-directory-banner{position:relative;isolation:isolate;display:flex;width:100vw;min-height:clamp(250px,22vw,380px);align-items:center;overflow:hidden;margin:0 calc(50% - 50vw) 12px;padding:0;border:0;border-radius:18px;background:linear-gradient(110deg,#d9eff1 0%,#ecebdd 57%,#f4dcc7 100%);box-shadow:none}
+.company-directory-banner{position:relative;isolation:isolate;display:flex;width:100vw;min-height:clamp(250px,22vw,380px);align-items:center;overflow:hidden;margin:0 calc(50% - 50vw) 100px;padding:0;border:0;border-radius:18px;background:linear-gradient(110deg,#d9eff1 0%,#ecebdd 57%,#f4dcc7 100%);box-shadow:none}
 .company-directory-banner.page-h{padding:0}
 section[data-view="companies"] .company-directory-banner+.comp{margin-block-start:0;padding-block-start:0}
 .company-directory-image{position:absolute;z-index:0;right:10px;bottom:-31%;width:58%;height:160%;object-fit:contain;object-position:right bottom;pointer-events:none}
@@ -619,7 +619,7 @@ section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px so
 @media(max-width:700px){
  section[data-view]:not([data-view="home"])>.wrap{padding-top:18px;padding-bottom:56px}
  .page-h{padding:38px 0 24px}
- .company-directory-banner{min-height:300px;margin-bottom:10px;border-radius:14px}
+ .company-directory-banner{min-height:300px;margin-bottom:48px;border-radius:14px}
  .company-directory-image{right:-20px;bottom:-10%;width:78%;height:120%;object-position:right bottom;opacity:.96}
  .company-directory-copy{align-self:flex-start;gap:9px;padding:36px max(4vw,16px)}
  .company-directory-eyebrow{font-size:12px;font-weight:600}
