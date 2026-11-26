@@ -24,7 +24,6 @@ function art(kind,h,v=0){const id='a'+(++gid);const sky=`<defs><linearGradient i
  return `<svg viewBox="${vb}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${kind}">${sky}${g}${b}</svg>`}
 //hero now a photo
 0&&(`<rect y="380" width="1440" height="50" fill="hsl(95,16%,72%)"/>`+tree(40,380,2.2,'#5d7a4e')+tree(1390,385,2.4,'#4f6b45')+tree(500,382,1.4,'#3f5a3a')+tree(950,382,1.5,'#3f5a3a')+house(260,230,1,'#b98250')+house(720,215,1.12,'#c48c58')+house(1180,230,1,'#b4794a'));
-$('#aboutpic2').innerHTML='<img src="img/about-page.jpg" alt="Low-rise apartment building with balconies and garden courtyard" loading="lazy">';
 const PHOTOS=new Map([
  ['UK-10421','UK-10421.jpg'],['UK-10433','UK-10433.jpg'],['UK-10458','UK-10458.jpg'],
  ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg'],['UK-10491','about-page.jpg']
