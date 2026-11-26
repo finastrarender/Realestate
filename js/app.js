@@ -437,7 +437,7 @@ $('#cform').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;e.targ
 /* ---------- router ---------- */
 let aboutStepsObserver;
 function revealAboutSteps(){
- const steps=$$('.about-process-steps article');
+ const steps=$$('.about-process-steps article, .about-showcase>article');
  if(!steps.length)return;
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window)){steps.forEach(el=>el.classList.add('about-step-visible'));return}
  if(!aboutStepsObserver)aboutStepsObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('about-step-visible');aboutStepsObserver.unobserve(entry.target)}}),{threshold:.16});
