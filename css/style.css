@@ -792,3 +792,12 @@ section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;mar
  .contact-form .ck{align-items:flex-start;font-size:11px}
  .contact-submit{min-height:48px;font-size:14px}
 }
+/* Narrow viewport guard: never let contact copy or the form exceed the screen. */
+@media(max-width:1400px){
+ body:has(section[data-view="contact"].on) section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:100%;padding-inline:12px}
+ body:has(section[data-view="contact"].on) .contact-hero{width:100%;max-width:760px;min-height:0;grid-template-columns:minmax(0,1fr);gap:24px;margin-inline:auto;padding:clamp(20px,4vw,36px);overflow:hidden}
+ body:has(section[data-view="contact"].on) .contact-hero-copy{width:100%;max-width:100%;justify-self:start}
+ body:has(section[data-view="contact"].on) .contact-hero-copy h1{max-width:100%;font-size:clamp(38px,6vw,64px);line-height:1;overflow-wrap:break-word}
+ body:has(section[data-view="contact"].on) .contact-hero-copy p{width:100%;max-width:100%;font-size:clamp(14px,2vw,17px);overflow-wrap:anywhere}
+ body:has(section[data-view="contact"].on) .contact-form{width:100%;max-width:100%;justify-self:stretch}
+}
