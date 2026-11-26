@@ -590,7 +590,7 @@ section[data-view]:not([data-view="home"])>.wrap{padding-top:34px;padding-bottom
 .company-directory-banner{position:relative;isolation:isolate;display:flex;width:100vw;min-height:clamp(250px,22vw,380px);align-items:center;overflow:visible;margin:0 calc(50% - 50vw) 100px;padding:0;border:0;border-radius:18px;background:linear-gradient(110deg,#d9eff1 0%,#ecebdd 57%,#f4dcc7 100%);box-shadow:none}
 .company-directory-banner.page-h{padding:0}
 section[data-view="companies"] .company-directory-banner+.comp{margin-block-start:0;padding-block-start:0}
-.company-directory-image{position:absolute;z-index:2;right:4%;bottom:-24%;width:38%;height:140%;object-fit:contain;object-position:right bottom;pointer-events:none}
+.company-directory-image{position:absolute;z-index:2;right:5%;bottom:-18%;width:30%;height:124%;object-fit:contain;object-position:right bottom;pointer-events:none}
 .company-directory-banner::before{position:absolute;z-index:1;inset:0;background:linear-gradient(90deg,rgba(217,239,241,.12) 0%,rgba(236,235,221,.08) 52%,transparent 78%);content:"";pointer-events:none}
 .company-directory-banner::after{content:none}
 .company-directory-copy{position:relative;z-index:3;display:flex;width:min(100%,1280px);flex-direction:column;align-items:flex-start;gap:12px;margin:0 auto;padding:clamp(38px,5vw,68px) max(4vw,16px)}
@@ -656,7 +656,7 @@ section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px so
  section[data-view]:not([data-view="home"])>.wrap{padding-top:18px;padding-bottom:56px}
  .page-h{padding:38px 0 24px}
  .company-directory-banner{min-height:300px;margin-bottom:48px;border-radius:14px}
- .company-directory-image{right:-2%;bottom:-12%;width:60%;height:126%;object-position:right bottom;opacity:.96}
+ .company-directory-image{right:0;width:48%;height:116%;bottom:-10%;object-position:right bottom;opacity:.96}
  .company-directory-copy{align-self:flex-start;gap:9px;padding:36px max(4vw,16px)}
  .company-directory-eyebrow{font-size:12px;font-weight:600}
  .company-directory-banner h1{max-width:560px;font-size:clamp(28px,7vw,36px);font-weight:700;letter-spacing:normal}
