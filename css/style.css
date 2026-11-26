@@ -805,3 +805,11 @@ section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;mar
  body:has(section[data-view="contact"].on) .contact-hero-copy h1{width:100%;max-width:560px;font-size:clamp(36px,5.2vw,64px);text-wrap:wrap;overflow-wrap:normal}
  body:has(section[data-view="contact"].on) .contact-hero-copy p{width:100%;max-width:560px;white-space:normal}
 }
+@media(max-width:2200px){
+ body:has(section[data-view="contact"].on) section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;padding:0 16px 16px}
+ body:has(section[data-view="contact"].on) .contact-hero{width:100%;max-width:none;min-height:calc(100svh - 80px);grid-template-columns:minmax(0,1fr);gap:24px;padding:clamp(24px,4vw,64px);border-radius:0 0 30px 30px}
+ body:has(section[data-view="contact"].on) .contact-hero-copy{max-width:680px;justify-self:start}
+ body:has(section[data-view="contact"].on) .contact-hero-copy h1{max-width:560px;font-size:clamp(42px,5vw,72px)}
+ body:has(section[data-view="contact"].on) .contact-hero-copy p{max-width:620px}
+ body:has(section[data-view="contact"].on) .contact-form{width:100%;max-width:820px;justify-self:end}
+}
