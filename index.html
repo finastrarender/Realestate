@@ -229,17 +229,18 @@
  <div class="page-h"><span class="chip">Help / FAQ</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">Questions, <em class="i">answered</em></h1></div>
  <div id="faq"></div>
 </div></section>
-<section data-view="contact"><div class="wrap band g2" style="align-items:start">
- <div class="prose"><span class="chip" style="justify-self:start">Contact</span><h2 style="color:var(--ink)">We'd love to <em class="i">hear from you</em></h2><p>Questions about a listing, your account or a payment? Send us a message and our support team will reply by email.</p>
- <p><b style="color:var(--ink)">UK support</b><br>support@nestora.example · +44 20 0000 0000</p><p class="note">Contact details are placeholders.</p></div>
- <form class="panel" id="cform" novalidate>
-  <label class="f">Your name<input name="name" required autocomplete="name"></label>
-  <label class="f">Email<input name="email" type="email" required autocomplete="email"></label>
-  <label class="f">Topic<select name="topic"><option>A listing</option><option>My account</option><option>Payments</option><option>Report a problem</option></select></label>
-  <label class="f">Message<textarea name="msg" required></textarea></label>
-  <label class="ck"><input type="checkbox" name="consent" required> I agree to Nestora using these details to reply to me.</label>
-  <button class="btn" type="submit">Send message</button>
- </form>
+<section data-view="contact"><div class="wrap contact-page">
+ <div class="contact-hero"><div class="contact-hero-copy"><span class="contact-eyebrow">CONTACT NESTORA</span><h1>Get in touch<br>with us.</h1><p>Have a question about a property, your account or working with Nestora? Send us a note and our team will get back to you.</p></div>
+  <form class="contact-form" id="cform" novalidate>
+   <div class="contact-form-row"><label class="f">First name<input name="name" required autocomplete="given-name" placeholder="Your first name"></label><label class="f">Last name<input name="lastName" autocomplete="family-name" placeholder="Your last name"></label></div>
+   <div class="contact-form-row"><label class="f">Phone number<input name="phone" type="tel" autocomplete="tel" placeholder="Your phone number"></label><label class="f">Email address<input name="email" type="email" required autocomplete="email" placeholder="you@example.com"></label></div>
+   <label class="f">Business name <span class="contact-optional">(optional)</span><input name="business" autocomplete="organization" placeholder="Your business name"></label>
+   <label class="f">Message<textarea name="msg" required placeholder="How can we help?"></textarea></label>
+   <label class="ck"><input type="checkbox" name="consent" required> I agree to Nestora using these details to reply to me.</label>
+   <button class="contact-submit" type="submit">Send message <span aria-hidden="true">→</span></button>
+  </form>
+ </div>
+ <div class="contact-offices"><div><span class="contact-eyebrow">WE’RE HERE TO HELP</span><h2>Our support team</h2><p>For property, account and listing questions, contact our UK support team.</p></div><div class="contact-office-detail"><small>UNITED KINGDOM</small><a href="mailto:support@nestora.example">support@nestora.example</a><span>Online support across the UK</span></div></div>
 </div></section>
 <section data-view="privacy"><div class="wrap band"><div class="prose"><span class="chip" style="justify-self:start">Privacy</span><h2 style="color:var(--ink)">Privacy notice</h2>
  <p class="note">Draft for review by a qualified UK legal adviser before launch (UK GDPR and the Data Protection Act 2018).</p>
