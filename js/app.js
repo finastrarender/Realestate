@@ -27,7 +27,7 @@ function art(kind,h,v=0){const id='a'+(++gid);const sky=`<defs><linearGradient i
 $('#aboutpic2').innerHTML='<img src="img/about-page.jpg" alt="Low-rise apartment building with balconies and garden courtyard" loading="lazy">';
 const PHOTOS=new Map([
  ['UK-10421','UK-10421.jpg'],['UK-10433','UK-10433.jpg'],['UK-10458','UK-10458.jpg'],
- ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg']
+ ['UK-10462','UK-10462.jpg'],['UK-10477','UK-10477.jpg'],['UK-10480','UK-10480.jpg'],['UK-10491','about-page.jpg']
 ]);
 const GALLERY_PHOTOS=new Map([['UK-10433',{
  1:{src:'UK-10433-living-room.png',alt:'Living room'},
