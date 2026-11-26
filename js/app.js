@@ -111,7 +111,7 @@ document.addEventListener('change',e=>{const c=e.target.closest('[data-cmp]');if
 
 /* ---------- header ---------- */
 function chrome(){const fn=S.favs.size,nn=S.notes.filter(n=>!n.read).length;$('#favn').hidden=!fn;$('#favn').textContent=fn;$('#notn').hidden=!nn;$('#notn').textContent=nn;
- const a=$('#authbtn');if(S.user){a.textContent=S.user.name.split(' ')[0];a.href='#profile'}else{a.textContent='Sign in / Register';a.href='#account'}
+ const a=$('#authbtn');if(a){if(S.user){a.textContent=S.user.name.split(' ')[0];a.href='#profile'}else{a.textContent='Sign in / Register';a.href='#account'}}
  $('#cmpbar').classList.toggle('on',S.cmp.size>0);$('#cmpn').textContent=`${S.cmp.size} selected to compare`}
 $('#burger').addEventListener('click',()=>{const o=$('#links').classList.toggle('open');$('#burger').setAttribute('aria-expanded',o)});
 
