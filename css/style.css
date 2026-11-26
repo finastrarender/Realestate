@@ -482,7 +482,7 @@ b,strong{font-weight:400}
 .company-card-link{position:relative;z-index:2;display:inline-flex;flex:none;align-items:center;justify-content:center;padding:10px 15px;border:1px solid rgba(255,255,255,.58);border-radius:999px;background:rgba(255,255,255,.12);color:#fff;font:500 13px/1 var(--hd);white-space:nowrap;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .company-card-bottom{display:grid;gap:15px}
 .company-card-summary{max-width:500px;color:rgba(255,255,255,.94);font-size:14px;line-height:1.4}
-.company-card-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:11px;border-top:1px solid rgba(255,255,255,.27)}
+.company-card-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:11px;border-top:1px solid rgba(255,255,255,.12)}
 .company-card-stats span{font-size:11px;color:rgba(255,255,255,.9)}
 .company-detail{max-width:1320px;margin:0 auto;padding:8px 0 72px}
 section[data-view="company"]>.wrap{width:100%;max-width:none;padding:0 0 90px}
