@@ -246,7 +246,7 @@ function enquiry(l,type){const u=S.user||{};const tm=new Date(Date.now()+864e5*2
   if(type==='viewing'){
    S.enq.unshift({id:'V'+Date.now().toString().slice(-6),type,ref:l.ref,title:l.title,to:coName(l.co),co:l.co||'',at:now(),status:'Requested',date:d.date,time:d.win,when:`${d.date}, ${d.win}`,msg:d.msg||'',mine:!!S.user});
    notify('Viewing request sent',`${l.title} — requested for ${d.date}. The advertiser will respond to your request.`);save();closeModal();
-   modal(`<div class="mtop"><div><p class="note">${l.ref}</p><h3>Viewing request sent</h3></div>${X}</div><p>Your request for <b>${esc(l.title)}</b> has been sent to ${esc(coName(l.co))}.</p><p style="margin-top:8px;color:var(--mut)">Requested date: <b>${esc(d.date)}</b> · ${esc(d.win)}</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn" type="button" data-close>Done</button><a class="btn g" href="#bookings" data-close>View my bookings</a></div>`);return;
+   modal(`<div class="mtop"><div><p class="note">${l.ref}</p><h3>Viewing request sent</h3></div>${X}</div><p>Your request for <b>${esc(l.title)}</b> has been sent to ${esc(coName(l.co))}.</p><p style="margin-top:8px;color:var(--mut)">Requested date: <b>${esc(d.date)}</b> · ${esc(d.win)}</p><div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn" type="button" data-close>Done</button><a class="btn g" href="#bookings">View my bookings</a></div>`);return;
   }
   S.enq.unshift({id:'E'+Date.now().toString().slice(-6),type,ref:l.ref,title:l.title,to:coName(l.co),at:now(),status:'Sent',when:'',msg:d.msg,mine:!!S.user});notify('Enquiry sent',`${l.title} (${l.ref}) — the advertiser has been notified.`);save();closeModal();toast(S.user?'Sent. Track replies in your dashboard.':'Sent. Sign in to track replies.')}}
 function validate(form){let ok=true;form.querySelectorAll('.emsg').forEach(x=>x.remove());form.querySelectorAll('.err').forEach(x=>x.classList.remove('err'));
@@ -399,7 +399,7 @@ function renderProfile(){const u=S.user;
 function renderNotes(){$('#nlist').innerHTML=S.notes.length?S.notes.map((n,i)=>`<div class="notif ${n.read?'read':''}"><i></i><div><b style="font:300 17px var(--hd)">${esc(n.t)}</b><p style="color:var(--mut);font-size:15px">${esc(n.b)}</p><p class="note">${esc(n.at)}</p></div></div>`).join(''):'<div class="empty">You are all caught up.</div>';S.notes.forEach(n=>n.read=true);save();chrome()}
 function renderBookings(){
  const host=$('#booking-list');if(!host)return;
- const qs=S.enq.filter(q=>q.type==='viewing'&&q.mine!==false);
+ const qs=S.enq.filter(q=>q.type==='viewing');
  const future=qs.filter(q=>q.status!=='Cancelled'&&(!q.date||q.date>=new Date().toISOString().slice(0,10))).sort((a,b)=>(a.date||'').localeCompare(b.date||''));
  const past=qs.filter(q=>q.status==='Cancelled'||(q.date&&q.date<new Date().toISOString().slice(0,10))).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
  const card=q=>`<article class="booking-card"><div class="booking-card-top"><div><span class="note">${esc(q.id)} · ${esc(q.ref)}</span><h2>${esc(q.title)}</h2></div><span class="badge ${q.status==='Confirmed'?'ok':q.status==='Cancelled'?'no':'in'}">${esc(q.status)}</span></div><p class="booking-meta">${esc(q.date||'Date to be confirmed')} · ${esc(q.time||'Time to be confirmed')} · ${esc(q.to)}</p>${q.status==='Requested'?'<p class="booking-hint">Waiting for the advertiser to confirm or suggest another time.</p>':''}${q.response?`<p class="booking-hint">${esc(q.response)}</p>`:''}<div class="booking-actions">${q.status!=='Cancelled'?`<button class="btn g s" type="button" data-book-reschedule="${esc(q.id)}">Reschedule</button><button class="btn g s" type="button" data-book-cancel="${esc(q.id)}">Cancel request</button>`:''}<a class="btn g s" href="#property-${esc(q.ref.toLowerCase())}">View property</a></div></article>`;
@@ -460,7 +460,7 @@ function revealAboutSteps(){
  if(!aboutStepsObserver)aboutStepsObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('about-step-visible');aboutStepsObserver.unobserve(entry.target)}}),{threshold:.16});
  steps.forEach((el,i)=>{el.style.setProperty('--about-step-order',i);el.style.setProperty('--about-step-offset',`${i*18}px`);if(!el.classList.contains('about-step-observed')&&!el.classList.contains('about-step-visible')){el.classList.add('about-step-observed');aboutStepsObserver.observe(el)}})
 }
-const PROT={'add-property':'Sign in or register to list a property.',dashboard:'Sign in to see your listings.',favourites:'Sign in to view your saved list.',profile:'Sign in to manage your profile.',notifications:'Sign in to see your notifications.',bookings:'Sign in to manage your viewing requests.'};
+const PROT={'add-property':'Sign in or register to list a property.',dashboard:'Sign in to see your listings.',favourites:'Sign in to view your saved list.',profile:'Sign in to manage your profile.',notifications:'Sign in to see your notifications.'};
 function route(){let h=(location.hash||'#home').slice(1)||'home';if(h==='main')h='home';
  if(PROT[h]&&!need(h,PROT[h]))return;
  if(h==='account'&&S.user&&authMode!=='otp'){location.hash='profile';return}
