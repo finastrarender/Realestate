@@ -379,6 +379,8 @@ function renderFavs(){const fv=[...S.favs].map(r=>L.find(l=>l.ref===r)).filter(B
 
 /* ---------- profile ---------- */
 function renderProfile(){const u=S.user;
+ const profileListings=(S.own||[]).filter(l=>l.cty==='UK').length,profileBookings=S.enq.filter(q=>q.type==='viewing').length;
+ $('#profile-hero').innerHTML=`<div class="profile-avatar">${u.photo?`<img src="${u.photo}" alt="${esc(u.name)}">`:`<span>${esc((u.name||'?').trim()[0]?.toUpperCase()||'?')}</span>`}</div><div class="profile-summary"><span class="profile-kicker">NESTORA MEMBER</span><h1>${esc(u.name)}</h1><p>${esc(u.email)}${u.phone?` · ${esc(u.phone)}`:''}</p><a class="btn d s" href="#profile">Edit profile</a></div><div class="profile-stats"><div><b>${profileListings}</b><span>Listings</span></div><div><b>${profileBookings}</b><span>Viewings</span></div><div><b>${S.favs.size}</b><span>Saved homes</span></div></div>`;
  $('#profile').innerHTML=`<form class="panel" id="pf" novalidate><h3>Personal details</h3>
  <div class="co"><div class="mk" id="av" style="overflow:hidden">${u.photo?`<img src="${u.photo}" alt="" style="width:100%;height:100%;object-fit:cover">`:esc(u.name[0])}</div><label class="btn w s" style="cursor:pointer">Change photo<input type="file" accept="image/*" id="avf" class="sr"></label></div>
  <label class="f">Full name<input name="name" required value="${esc(u.name)}"></label><label class="f">Email<small>Changing this needs your password</small><input name="email" type="email" required value="${esc(u.email)}"></label><label class="f">Phone<input name="phone" value="${esc(u.phone)}"></label>

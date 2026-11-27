@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap">
-<link rel="stylesheet" href="css/style.css?v=89">
+<link rel="stylesheet" href="css/style.css?v=90">
 </head>
 <body>
 <a href="#main" class="sr">Skip to content</a>
@@ -195,8 +195,9 @@
 
 <!-- PROFILE -->
 <section data-view="profile"><div class="wrap" style="padding-bottom:80px">
- <nav class="profile-subnav" aria-label="Account pages"><a href="#bookings">My bookings</a><a href="#dashboard">My listings</a><a class="on" href="#profile">Profile</a></nav>
- <div class="page-h"><span class="chip">Account settings</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">Your profile</h1></div>
+ <div class="profile-cover"></div>
+ <div class="profile-identity" id="profile-hero"></div>
+ <nav class="profile-subnav profile-tabs" aria-label="Account pages"><a href="#bookings">My bookings</a><a href="#dashboard">My listings</a><a class="on" href="#profile">Profile</a></nav>
  <div class="g2" style="align-items:start" id="profile"></div>
 </div></section>
 
@@ -282,6 +283,6 @@
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="js/app.js?v=31" defer></script>
+<script src="js/app.js?v=32" defer></script>
 </body>
 </html>
