@@ -223,7 +223,7 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
   <div class="property-price-card"><span class="property-eyebrow">${l.purpose==='Rent'?'Rental price':'Asking price'}</span><div class="property-price">${money(l.price)}${l.freq?`<small>${per(l)}</small>`:''}</div><p class="property-reference">Reference ${esc(l.ref)}</p>
    <div class="property-breakdown"><h2>Price breakdown</h2><div><span>${l.purpose==='Rent'?'Listed rent':'Asking price'}</span><b>${esc(listedPrice)}</b></div><div><span>Availability</span><b>${esc(l.avail)}</b></div><div><span>Property type</span><b>${esc(l.cat)}</b></div></div>
    <div class="property-advertiser"><span class="note">Advertised by</span><div class="co"><div class="mk advertiser-mark">${co?`<img src="img/${PHOTOS.get(l.ref)||'about-page.jpg'}" alt="">`:esc(advertiser[0])}</div><div><b>${esc(advertiser)}</b>${co?`<a href="#company-${co.id}">View company profile</a>${co.verified?'<span class="badge ok">Verified company</span>':''}`:'<span class="note">Individual owner</span>'}</div></div></div>
-   <div class="property-contact"><button class="btn w" type="button" id="enqb">Contact advertiser</button><button class="btn" type="button" id="viewb">Schedule a viewing</button></div>
+   <div class="property-contact"><button class="btn" type="button" id="viewb">Schedule a viewing</button></div>
    <p class="property-fineprint">Your contact details are only shared with the advertiser when you send a request.</p>
   </div>
   <div class="verified"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 12l3 3 5-6" fill="none" stroke="currentColor" stroke-width="2"/></svg><span>Reviewed by Nestora before publishing. Always view in person and take independent advice.</span></div>
@@ -231,7 +231,7 @@ function renderProperty(ref){const l=L.find(x=>x.ref.toLowerCase()===ref)||(S.ow
  </div>
  <section class="property-related"><div class="property-related-heading"><div><span class="chip">More to explore</span><h2>Properties you may like</h2></div><a href="#search">View all properties →</a></div><div class="cards three">${similar.map(homeCard).join('')}</div></section>`;
  const g=$('#gal'),step=d=>g.scrollBy({left:d*g.clientWidth,behavior:'smooth'});$('#gp')?.addEventListener('click',()=>step(-1));$('#gn')?.addEventListener('click',()=>step(1));g.tabIndex=0;g.onkeydown=e=>{if(e.key==='ArrowRight')step(1);if(e.key==='ArrowLeft')step(-1)};
- $('#enqb').onclick=()=>enquiry(l,'enquiry');$('#viewb').onclick=()=>enquiry(l,'viewing');
+ $('#viewb').onclick=()=>enquiry(l,'viewing');
 }
 function enquiry(l,type){const u=S.user||{};const tm=new Date(Date.now()+864e5*2).toISOString().slice(0,10);
  modal(`<div class="mtop"><div><p class="note">${l.ref}</p><h3>${type==='viewing'?'Request a viewing':'Send an enquiry'}</h3></div>${X}</div>
@@ -241,7 +241,6 @@ function enquiry(l,type){const u=S.user||{};const tm=new Date(Date.now()+864e5*2
  ${type==='viewing'?`<div class="g2"><label class="f">Preferred date<input name="date" type="date" min="${tm}" required></label><label class="f">Time window<select name="win"><option>Morning (9–12)</option><option>Afternoon (12–4)</option><option>Evening (4–7)</option></select></label></div>`:''}
  <label class="f">Message ${type==='viewing'?'<small>Optional</small>':''}<textarea name="msg" ${type==='viewing'?'':'required'}>${type==='viewing'?'':`Hello, I'm interested in ${esc(l.title)} (${l.ref}). Is it still available?`}</textarea></label>
  <label class="ck"><input type="checkbox" name="consent" required> I agree to share my details with the advertiser for this ${type}.</label>
- <label class="ck"><input type="checkbox" name="human" required> I'm not a robot <span class="note">(anti-spam check placeholder)</span></label>
  <button class="btn" type="submit">${type==='viewing'?'Send viewing request':'Send enquiry'}</button></form>`);
  $('#eform').onsubmit=e=>{e.preventDefault();if(!validate(e.target))return;const d=Object.fromEntries(new FormData(e.target));
   S.enq.unshift({id:'E'+Date.now().toString().slice(-6),type,ref:l.ref,title:l.title,to:coName(l.co),at:now(),status:'Sent',when:type==='viewing'?`${d.date}, ${d.win}`:'',msg:d.msg,mine:!!S.user});
