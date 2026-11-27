@@ -194,11 +194,13 @@
 <section data-view="account"><div class="wrap band"><div class="auth panel" id="auth"></div></div></section>
 
 <!-- PROFILE -->
-<section data-view="profile"><div class="wrap" style="padding-bottom:80px">
+<section data-view="profile"><div class="wrap account-hub" style="padding-bottom:80px">
  <div class="profile-cover"></div>
  <div class="profile-identity" id="profile-hero"></div>
- <nav class="profile-subnav profile-tabs" aria-label="Account pages"><a href="#bookings">My bookings</a><a href="#dashboard">My listings</a><a class="on" href="#profile">Profile</a></nav>
- <div class="g2" style="align-items:start" id="profile"></div>
+ <nav class="profile-subnav profile-tabs" aria-label="Account pages" data-hub-tabs role="tablist"><button type="button" role="tab" aria-selected="false" data-hub-tab="bookings">My bookings</button><button type="button" role="tab" aria-selected="false" data-hub-tab="dashboard">My listings</button><button type="button" role="tab" aria-selected="true" class="on" data-hub-tab="profile">Profile</button></nav>
+ <div class="account-hub-panel" data-hub-panel="bookings" role="tabpanel" hidden><div class="bookings-heading"><div><span class="chip">Viewing requests</span><h1>Bookings</h1><p>You can see all your viewing bookings below.</p></div><a class="btn g s" href="#search">Find a property</a></div><div class="booking-tabs" id="hub-booking-tabs" role="tablist" aria-label="Booking status"></div><div id="hub-booking-list"></div></div>
+ <div class="account-hub-panel" data-hub-panel="dashboard" role="tabpanel" hidden><div class="page-h head" style="margin:0"><div><span class="chip">My dashboard</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">Your listings <em class="i">and activity</em></h1></div><a class="btn" href="#add-property">+ Add property</a></div><div class="dtabs" id="hub-dtabs"></div><div id="hub-dlist"></div><div id="hub-company-booking-list"></div></div>
+ <div class="account-hub-panel" data-hub-panel="profile" role="tabpanel"><div class="g2" style="align-items:start" id="profile"></div></div>
 </div></section>
 
 <!-- NOTIFICATIONS -->
