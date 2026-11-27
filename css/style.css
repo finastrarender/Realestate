@@ -750,7 +750,7 @@ section[data-view="favourites"] #compare-heading{padding:16px 20px;border:1px so
 body:has(section[data-view="contact"].on) main{padding-top:64px}
 section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;margin:0;padding:16px 24px 24px}
 .contact-page{min-height:calc(100svh - 64px);display:block}
-.contact-hero{position:relative;display:grid;width:100%;max-width:1760px;min-height:calc(100svh - 104px);margin:0 auto;grid-template-columns:minmax(0,1fr) minmax(0,680px);gap:clamp(32px,5vw,88px);align-items:center;padding:clamp(30px,4vw,72px);overflow:hidden;border-radius:0 0 36px 36px;color:#fff;background:linear-gradient(105deg,rgba(27,112,181,.93),rgba(45,143,207,.84) 48%,rgba(44,131,191,.48)),url('../img/owner-cta.jpg') center 54%/cover no-repeat}
+.contact-hero{position:relative;display:grid;width:100%;max-width:1760px;min-height:calc(100svh - 104px);margin:0 auto;grid-template-columns:minmax(0,1fr) minmax(0,680px);gap:clamp(32px,5vw,88px);align-items:center;padding:clamp(30px,4vw,72px);overflow:hidden;border-radius:36px;color:#fff;background:linear-gradient(105deg,rgba(27,112,181,.93),rgba(45,143,207,.84) 48%,rgba(44,131,191,.48)),url('../img/owner-cta.jpg') center 54%/cover no-repeat}
 .contact-hero:after{position:absolute;inset:auto 0 0;height:30%;content:"";background:linear-gradient(0deg,rgba(22,79,116,.2),transparent);pointer-events:none}
 .contact-hero-copy,.contact-form{position:relative;z-index:1}
 .contact-hero-copy{width:100%;max-width:620px;justify-self:center}
