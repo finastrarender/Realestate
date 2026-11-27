@@ -776,6 +776,21 @@ section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;mar
 .booking-card-top h2{margin-top:5px;font-size:19px;letter-spacing:-.3px}
 .booking-meta,.booking-hint{color:var(--mut);font-size:13px}
 .booking-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.mbox:has(.booking-success){max-width:940px;padding:0;gap:0;overflow:hidden;border-radius:28px;background:#fff;box-shadow:0 26px 90px rgba(15,44,78,.2)}
+.booking-success{position:relative;display:grid;justify-items:center;gap:18px;padding:clamp(30px,6vw,64px);text-align:center;background-image:linear-gradient(rgba(255,255,255,.96),rgba(255,255,255,.98)),linear-gradient(90deg,rgba(34,116,230,.09) 1px,transparent 1px),linear-gradient(rgba(34,116,230,.09) 1px,transparent 1px);background-size:auto,78px 78px,78px 78px}
+.booking-success-close{position:absolute;top:18px;right:18px;background:#fff}
+.booking-success-check{display:grid;width:108px;height:108px;place-items:center;border:10px solid #e8f0ff;border-radius:50%;background:#2475ed;color:#fff}
+.booking-success-check svg{width:54px;height:54px}
+.booking-success h2{font-size:clamp(26px,4vw,38px);letter-spacing:-.8px}
+.booking-success-copy{max-width:640px;color:#626875;font-size:clamp(15px,2vw,19px);line-height:1.65}
+.booking-success-details{display:grid;width:min(100%,720px);grid-template-columns:1.5fr 1fr 1fr;gap:12px;margin:8px 0}
+.booking-success-details div{display:grid;gap:6px;align-content:center;min-width:0;padding:15px;border-radius:14px;background:#f4f8ff;text-align:left}
+.booking-success-details span{color:#777f8d;font-size:12px}
+.booking-success-details b{overflow-wrap:anywhere;font-size:14px}
+.booking-success-button{display:flex;width:min(100%,720px);min-height:56px;align-items:center;justify-content:center;gap:12px;padding:14px 20px;border-radius:10px;background:#176bea;color:white;text-decoration:none;font-weight:600;transition:background .2s,transform .2s}
+.booking-success-button:hover{transform:translateY(-1px);background:#0d5bd2}
+.booking-success-done{border:0;background:none;color:#606a79;font:inherit;cursor:pointer}
+@media(max-width:600px){.mbox:has(.booking-success){border-radius:20px}.booking-success{gap:14px;padding:54px 20px 24px}.booking-success-check{width:86px;height:86px}.booking-success-check svg{width:44px;height:44px}.booking-success-details{grid-template-columns:1fr}.booking-success-details div{padding:12px 14px}.booking-success-button{min-height:50px}}
 @media(max-width:1200px){
  section[data-view="contact"].on>.wrap.contact-page{padding:14px 20px 24px}
  .contact-hero{max-width:900px;min-height:0;grid-template-columns:minmax(0,1fr);gap:28px;padding:clamp(24px,4vw,44px);border-radius:24px}
