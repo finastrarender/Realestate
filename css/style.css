@@ -770,6 +770,12 @@ section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;mar
 .contact-submit{display:flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:9px 16px;border:0;border-radius:999px;background:#111!important;color:#fff!important;font:700 14px var(--hd);cursor:pointer;transition:transform .18s,background .18s}
 .contact-submit:hover{transform:translateY(-1px);background:#292929!important}
 .contact-offices{display:none}
+.booking-section-title{margin:28px 0 12px;font-size:22px}
+.booking-card{display:grid;gap:10px;margin:12px 0;padding:20px;border:1px solid var(--line);border-radius:16px;background:#fff;box-shadow:0 10px 28px rgba(22,20,21,.045)}
+.booking-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.booking-card-top h2{margin-top:5px;font-size:19px;letter-spacing:-.3px}
+.booking-meta,.booking-hint{color:var(--mut);font-size:13px}
+.booking-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
 @media(max-width:1200px){
  section[data-view="contact"].on>.wrap.contact-page{padding:14px 20px 24px}
  .contact-hero{max-width:900px;min-height:0;grid-template-columns:minmax(0,1fr);gap:28px;padding:clamp(24px,4vw,44px);border-radius:24px}
