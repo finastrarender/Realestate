@@ -401,6 +401,11 @@ function renderNotes(){$('#nlist').innerHTML=S.notes.length?S.notes.map((n,i)=>`
 let bookingsTab='upcoming';
 function renderBookings(){
  const host=$('#booking-list'),tabs=$('#booking-tabs');if(!host||!tabs)return;
+ const accountTabs=$('[data-account-tabs]');
+ accountTabs?.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  accountTabs.querySelectorAll('a').forEach(x=>{const active=x===a;x.classList.toggle('on',active);if(active)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current')});
+ }));
  const qs=S.enq.filter(q=>q.type==='viewing');
  const canCancel=q=>q.status!=='Cancelled'&&q.status!=='Cancellation requested'&&bookingStartsAt(q)-Date.now()>3*60*60*1000;
  const upcoming=qs.filter(q=>q.status!=='Cancelled'&&bookingStartsAt(q)>=Date.now()).sort((a,b)=>bookingStartsAt(a)-bookingStartsAt(b));
