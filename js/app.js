@@ -380,6 +380,13 @@ function renderFavs(){const fv=[...S.favs].map(r=>L.find(l=>l.ref===r)).filter(B
 
 /* ---------- profile ---------- */
 function renderProfile(){const u=S.user;
+ const hub=$('[data-hub-tabs]');
+ if(hub&&!hub.dataset.bound){hub.dataset.bound='1';hub.querySelectorAll('[data-hub-tab]').forEach(btn=>btn.addEventListener('click',()=>{
+  const selected=btn.dataset.hubTab;hub.querySelectorAll('[data-hub-tab]').forEach(x=>{const active=x===btn;x.classList.toggle('on',active);x.setAttribute('aria-selected',String(active))});
+  $$('[data-hub-panel]').forEach(panel=>{panel.hidden=panel.dataset.hubPanel!==selected});
+  if(selected==='bookings')renderBookings($('#hub-booking-list'),$('#hub-booking-tabs'));
+  if(selected==='dashboard')renderDash('hub-');
+ }))}
  const profileListings=(S.own||[]).filter(l=>l.cty==='UK').length,profileBookings=S.enq.filter(q=>q.type==='viewing').length;
  $('#profile-hero').innerHTML=`<div class="profile-avatar">${u.photo?`<img src="${u.photo}" alt="${esc(u.name)}">`:`<span>${esc((u.name||'?').trim()[0]?.toUpperCase()||'?')}</span>`}</div><div class="profile-summary"><span class="profile-kicker">NESTORA MEMBER</span><h1>${esc(u.name)}</h1><p>${esc(u.email)}${u.phone?` · ${esc(u.phone)}`:''}</p><a class="btn d s" href="#profile">Edit profile</a></div><div class="profile-stats"><div><b>${profileListings}</b><span>Listings</span></div><div><b>${profileBookings}</b><span>Viewings</span></div><div><b>${S.favs.size}</b><span>Saved homes</span></div></div>`;
  $('#profile').innerHTML=`<form class="panel" id="pf" novalidate><h3>Personal details</h3>
@@ -400,13 +407,8 @@ function renderProfile(){const u=S.user;
 /* ---------- notifications ---------- */
 function renderNotes(){$('#nlist').innerHTML=S.notes.length?S.notes.map((n,i)=>`<div class="notif ${n.read?'read':''}"><i></i><div><b style="font:300 17px var(--hd)">${esc(n.t)}</b><p style="color:var(--mut);font-size:15px">${esc(n.b)}</p><p class="note">${esc(n.at)}</p></div></div>`).join(''):'<div class="empty">You are all caught up.</div>';S.notes.forEach(n=>n.read=true);save();chrome()}
 let bookingsTab='upcoming';
-function renderBookings(){
- const host=$('#booking-list'),tabs=$('#booking-tabs');if(!host||!tabs)return;
- const accountTabs=$('[data-account-tabs]');
- accountTabs?.querySelectorAll('a').forEach(a=>a.addEventListener('click',e=>{
-  e.preventDefault();
-  accountTabs.querySelectorAll('a').forEach(x=>{const active=x===a;x.classList.toggle('on',active);if(active)x.setAttribute('aria-current','page');else x.removeAttribute('aria-current')});
- }));
+function renderBookings(host=$('#booking-list'),tabs=$('#booking-tabs')){
+ if(!host||!tabs)return;
  const qs=S.enq.filter(q=>q.type==='viewing');
  const canCancel=q=>q.status!=='Cancelled'&&q.status!=='Cancellation requested'&&bookingStartsAt(q)-Date.now()>3*60*60*1000;
  const upcoming=qs.filter(q=>q.status!=='Cancelled'&&bookingStartsAt(q)>=Date.now()).sort((a,b)=>bookingStartsAt(a)-bookingStartsAt(b));

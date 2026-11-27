@@ -793,8 +793,12 @@ section[data-view="contact"].on>.wrap.contact-page{width:100%;max-width:none;mar
 .profile-tabs a{padding:16px 18px;border-radius:0;color:var(--mut)}
 .profile-tabs a.on{position:relative;background:transparent;color:var(--ink)}
 .profile-tabs a.on:after{position:absolute;right:12px;bottom:-1px;left:12px;height:2px;background:var(--ink);content:""}
+.profile-tabs button{position:relative;padding:16px 18px;border:0;border-radius:0;background:transparent;color:var(--mut);font:400 14px var(--hd);cursor:pointer;white-space:nowrap}
+.profile-tabs button.on{color:var(--ink)}
+.profile-tabs button.on:after{position:absolute;right:12px;bottom:-1px;left:12px;height:2px;background:var(--ink);content:""}
+.account-hub-panel[hidden]{display:none}
 @media(max-width:760px){.profile-identity{grid-template-columns:110px minmax(0,1fr);gap:16px;padding:0 16px 22px}.profile-avatar{width:108px;height:108px;margin-top:-44px;border-width:5px;border-radius:24px;font-size:36px}.profile-stats{grid-column:1/-1;justify-content:space-around;padding-top:8px}.profile-summary h1{font-size:24px}}
-@media(max-width:480px){.profile-cover{height:120px}.profile-identity{gap:12px;padding-inline:10px}.profile-avatar{width:86px;height:86px;margin-top:-34px;border-width:4px;border-radius:20px}.profile-summary h1{font-size:20px}.profile-summary p{max-width:210px;font-size:11px;overflow-wrap:anywhere}.profile-stats b{font-size:20px}.profile-tabs a{padding:14px 10px;font-size:12px}}
+@media(max-width:480px){.profile-cover{height:120px}.profile-identity{gap:12px;padding-inline:10px}.profile-avatar{width:86px;height:86px;margin-top:-34px;border-width:4px;border-radius:20px}.profile-summary h1{font-size:20px}.profile-summary p{max-width:210px;font-size:11px;overflow-wrap:anywhere}.profile-stats b{font-size:20px}.profile-tabs a,.profile-tabs button{padding:14px 10px;font-size:12px}}
 .bookings-heading{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding:28px 0 24px}
 .bookings-heading h1{margin-top:12px;font-size:clamp(30px,3.6vw,42px)}
 .bookings-heading p{margin-top:7px;color:var(--mut);font-size:14px}
