@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@200..900&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&display=swap">
-<link rel="stylesheet" href="css/style.css?v=86">
+<link rel="stylesheet" href="css/style.css?v=89">
 </head>
 <body>
 <a href="#main" class="sr">Skip to content</a>
@@ -25,7 +25,7 @@
   <div class="tools">
    <a class="ico hide-s" href="#favourites" aria-label="Favourites"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><b id="favn" hidden></b></a>
    <a class="ico" href="#notifications" aria-label="Notifications"><svg viewBox="0 0 24 24"><path d="M6 16V11a6 6 0 1 1 12 0v5l2 2H4zM10 20a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.7"/></svg><b id="notn" hidden></b></a>
-   <a class="ico" href="#bookings" aria-label="My viewings" title="My viewings"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M7 3v4m10-4v4M3 10h18m-13 4h3m-3 3h7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg><b id="bookn" hidden></b></a>
+   <a class="ico profile-icon" href="#profile" aria-label="My profile" title="My profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4.5 20c.8-4 3.2-6 7.5-6s6.7 2 7.5 6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></a>
    <button class="ico burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="1.8"/></svg></button>
   </div>
  </div>
@@ -175,6 +175,7 @@
 
 <!-- DASHBOARD -->
 <section data-view="dashboard"><div class="wrap" style="padding-bottom:80px">
+ <nav class="profile-subnav" aria-label="Account pages"><a href="#bookings">My bookings</a><a class="on" href="#dashboard">My listings</a><a href="#profile">Profile</a></nav>
  <div class="page-h head" style="margin:0"><div><span class="chip">My dashboard</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">Your listings <em class="i">and activity</em></h1></div><a class="btn" href="#add-property">+ Add property</a></div>
  <div class="dtabs" id="dtabs"></div>
  <div id="dlist"></div>
@@ -194,6 +195,7 @@
 
 <!-- PROFILE -->
 <section data-view="profile"><div class="wrap" style="padding-bottom:80px">
+ <nav class="profile-subnav" aria-label="Account pages"><a href="#bookings">My bookings</a><a href="#dashboard">My listings</a><a class="on" href="#profile">Profile</a></nav>
  <div class="page-h"><span class="chip">Account settings</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">Your profile</h1></div>
  <div class="g2" style="align-items:start" id="profile"></div>
 </div></section>
@@ -205,8 +207,10 @@
 </div></section>
 
 <!-- VIEWING BOOKINGS -->
-<section data-view="bookings"><div class="wrap" style="padding-bottom:80px;max-width:1000px">
- <div class="page-h"><span class="chip">Viewing requests</span><h1 style="margin-top:14px;font-size:clamp(30px,3.6vw,42px)">My viewings</h1><p style="margin-top:10px;color:var(--mut)">Manage upcoming appointments and review past viewings.</p></div>
+<section data-view="bookings"><div class="wrap bookings-page">
+ <nav class="profile-subnav" aria-label="Account pages"><a class="on" href="#bookings">My bookings</a><a href="#dashboard">My listings</a><a href="#profile">Profile</a></nav>
+ <div class="bookings-heading"><div><span class="chip">Viewing requests</span><h1>Bookings</h1><p>You can see all your viewing bookings below.</p></div><a class="btn g s" href="#search">Find a property</a></div>
+ <div class="booking-tabs" id="booking-tabs" role="tablist" aria-label="Booking status"></div>
  <div id="booking-list"></div>
 </div></section>
 
@@ -278,6 +282,6 @@
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox" id="mbox"></div></div>
 <div class="toast" id="toast" role="status"></div>
 
-<script src="js/app.js?v=27" defer></script>
+<script src="js/app.js?v=31" defer></script>
 </body>
 </html>
